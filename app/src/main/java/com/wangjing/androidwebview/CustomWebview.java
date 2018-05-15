@@ -10,7 +10,6 @@ import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import java.util.Map;
 
@@ -32,12 +31,11 @@ public class CustomWebview extends WebView {
         super(context, attrs, defStyleAttr);
         addedJavascriptInterface = false;
         initWebViewSettings();
-        this.setWebViewClient(client);
+        this.setWebViewClient(new CustomWebViewClient());
     }
 
     public class JavascriptInterface {
         @android.webkit.JavascriptInterface
-        @SuppressWarnings("unused")
         public void notifyVideoEnd() // Must match Javascript interface method of VideoEnabledWebChromeClient
         {
             Log.d("___", "GOT IT");
@@ -58,7 +56,6 @@ public class CustomWebview extends WebView {
      *
      * @return true it the video is being displayed using a custom view (typically full-screen)
      */
-    @SuppressWarnings("unused")
     public boolean isVideoFullscreen() {
         return customChromeClient != null && customChromeClient.isVideoFullscreen();
     }
@@ -111,17 +108,7 @@ public class CustomWebview extends WebView {
         }
     }
 
-    private WebViewClient client = new WebViewClient() {
-        /**
-         * 防止加载网页时调起系统浏览器
-         */
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-    };
-
-
+    @SuppressLint("SetJavaScriptEnabled")
     private void initWebViewSettings() {
         WebSettings webSettings = this.getSettings();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

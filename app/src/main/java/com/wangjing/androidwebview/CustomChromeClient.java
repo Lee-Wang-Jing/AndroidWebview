@@ -1,28 +1,17 @@
 package com.wangjing.androidwebview;
 
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Message;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.GeolocationPermissions;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 
-/**
- * This class serves as a WebChromeClient to be set to a WebView, allowing it to play video.
- * Video will play differently depending on target API level (in-line, fullscreen, or both).
- * <p>
- * It has been tested with the following video classes:
- * - android.widget.VideoView (typically API level <11)
- * - android.webkit.HTML5VideoFullScreen$VideoSurfaceView/VideoTextureView (typically API level 11-18)
- * - com.android.org.chromium.content.browser.ContentVideoView$VideoSurfaceView (typically API level 19+)
- * <p>
- * Important notes:
- * - For API level 11+, android:hardwareAccelerated="true" must be set in the application manifest.
- * - The invoking activity must call VideoEnabledWebChromeClient's onBackPressed() inside of its own onBackPressed().
- * - Tested in Android API levels 8-19. Only tested on http://m.youtube.com.
- *
- * @author Cristian Perez (http://cpr.name)
- */
 public class CustomChromeClient extends WebChromeClient implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnErrorListener {
     public interface ToggledFullscreenCallback {
         void toggledFullscreen(boolean fullscreen);
@@ -53,7 +42,6 @@ public class CustomChromeClient extends WebChromeClient implements MediaPlayer.O
      * @param activityNonVideoView A View in the activity's layout that contains every other view that should be hidden when the video goes full-screen.
      * @param activityVideoView    A ViewGroup in the activity's layout that will display the video. Typically you would like this to fill the whole layout.
      */
-    @SuppressWarnings("unused")
     public CustomChromeClient(View activityNonVideoView, ViewGroup activityVideoView) {
         this.activityNonVideoView = activityNonVideoView;
         this.activityVideoView = activityVideoView;
@@ -67,9 +55,8 @@ public class CustomChromeClient extends WebChromeClient implements MediaPlayer.O
      *
      * @param activityNonVideoView A View in the activity's layout that contains every other view that should be hidden when the video goes full-screen.
      * @param activityVideoView    A ViewGroup in the activity's layout that will display the video. Typically you would like this to fill the whole layout.
-     * @param loadingView          A View to be shown while the video is loading (typically only used in API level <11). Must be already inflated and not attached to a parent view.
+     * @param loadingView          loadingView
      */
-    @SuppressWarnings("unused")
     public CustomChromeClient(View activityNonVideoView, ViewGroup activityVideoView, View loadingView) {
         this.activityNonVideoView = activityNonVideoView;
         this.activityVideoView = activityVideoView;
@@ -83,11 +70,10 @@ public class CustomChromeClient extends WebChromeClient implements MediaPlayer.O
      *
      * @param activityNonVideoView A View in the activity's layout that contains every other view that should be hidden when the video goes full-screen.
      * @param activityVideoView    A ViewGroup in the activity's layout that will display the video. Typically you would like this to fill the whole layout.
-     * @param loadingView          A View to be shown while the video is loading (typically only used in API level <11). Must be already inflated and not attached to a parent view.
+     * @param loadingView          loadingView
      * @param webView              The owner VideoEnabledWebView. Passing it will enable the VideoEnabledWebChromeClient to detect the HTML5 video ended event and exit full-screen.
      *                             Note: The web page must only contain one video tag in order for the HTML5 video ended event to work. This could be improved if needed (see Javascript code).
      */
-    @SuppressWarnings("unused")
     public CustomChromeClient(View activityNonVideoView, ViewGroup activityVideoView, View loadingView, CustomWebview webView) {
         this.activityNonVideoView = activityNonVideoView;
         this.activityVideoView = activityVideoView;
@@ -110,9 +96,29 @@ public class CustomChromeClient extends WebChromeClient implements MediaPlayer.O
      *
      * @param callback A VideoEnabledWebChromeClient.ToggledFullscreenCallback callback
      */
-    @SuppressWarnings("unused")
     public void setOnToggledFullscreen(ToggledFullscreenCallback callback) {
         this.toggledFullscreenCallback = callback;
+    }
+
+    @Override
+    public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
+        WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
+        transport.setWebView(webView);
+        resultMsg.sendToTarget();
+        return super.onCreateWindow(view, isDialog, isUserGesture, resultMsg);
+    }
+
+    @Override
+    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+        callback.invoke(origin, true, false);//注意个函数，第二个参数就是是否同意定位权限，第三个是是否希望内核记住
+        super.onGeolocationPermissionsShowPrompt(origin, callback);
+    }
+
+
+    @Override
+    public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+
+        return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
     }
 
     @Override
@@ -177,8 +183,8 @@ public class CustomChromeClient extends WebChromeClient implements MediaPlayer.O
 
     @Override
     @SuppressWarnings("deprecation")
-    public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback) // Available in API level 14+, deprecated in API level 18+
-    {
+    public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback) {
+        // Available in API level 14+, deprecated in API level 18+
         onShowCustomView(view, callback);
     }
 
