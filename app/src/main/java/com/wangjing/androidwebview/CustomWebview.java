@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class CustomWebview extends WebView {
 
-    private VideoEnabledWebChromeClient videoEnabledWebChromeClient;
+    private CustomChromeClient customChromeClient;
     private boolean addedJavascriptInterface;
 
 
@@ -45,8 +45,8 @@ public class CustomWebview extends WebView {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    if (videoEnabledWebChromeClient != null) {
-                        videoEnabledWebChromeClient.onHideCustomView();
+                    if (customChromeClient != null) {
+                        customChromeClient.onHideCustomView();
                     }
                 }
             });
@@ -60,7 +60,7 @@ public class CustomWebview extends WebView {
      */
     @SuppressWarnings("unused")
     public boolean isVideoFullscreen() {
-        return videoEnabledWebChromeClient != null && videoEnabledWebChromeClient.isVideoFullscreen();
+        return customChromeClient != null && customChromeClient.isVideoFullscreen();
     }
 
     /**
@@ -71,8 +71,8 @@ public class CustomWebview extends WebView {
     public void setWebChromeClient(WebChromeClient client) {
         getSettings().setJavaScriptEnabled(true);
 
-        if (client instanceof VideoEnabledWebChromeClient) {
-            this.videoEnabledWebChromeClient = (VideoEnabledWebChromeClient) client;
+        if (client instanceof CustomChromeClient) {
+            this.customChromeClient = (CustomChromeClient) client;
         }
         super.setWebChromeClient(client);
     }
