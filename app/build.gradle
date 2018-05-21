@@ -17,7 +17,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'com.android.support:appcompat-v7:27.1.1'
 }
 
 
@@ -36,9 +35,9 @@ allprojects {
 publish {
     userOrg = 'wangjinggm'//bintray.com用户名
     groupId = 'com.wangjing'//jcenter上的路径
-    artifactId = 'AndroidWebview'//项目名称
-    publishVersion = '0.0.2'//版本号
-    desc = 'AndroidWebview'//描述，不重要
+    artifactId = 'androidwebview'//项目名称
+    publishVersion = '0.0.6'//版本号
+    desc = 'androidwebview'//描述，不重要
     website = 'https://github.com/Lee-Wang-Jing/AndroidWebview'
 //网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
 }

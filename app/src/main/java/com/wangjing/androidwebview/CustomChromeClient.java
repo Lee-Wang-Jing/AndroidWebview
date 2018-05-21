@@ -33,7 +33,7 @@ public class CustomChromeClient extends WebChromeClient implements MediaPlayer.O
      * This constructor allows this class to be defined as an inline inner class in which the user can override methods
      */
     @SuppressWarnings("unused")
-    public CustomChromeClient() {
+    private CustomChromeClient() {
     }
 
     /**
@@ -103,7 +103,7 @@ public class CustomChromeClient extends WebChromeClient implements MediaPlayer.O
     @Override
     public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
         WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
-        transport.setWebView(webView);
+        transport.setWebView(view);
         resultMsg.sendToTarget();
         return super.onCreateWindow(view, isDialog, isUserGesture, resultMsg);
     }
