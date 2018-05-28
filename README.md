@@ -13,14 +13,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.wangjing:androidwebview:0.0.5'
+implementation 'com.wangjing:androidwebview:0.0.8'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.wangjing</groupId>
   <artifactId>androidwebview</artifactId>
-  <version>0.0.5</version>
+  <version>0.0.8</version>
   <type>pom</type>
 </dependency>
 ```
@@ -111,6 +111,12 @@ webSettings.setUserAgentString("xxx");
             super(activityNonVideoView, activityVideoView, loadingView, webView);
         }
     ｝
+```
+
+#### 设置下拉刷新的控件SwipeRefreshLayout，监听有没有滑动到顶部
+
+```
+webview.setSwipeRefreshLayout(swipeRefreshLayout);
 ```
 
 

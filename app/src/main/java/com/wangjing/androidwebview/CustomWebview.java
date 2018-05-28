@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.webkit.WebChromeClient;
@@ -17,6 +18,7 @@ public class CustomWebview extends WebView {
 
     private CustomChromeClient customChromeClient;
     private boolean addedJavascriptInterface;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     public CustomWebview(Context context) {
@@ -32,6 +34,27 @@ public class CustomWebview extends WebView {
         addedJavascriptInterface = false;
         initWebViewSettings();
         this.setWebViewClient(new CustomWebViewClient());
+    }
+
+    /**
+     * 设置下拉刷新的SwipeRefreshLayout
+     *
+     * @param swipeRefreshLayout swipeRefreshLayout
+     */
+    public void setSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout) {
+        this.swipeRefreshLayout = swipeRefreshLayout;
+    }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        if (swipeRefreshLayout != null) {
+            if (this.getScrollY() == 0) {
+                swipeRefreshLayout.setEnabled(true);
+            } else {
+                swipeRefreshLayout.setEnabled(false);
+            }
+        }
     }
 
     public class JavascriptInterface {
