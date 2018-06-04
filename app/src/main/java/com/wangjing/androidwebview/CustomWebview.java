@@ -151,7 +151,7 @@ public class CustomWebview extends WebView {
         //设置为false，设置true，某些手机上某些情况会崩溃 https://bugly.qq.com/v2/crash-reporting/crashes/41f89fb766/7869?pid=1
         webSettings.setSupportMultipleWindows(false);
         //99是否允许WebView度超出以概览的方式载入页面，默认false。即缩小内容以适应屏幕宽度。该项设置在内容宽度超出WebView控件的宽度时生效，例如当getUseWideViewPort() 返回true时。
-//        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setLoadWithOverviewMode(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setDatabaseEnabled(true);
         webSettings.setDomStorageEnabled(true);
@@ -161,9 +161,10 @@ public class CustomWebview extends WebView {
         webSettings.setDatabasePath(getContext().getDir("databases", 0).getPath());
         webSettings.setGeolocationDatabasePath(getContext().getDir("geolocation", 0)
                 .getPath());
-        webSettings.setPluginState(WebSettings.PluginState.ON_DEMAND);
+        webSettings.setPluginState(WebSettings.PluginState.ON);
         webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-
+        requestFocus();//请求获取焦点，防止view不能打开输入法问题
+        requestFocusFromTouch();//请求获取焦点，防止view不能打开输入法问题
     }
 }
