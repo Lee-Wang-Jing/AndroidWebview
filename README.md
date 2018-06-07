@@ -13,14 +13,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.wangjing:androidwebview:0.0.10'
+implementation 'com.wangjing:androidwebview:0.0.11'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.wangjing</groupId>
   <artifactId>androidwebview</artifactId>
-  <version>0.0.10</version>
+  <version>0.0.11</version>
   <type>pom</type>
 </dependency>
 ```
@@ -120,6 +120,10 @@ webview.setSwipeRefreshLayout(swipeRefreshLayout);
 ```
 
 
+
+### 版本树
+- 0.0.11
+    - setLoadWithOverviewMode为true后在某些手机上面打开Webview会变形，比如oppo 5.1系统，默认设置成false，如有需要可以自行获取Websetting修改
 
 
 
