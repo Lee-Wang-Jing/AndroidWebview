@@ -12,13 +12,18 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class CustomWebview extends WebView {
 
     private CustomChromeClient customChromeClient;
+    private CustomWebViewClient customWebViewClient;
     private boolean addedJavascriptInterface;
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private List<JSBean> jsBeanList;
 
 
     public CustomWebview(Context context) {
@@ -32,8 +37,6 @@ public class CustomWebview extends WebView {
     public CustomWebview(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         addedJavascriptInterface = false;
-        initWebViewSettings();
-        this.setWebViewClient(new CustomWebViewClient());
     }
 
     /**
@@ -168,5 +171,54 @@ public class CustomWebview extends WebView {
         this.requestFocus();//请求获取焦点，防止view不能打开输入法问题
         this.requestFocusFromTouch();//请求获取焦点，防止view不能打开输入法问题
         this.setFocusableInTouchMode(true);
+    }
+
+    /**
+     * 添加js与java互相调用类.
+     * SuppressLint("JavascriptInterface") 表示webview的修复漏洞
+     *
+     * @param mapClazz js方法与java方法映射类
+     * @param objName  对象的名字
+     * @return CustomWebview
+     */
+    public CustomWebview addJSInterface(Object mapClazz, String objName) {
+        if (jsBeanList == null) {
+            jsBeanList = new ArrayList<>();
+        }
+        JSBean jsBean = new JSBean();
+        jsBean.setMapClazz(mapClazz);
+        jsBean.setObjName(objName);
+        jsBeanList.add(jsBean);
+        return this;
+    }
+
+    /**
+     * 设置customWebViewClient
+     *
+     * @param customWebViewClient customWebViewClient
+     * @return CustomWebview
+     */
+    public CustomWebview setCustomWebViewClient(CustomWebViewClient customWebViewClient) {
+        this.customWebViewClient = customWebViewClient;
+        return this;
+    }
+
+    @SuppressLint("JavascriptInterface")
+    public void build() {
+        initWebViewSettings();
+        this.setWebViewClient(new CustomWebViewClient());
+        if (customWebViewClient == null) {
+            customWebViewClient = new CustomWebViewClient();
+        }
+        if (customChromeClient == null) {
+            customChromeClient = new CustomChromeClient();
+        }
+        this.setWebViewClient(customWebViewClient);
+        this.setWebChromeClient(customChromeClient);
+        if (jsBeanList != null && !jsBeanList.isEmpty()) {
+            for (int i = 0; i < jsBeanList.size(); i++) {
+                this.addJavascriptInterface(jsBeanList.get(i).getMapClazz(), jsBeanList.get(i).getObjName());
+            }
+        }
     }
 }

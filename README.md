@@ -33,8 +33,7 @@ implementation 'com.wangjing:androidwebview:0.0.11'
 <com.wangjing.androidwebview.CustomWebview
     android:id="@+id/webview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white" />
+    android:layout_height="match_parent" />
 ```
 
 - findViewById
