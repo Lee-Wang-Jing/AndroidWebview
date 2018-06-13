@@ -206,7 +206,6 @@ public class CustomWebview extends WebView {
     @SuppressLint("JavascriptInterface")
     public void build() {
         initWebViewSettings();
-        this.setWebViewClient(new CustomWebViewClient());
         if (customWebViewClient == null) {
             customWebViewClient = new CustomWebViewClient();
         }
