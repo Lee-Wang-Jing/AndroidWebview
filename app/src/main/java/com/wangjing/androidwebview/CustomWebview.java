@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.webkit.WebChromeClient;
@@ -17,13 +17,20 @@ import java.util.List;
 import java.util.Map;
 
 public class CustomWebview extends WebView {
-
-    private CustomChromeClient customChromeClient;
+    /**
+     * 当前首次加载的url
+     */
+    private String currentUrl = "";
     private CustomWebViewClient customWebViewClient;
+    private CustomChromeClient customChromeClient;
+    private WebChromeClient webChromeClient;
     private boolean addedJavascriptInterface;
-    private SwipeRefreshLayout swipeRefreshLayout;
 
     private List<JSBean> jsBeanList;
+
+    private OnScrollChangedCallBack onScrollChangedCallBack;
+
+    private WebviewCallBack callBack;
 
 
     public CustomWebview(Context context) {
@@ -40,23 +47,53 @@ public class CustomWebview extends WebView {
     }
 
     /**
-     * 设置下拉刷新的SwipeRefreshLayout
+     * 获取OnScrollChangedCallBack
      *
-     * @param swipeRefreshLayout swipeRefreshLayout
+     * @return OnScrollChangedCallBack
      */
-    public void setSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout) {
-        this.swipeRefreshLayout = swipeRefreshLayout;
+    public OnScrollChangedCallBack getOnScrollChangedCallBack() {
+        return onScrollChangedCallBack;
     }
 
+    /**
+     * 设置Webview的onScrollChanged监听
+     *
+     * @param onScrollChangedCallBack OnScrollChangedCallBack
+     * @return CustomWebview
+     */
+    public CustomWebview setOnScrollChangedCallBack(OnScrollChangedCallBack onScrollChangedCallBack) {
+        this.onScrollChangedCallBack = onScrollChangedCallBack;
+        return this;
+    }
+
+    /**
+     * 获取WebviewCallBack
+     *
+     * @return WebviewCallBack
+     */
+    public WebviewCallBack getCallBack() {
+        return callBack;
+    }
+
+    /**
+     * 设置Webview的WebviewCallBack监听
+     *
+     * @param callBack WebviewCallBack
+     * @return CustomWebview
+     */
+    public CustomWebview setCallBack(WebviewCallBack callBack) {
+        this.callBack = callBack;
+        return this;
+    }
+
+    /**
+     * webview的onScrollChanged监听
+     */
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        if (swipeRefreshLayout != null) {
-            if (this.getScrollY() == 0) {
-                swipeRefreshLayout.setEnabled(true);
-            } else {
-                swipeRefreshLayout.setEnabled(false);
-            }
+        if (onScrollChangedCallBack != null) {
+            onScrollChangedCallBack.onScrollChanged();
         }
     }
 
@@ -96,6 +133,8 @@ public class CustomWebview extends WebView {
 
         if (client instanceof CustomChromeClient) {
             this.customChromeClient = (CustomChromeClient) client;
+        } else {
+            this.webChromeClient = client;
         }
         super.setWebChromeClient(client);
     }
@@ -203,21 +242,47 @@ public class CustomWebview extends WebView {
         return this;
     }
 
+
+    public CustomWebview setCurrentUrl(String url) {
+        this.currentUrl = url;
+        return this;
+    }
+
+
+    /**
+     * 构建初始化数据
+     */
     @SuppressLint("JavascriptInterface")
     public void build() {
         initWebViewSettings();
         if (customWebViewClient == null) {
             customWebViewClient = new CustomWebViewClient();
         }
-        if (customChromeClient == null) {
-            customChromeClient = new CustomChromeClient();
-        }
         this.setWebViewClient(customWebViewClient);
-        this.setWebChromeClient(customChromeClient);
+
+        if (customChromeClient != null) {
+            this.setWebChromeClient(customChromeClient);
+        } else {
+            if (webChromeClient == null) {
+                webChromeClient = new WebChromeClient();
+            }
+            this.setWebChromeClient(webChromeClient);
+        }
+
         if (jsBeanList != null && !jsBeanList.isEmpty()) {
             for (int i = 0; i < jsBeanList.size(); i++) {
                 this.addJavascriptInterface(jsBeanList.get(i).getMapClazz(), jsBeanList.get(i).getObjName());
             }
+        }
+    }
+
+    /**
+     * 构建初始化数据，并且loadUrl
+     */
+    public void buildWithLoadUrl() {
+        build();
+        if (!TextUtils.isEmpty(currentUrl)) {
+            this.loadUrl(currentUrl);
         }
     }
 }
