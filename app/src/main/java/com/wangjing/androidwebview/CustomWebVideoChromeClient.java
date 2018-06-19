@@ -8,11 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
-public class CustomChromeClient extends WebChromeClient implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnErrorListener {
+public class CustomWebVideoChromeClient extends CustomWebChromeClient implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnErrorListener {
     public interface ToggledFullscreenCallback {
         void toggledFullscreen(boolean fullscreen);
     }
@@ -33,7 +32,7 @@ public class CustomChromeClient extends WebChromeClient implements MediaPlayer.O
      * This constructor allows this class to be defined as an inline inner class in which the user can override methods
      */
     @SuppressWarnings("unused")
-    private CustomChromeClient() {
+    private CustomWebVideoChromeClient() {
     }
 
     /**
@@ -42,7 +41,7 @@ public class CustomChromeClient extends WebChromeClient implements MediaPlayer.O
      * @param activityNonVideoView A View in the activity's layout that contains every other view that should be hidden when the video goes full-screen.
      * @param activityVideoView    A ViewGroup in the activity's layout that will display the video. Typically you would like this to fill the whole layout.
      */
-    public CustomChromeClient(View activityNonVideoView, ViewGroup activityVideoView) {
+    public CustomWebVideoChromeClient(View activityNonVideoView, ViewGroup activityVideoView) {
         this.activityNonVideoView = activityNonVideoView;
         this.activityVideoView = activityVideoView;
         this.loadingView = null;
@@ -57,7 +56,7 @@ public class CustomChromeClient extends WebChromeClient implements MediaPlayer.O
      * @param activityVideoView    A ViewGroup in the activity's layout that will display the video. Typically you would like this to fill the whole layout.
      * @param loadingView          loadingView
      */
-    public CustomChromeClient(View activityNonVideoView, ViewGroup activityVideoView, View loadingView) {
+    public CustomWebVideoChromeClient(View activityNonVideoView, ViewGroup activityVideoView, View loadingView) {
         this.activityNonVideoView = activityNonVideoView;
         this.activityVideoView = activityVideoView;
         this.loadingView = loadingView;
@@ -74,7 +73,7 @@ public class CustomChromeClient extends WebChromeClient implements MediaPlayer.O
      * @param webView              The owner VideoEnabledWebView. Passing it will enable the VideoEnabledWebChromeClient to detect the HTML5 video ended event and exit full-screen.
      *                             Note: The web page must only contain one video tag in order for the HTML5 video ended event to work. This could be improved if needed (see Javascript code).
      */
-    public CustomChromeClient(View activityNonVideoView, ViewGroup activityVideoView, View loadingView, CustomWebview webView) {
+    public CustomWebVideoChromeClient(View activityNonVideoView, ViewGroup activityVideoView, View loadingView, CustomWebview webView) {
         this.activityNonVideoView = activityNonVideoView;
         this.activityVideoView = activityVideoView;
         this.loadingView = loadingView;

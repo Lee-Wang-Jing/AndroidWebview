@@ -2,6 +2,7 @@ package com.wangjing.androidwebview;
 
 import android.graphics.Bitmap;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -18,9 +19,26 @@ import android.webkit.WebViewClient;
 
 public class CustomWebViewClient extends WebViewClient {
 
+    private WebviewCallBack webviewCallBack;
+
+    public void setWebviewCallBack(WebviewCallBack webviewCallBack) {
+        this.webviewCallBack = webviewCallBack;
+    }
+
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        return super.shouldOverrideUrlLoading(view, url);
+        if (shouldLoadingUrl()) {
+            view.loadUrl(url);
+            return true;
+        }
+        return false;//设置为false才有效哦
+    }
+
+    public boolean shouldLoadingUrl() {
+        /**
+         * 低于android 8.0的需要手动loadURL，大于等于android 8.0直接返回false，否则无法重定向
+         */
+        return Build.VERSION.SDK_INT < 26;
     }
 
     @Override
@@ -30,17 +48,23 @@ public class CustomWebViewClient extends WebViewClient {
 
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
-        super.onPageStarted(view, url, favicon);
+        if (webviewCallBack != null) {
+            webviewCallBack.onPageStarted(view, url, favicon);
+        }
     }
 
     @Override
     public void onPageFinished(WebView view, String url) {
-        super.onPageFinished(view, url);
+        if (webviewCallBack != null) {
+            webviewCallBack.onPageFinished(view, url);
+        }
     }
 
     @Override
     public void onLoadResource(WebView view, String url) {
-        super.onLoadResource(view, url);
+        if (webviewCallBack != null) {
+            webviewCallBack.onLoadResource(view, url);
+        }
     }
 
     @Override
@@ -133,6 +157,6 @@ public class CustomWebViewClient extends WebViewClient {
     @Override
     public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
 //        super.onReceivedSslError(view, handler, error);
-        handler.proceed();
+        handler.proceed();//接受证书
     }
 }

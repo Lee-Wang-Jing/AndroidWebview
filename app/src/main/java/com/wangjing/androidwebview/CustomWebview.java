@@ -8,7 +8,6 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -22,8 +21,8 @@ public class CustomWebview extends WebView {
      */
     private String currentUrl = "";
     private CustomWebViewClient customWebViewClient;
-    private CustomChromeClient customChromeClient;
-    private WebChromeClient webChromeClient;
+    private CustomWebVideoChromeClient customWebVideoChromeClient;
+    private CustomWebChromeClient customWebChromeClient;
     private boolean addedJavascriptInterface;
 
     private List<JSBean> jsBeanList;
@@ -32,6 +31,9 @@ public class CustomWebview extends WebView {
 
     private WebviewCallBack callBack;
 
+    private boolean defaultWebViewClient = false;
+    private boolean defaultChromeClient = false;
+    private boolean debug = false;
 
     public CustomWebview(Context context) {
         this(context, null);
@@ -44,6 +46,37 @@ public class CustomWebview extends WebView {
     public CustomWebview(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         addedJavascriptInterface = false;
+    }
+
+
+    /**
+     * 设置是否使用默认的WebViewClient，不设置则不使用，用户可以自行设置自己的.true则表示使用
+     *
+     * @param defaultWebViewClient defaultWebViewClient
+     */
+    public CustomWebview setDefaultWebViewClient(boolean defaultWebViewClient) {
+        this.defaultWebViewClient = defaultWebViewClient;
+        return this;
+    }
+
+    /**
+     * 设置是否开启Debug模式
+     *
+     * @param debug
+     */
+    public CustomWebview setDebug(boolean debug) {
+        this.debug = debug;
+        return this;
+    }
+
+    /**
+     * 设置是否使用默认的WebChromeClient，不设置则不使用，用户可以自行设置自己的.true则表示使用
+     *
+     * @param defaultChromeClient defaultChromeClient
+     */
+    public CustomWebview setDefaultChromeClient(boolean defaultChromeClient) {
+        this.defaultChromeClient = defaultChromeClient;
+        return this;
     }
 
     /**
@@ -81,7 +114,7 @@ public class CustomWebview extends WebView {
      * @param callBack WebviewCallBack
      * @return CustomWebview
      */
-    public CustomWebview setCallBack(WebviewCallBack callBack) {
+    public CustomWebview setWebiewCallBack(WebviewCallBack callBack) {
         this.callBack = callBack;
         return this;
     }
@@ -106,8 +139,8 @@ public class CustomWebview extends WebView {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    if (customChromeClient != null) {
-                        customChromeClient.onHideCustomView();
+                    if (customWebVideoChromeClient != null) {
+                        customWebVideoChromeClient.onHideCustomView();
                     }
                 }
             });
@@ -120,23 +153,45 @@ public class CustomWebview extends WebView {
      * @return true it the video is being displayed using a custom view (typically full-screen)
      */
     public boolean isVideoFullscreen() {
-        return customChromeClient != null && customChromeClient.isVideoFullscreen();
+        return customWebVideoChromeClient != null && customWebVideoChromeClient.isVideoFullscreen();
+    }
+
+//    /**
+//     * Pass only a VideoEnabledWebChromeClient instance.
+//     */
+//    @Override
+//    @SuppressLint("SetJavaScriptEnabled")
+//    public void setWebChromeClient(WebChromeClient client) {
+//        getSettings().setJavaScriptEnabled(true);
+//
+//        if (client instanceof CustomVideoChromeClient) {
+//            this.customVideoChromeClient = (CustomVideoChromeClient) client;
+//        } else {
+//            this.webChromeClient = client;
+//        }
+//        super.setWebChromeClient(client);
+//    }
+
+    /**
+     * 设置 CustomChromeClient
+     *
+     * @param customWebChromeClient 自定义的WebChromeClient
+     * @return CustomWebview
+     */
+    public CustomWebview setCustomWebChromeClient(CustomWebChromeClient customWebChromeClient) {
+        this.customWebChromeClient = customWebChromeClient;
+        return this;
     }
 
     /**
-     * Pass only a VideoEnabledWebChromeClient instance.
+     * 设置 customWebVideoChromeClient
+     *
+     * @param customWebVideoChromeClient 自定义的customWebVideoChromeClient
+     * @return CustomWebview
      */
-    @Override
-    @SuppressLint("SetJavaScriptEnabled")
-    public void setWebChromeClient(WebChromeClient client) {
-        getSettings().setJavaScriptEnabled(true);
-
-        if (client instanceof CustomChromeClient) {
-            this.customChromeClient = (CustomChromeClient) client;
-        } else {
-            this.webChromeClient = client;
-        }
-        super.setWebChromeClient(client);
+    public CustomWebview setCustomWebVideoChromeClient(CustomWebVideoChromeClient customWebVideoChromeClient) {
+        this.customWebVideoChromeClient = customWebVideoChromeClient;
+        return this;
     }
 
     @Override
@@ -175,6 +230,11 @@ public class CustomWebview extends WebView {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebViewSettings() {
+        if (debug) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                WebView.setWebContentsDebuggingEnabled(true);
+            }
+        }
         WebSettings webSettings = this.getSettings();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
@@ -255,18 +315,36 @@ public class CustomWebview extends WebView {
     @SuppressLint("JavascriptInterface")
     public void build() {
         initWebViewSettings();
-        if (customWebViewClient == null) {
-            customWebViewClient = new CustomWebViewClient();
-        }
-        this.setWebViewClient(customWebViewClient);
 
-        if (customChromeClient != null) {
-            this.setWebChromeClient(customChromeClient);
-        } else {
-            if (webChromeClient == null) {
-                webChromeClient = new WebChromeClient();
+        if (defaultWebViewClient) {//如果设置使用默认的CustomWebViewClient
+            if (customWebViewClient == null) {
+                customWebViewClient = new CustomWebViewClient();
+                this.customWebViewClient.setWebviewCallBack(callBack);
             }
-            this.setWebChromeClient(webChromeClient);
+            this.setWebViewClient(customWebViewClient);
+        } else {
+            if (customWebViewClient != null) {
+                this.customWebViewClient.setWebviewCallBack(callBack);
+                this.setWebViewClient(customWebViewClient);
+            }
+        }
+
+        if (defaultChromeClient) {//如果设置使用默认的CustomChromeClient
+            if (customWebChromeClient == null) {
+                customWebChromeClient = new CustomWebChromeClient();
+                this.customWebChromeClient.setWebviewCallBack(callBack);
+            }
+            this.setWebChromeClient(customWebChromeClient);
+        } else {
+            if (customWebVideoChromeClient != null) {
+                this.customWebChromeClient.setWebviewCallBack(callBack);
+                this.setWebChromeClient(customWebVideoChromeClient);
+            } else {
+                if (customWebChromeClient != null) {
+                    this.customWebChromeClient.setWebviewCallBack(callBack);
+                    this.setWebChromeClient(customWebChromeClient);
+                }
+            }
         }
 
         if (jsBeanList != null && !jsBeanList.isEmpty()) {
