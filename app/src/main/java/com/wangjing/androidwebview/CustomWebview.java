@@ -48,11 +48,11 @@ public class CustomWebview extends WebView {
         addedJavascriptInterface = false;
     }
 
-
     /**
      * 设置是否使用默认的WebViewClient，不设置则不使用，用户可以自行设置自己的.true则表示使用
      *
      * @param defaultWebViewClient defaultWebViewClient
+     * @return CustomWebview
      */
     public CustomWebview setDefaultWebViewClient(boolean defaultWebViewClient) {
         this.defaultWebViewClient = defaultWebViewClient;
@@ -62,7 +62,8 @@ public class CustomWebview extends WebView {
     /**
      * 设置是否开启Debug模式
      *
-     * @param debug
+     * @param debug 是否开启Debug
+     * @return CustomWebview
      */
     public CustomWebview setDebug(boolean debug) {
         this.debug = debug;
@@ -73,6 +74,7 @@ public class CustomWebview extends WebView {
      * 设置是否使用默认的WebChromeClient，不设置则不使用，用户可以自行设置自己的.true则表示使用
      *
      * @param defaultChromeClient defaultChromeClient
+     * @return CustomWebview
      */
     public CustomWebview setDefaultChromeClient(boolean defaultChromeClient) {
         this.defaultChromeClient = defaultChromeClient;

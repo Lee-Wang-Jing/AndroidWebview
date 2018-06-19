@@ -6,6 +6,10 @@ import android.webkit.WebView;
 public abstract class WebviewCallBack {
     /**
      * 开始加载的时候调用
+     *
+     * @param view    WebView
+     * @param url     url
+     * @param favicon Bitmap
      */
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
     }
@@ -20,6 +24,9 @@ public abstract class WebviewCallBack {
 
     /**
      * 当页面加载完成的时候，此方法不靠谱，如果页面有跳转会回调多次
+     *
+     * @param view WebView
+     * @param url  url
      */
     public void onPageFinished(WebView view, String url) {
     }

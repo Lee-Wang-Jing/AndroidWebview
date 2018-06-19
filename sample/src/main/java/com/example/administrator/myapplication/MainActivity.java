@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         super.onProgressChanged(view, newProgress);
                     }
                 })
-                .build();
+                .buildWithLoadUrl();
 
     }
 }
