@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -32,7 +33,7 @@ public class CustomWebview extends WebView {
     private WebviewCallBack callBack;
 
     private boolean defaultWebViewClient = false;
-    private boolean defaultChromeClient = false;
+    private boolean defaultWebChromeClient = false;
     private boolean debug = false;
 
     public CustomWebview(Context context) {
@@ -73,11 +74,11 @@ public class CustomWebview extends WebView {
     /**
      * 设置是否使用默认的WebChromeClient，不设置则不使用，用户可以自行设置自己的.true则表示使用
      *
-     * @param defaultChromeClient defaultChromeClient
+     * @param defaultWebChromeClient defaultWebChromeClient
      * @return CustomWebview
      */
-    public CustomWebview setDefaultChromeClient(boolean defaultChromeClient) {
-        this.defaultChromeClient = defaultChromeClient;
+    public CustomWebview setDefaultWebChromeClient(boolean defaultWebChromeClient) {
+        this.defaultWebChromeClient = defaultWebChromeClient;
         return this;
     }
 
@@ -128,7 +129,7 @@ public class CustomWebview extends WebView {
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
         if (onScrollChangedCallBack != null) {
-            onScrollChangedCallBack.onScrollChanged();
+            onScrollChangedCallBack.onScrollChanged(l, t, oldl, oldt);
         }
     }
 
@@ -255,8 +256,8 @@ public class CustomWebview extends WebView {
         //设置为false，设置true，某些手机上某些情况会崩溃 https://bugly.qq.com/v2/crash-reporting/crashes/41f89fb766/7869?pid=1
         webSettings.setSupportMultipleWindows(false);
         //99是否允许WebView度超出以概览的方式载入页面，默认false。即缩小内容以适应屏幕宽度。该项设置在内容宽度超出WebView控件的宽度时生效，例如当getUseWideViewPort() 返回true时。
-//        setLoadWithOverviewMode为true后在某些手机上面打开Webview会变形，比如oppo 5.1系统
-//        webSettings.setLoadWithOverviewMode(true);
+        //setLoadWithOverviewMode为true后在某些手机上面打开Webview会变形，比如oppo 5.1系统
+        webSettings.setLoadWithOverviewMode(false);
         webSettings.setAppCacheEnabled(true);
         webSettings.setDatabaseEnabled(true);
         webSettings.setDomStorageEnabled(true);
@@ -331,7 +332,7 @@ public class CustomWebview extends WebView {
             }
         }
 
-        if (defaultChromeClient) {//如果设置使用默认的CustomChromeClient
+        if (defaultWebChromeClient) {//如果设置使用默认的CustomChromeClient
             if (customWebChromeClient == null) {
                 customWebChromeClient = new CustomWebChromeClient();
                 this.customWebChromeClient.setWebviewCallBack(callBack);
