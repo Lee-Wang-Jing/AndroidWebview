@@ -8,7 +8,6 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -26,6 +25,7 @@ public class CustomWebview extends WebView {
     private CustomWebChromeClient customWebChromeClient;
     private boolean addedJavascriptInterface;
 
+    private String userAgent;
     private List<JSBean> jsBeanList;
 
     private OnScrollChangedCallBack onScrollChangedCallBack;
@@ -121,6 +121,18 @@ public class CustomWebview extends WebView {
         this.callBack = callBack;
         return this;
     }
+
+    /**
+     * 设置UserAgent
+     *
+     * @param userAgent userAgent
+     * @return CustomWebview
+     */
+    public CustomWebview setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
+        return this;
+    }
+
 
     /**
      * webview的onScrollChanged监听
@@ -241,6 +253,9 @@ public class CustomWebview extends WebView {
         WebSettings webSettings = this.getSettings();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+        if (!TextUtils.isEmpty(userAgent)) {
+            webSettings.setUserAgentString(userAgent);
         }
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);

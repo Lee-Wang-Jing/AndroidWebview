@@ -13,14 +13,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.wangjing:androidwebview:0.1.3'
+implementation 'com.wangjing:androidwebview:0.1.4'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.wangjing</groupId>
   <artifactId>androidwebview</artifactId>
-  <version>0.1.3</version>
+  <version>0.1.4</version>
   <type>pom</type>
 </dependency>
 ```
@@ -42,6 +42,7 @@ implementation 'com.wangjing:androidwebview:0.1.3'
 ```java
 webview.setDebug(true)//设置Debug模式，正式包建议关闭
         .setCurrentUrl("http://www.baidu.com")//设置当前加载的Url地址
+        .setUserAgent("xxxx")//设置Webview的UserAgent
         .setDefaultWebViewClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
         .setDefaultWebChromeClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
         .addJSInterface(new JsCallJava(), "test")//添加JavascriptInterface，可以添加add多个
@@ -159,9 +160,12 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
-- 0.1.1
+- 0.1.4
+    - 增加UserAgent的设置
+- 0.1.3
     - setLoadWithOverviewMode为true后在某些手机上面打开Webview会变形，比如oppo 5.1系统，默认设置成false，如有需要可以自行获取Websetting修改
     - 【优化】适配Android8.0
+    - 代码重构，使用更加方便
 - 0.0.11
     - setLoadWithOverviewMode为true后在某些手机上面打开Webview会变形，比如oppo 5.1系统，默认设置成false，如有需要可以自行获取Websetting修改
 
