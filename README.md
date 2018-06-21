@@ -1,9 +1,11 @@
 # AndroidWebview [![](https://ci.novoda.com/buildStatus/icon?job=bintray-release)](https://ci.novoda.com/job/bintray-release/lastBuild/console) [![Download](https://api.bintray.com/packages/wangjinggm/maven/androidwebview/images/download.svg) ](https://bintray.com/wangjinggm/maven/androidwebview/_latestVersion) [![license](http://img.shields.io/badge/license-Apache2.0-brightgreen.svg?style=flat)](https://github.com/Lee-Wang-Jing/androidwebview/blob/master/LICENSE)
 
-AndroidWebview技术交流QQ群：598403807       
+AndroidWebview技术交流QQ群：598403807
+
 <img src="http://apidoc.qianfanyun.com/Public/Uploads/2018-06-21/5b2b477f93bb5.png" width="200">
 
 AndroidWebview技术交流钉钉群，钉钉群里面可以收到Github实时的更新提醒哦：
+
 <img src="http://apidoc.qianfanyun.com/Public/Uploads/2018-06-21/5b2b47773b5c4.png" width="200">
 
 加群前请务必阅读[群行为规范](https://github.com/Lee-Wang-Jing/GroupStandard)
