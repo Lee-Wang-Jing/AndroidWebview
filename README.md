@@ -2,9 +2,9 @@
 
 AndroidWebview技术交流QQ群：598403807       
 ![image](https://raw.githubusercontent.com/Lee-Wang-Jing/AndroidWebview/master/image/QQ.png)  
-AndroidWebview技术交流钉钉群，钉钉群里面可以收到Github实时的更新提醒哦：  
-![image](https://raw.githubusercontent.com/Lee-Wang-Jing/AndroidWebview/master/image/DingD.png)
-
+<img src="https://raw.githubusercontent.com/Lee-Wang-Jing/AndroidWebview/master/image/QQ.png" width="200">
+AndroidWebview技术交流钉钉群，钉钉群里面可以收到Github实时的更新提醒哦：
+<img src="https://raw.githubusercontent.com/Lee-Wang-Jing/AndroidWebview/master/image/DingD.png" width="200">
 加群前请务必阅读[群行为规范](https://github.com/Lee-Wang-Jing/GroupStandard)
 有问题或者某种需求欢迎加群或者提issues，Thanks
 
