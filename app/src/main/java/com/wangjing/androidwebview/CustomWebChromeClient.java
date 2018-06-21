@@ -17,4 +17,11 @@ public class CustomWebChromeClient extends WebChromeClient {
             webviewCallBack.onProgressChanged(view, newProgress);
         }
     }
+
+    @Override
+    public void onReceivedTitle(WebView view, String title) {
+        if (webviewCallBack != null) {
+            webviewCallBack.onReceivedTitle(view, title);
+        }
+    }
 }

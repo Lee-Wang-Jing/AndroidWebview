@@ -16,14 +16,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.wangjing:androidwebview:0.1.4'
+implementation 'com.wangjing:androidwebview:0.1.5'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.wangjing</groupId>
   <artifactId>androidwebview</artifactId>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
   <type>pom</type>
 </dependency>
 ```
@@ -75,6 +75,10 @@ webview.setDebug(true)//设置Debug模式，正式包建议关闭
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+            }
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
             }
         })
         .build();//build操作放在最后，build之后不会loadurl，可以自己在做相应的处理
@@ -163,8 +167,10 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.1.5
+    - 增加onReceivedTitle的回调
 - 0.1.4
-    - 增加UserAgent的设置
+    - 增加UserAgent的设置回调
 - 0.1.3
     - setLoadWithOverviewMode为true后在某些手机上面打开Webview会变形，比如oppo 5.1系统，默认设置成false，如有需要可以自行获取Websetting修改
     - 【优化】适配Android8.0

@@ -47,6 +47,14 @@ public abstract class WebviewCallBack {
      * @param newProgress newProgress
      */
     public void onProgressChanged(WebView view, int newProgress) {
+    }
+
+    /**
+     * webview onReceivedTitle
+     * @param view WebView
+     * @param title title
+     */
+    public void onReceivedTitle(WebView view, String title) {
 
     }
 }
