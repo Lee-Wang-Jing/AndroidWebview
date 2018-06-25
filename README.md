@@ -1,10 +1,10 @@
 # AndroidWebview [![](https://ci.novoda.com/buildStatus/icon?job=bintray-release)](https://ci.novoda.com/job/bintray-release/lastBuild/console) [![Download](https://api.bintray.com/packages/wangjinggm/maven/androidwebview/images/download.svg) ](https://bintray.com/wangjinggm/maven/androidwebview/_latestVersion) [![license](http://img.shields.io/badge/license-Apache2.0-brightgreen.svg?style=flat)](https://github.com/Lee-Wang-Jing/androidwebview/blob/master/LICENSE)
 
-AndroidWebview技术交流QQ群：598403807
+AndroidWebview技术交流QQ群：598403807     
 
 <img src="http://apidoc.qianfanyun.com/Public/Uploads/2018-06-21/5b2b477f93bb5.png" width="200">
 
-AndroidWebview技术交流钉钉群，钉钉群里面可以收到Github实时的更新提醒哦：
+AndroidWebview技术交流钉钉群，钉钉群里面可以收到Github实时的更新提醒哦：  
 
 <img src="http://apidoc.qianfanyun.com/Public/Uploads/2018-06-21/5b2b47773b5c4.png" width="200">
 
@@ -16,14 +16,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.wangjing:androidwebview:0.1.5'
+implementation 'com.wangjing:androidwebview:0.1.6'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.wangjing</groupId>
   <artifactId>androidwebview</artifactId>
-  <version>0.1.5</version>
+  <version>0.1.6</version>
   <type>pom</type>
 </dependency>
 ```
@@ -79,6 +79,17 @@ webview.setDebug(true)//设置Debug模式，正式包建议关闭
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
+            }
+        })
+        //设置ShouldOverrideUrlLoading监听回调，重要 PS：如果设置了此回调，对应的逻辑需要自己处理，比如Android 8.0以上版本的兼容等等
+        .setShouldOverrideUrlLoadingInterface(new ShouldOverrideUrlLoadingInterface() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return false;
             }
         })
         .build();//build操作放在最后，build之后不会loadurl，可以自己在做相应的处理
@@ -167,9 +178,16 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.1.6
+    - 增加 shouldOverrideUrlLoading 的回调方法 
+    
+    ```
+    PS：如果设置了此回调，则对应的逻辑以及版本兼容性需要自行处理
+    ```
+
 - 0.1.5
     - 增加onReceivedTitle的回调
-- 0.1.4
+- 0.1.4 
     - 增加UserAgent的设置回调
 - 0.1.3
     - setLoadWithOverviewMode为true后在某些手机上面打开Webview会变形，比如oppo 5.1系统，默认设置成false，如有需要可以自行获取Websetting修改
