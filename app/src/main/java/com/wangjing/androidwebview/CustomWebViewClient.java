@@ -36,7 +36,7 @@ public class CustomWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         if (shouldOverrideUrlLoadingInterface != null) {
-            shouldOverrideUrlLoadingInterface.shouldOverrideUrlLoading(view, url);
+            return shouldOverrideUrlLoadingInterface.shouldOverrideUrlLoading(view, url);
         }
         view.loadUrl("" + url);
         return true;
@@ -46,7 +46,7 @@ public class CustomWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
         if (shouldOverrideUrlLoadingInterface != null) {
-            shouldOverrideUrlLoadingInterface.shouldOverrideUrlLoading(view, request);
+            return shouldOverrideUrlLoadingInterface.shouldOverrideUrlLoading(view, request);
         }
         String thisurl = "" + request.getUrl().toString();
         if (shouldLoadingUrl() && !TextUtils.isEmpty(thisurl)) {

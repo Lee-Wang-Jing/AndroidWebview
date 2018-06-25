@@ -16,14 +16,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.wangjing:androidwebview:0.1.6'
+implementation 'com.wangjing:androidwebview:0.1.7'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.wangjing</groupId>
   <artifactId>androidwebview</artifactId>
-  <version>0.1.6</version>
+  <version>0.1.7</version>
   <type>pom</type>
 </dependency>
 ```
@@ -94,7 +94,6 @@ webview.setDebug(true)//设置Debug模式，正式包建议关闭
         })
         .build();//build操作放在最后，build之后不会loadurl，可以自己在做相应的处理
         .buildWithLoadUrl();//build操作放在最后，build之后会直接loadurl，链接为上面设置的setCurrentUrl
-
 ```
 
 - 如果需要设置WebSettings，CustomWebview内部已经默认初始化了一些常用的WebSettings，具体如下：
@@ -178,6 +177,8 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.1.7
+    - 修复 shouldOverrideUrlLoading 回调的bug
 - 0.1.6
     - 增加 shouldOverrideUrlLoading 的回调方法 
     
