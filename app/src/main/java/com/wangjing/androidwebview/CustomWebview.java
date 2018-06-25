@@ -30,7 +30,8 @@ public class CustomWebview extends WebView {
 
     private OnScrollChangedCallBack onScrollChangedCallBack;
 
-    private WebviewCallBack callBack;
+    private WebviewCallBack webviewCallBack;
+    private ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface;
 
     private boolean defaultWebViewClient = false;
     private boolean defaultWebChromeClient = false;
@@ -103,22 +104,32 @@ public class CustomWebview extends WebView {
     }
 
     /**
+     * 设置Webview的 ShouldOverrideUrlLoadingInterface 监听
+     * @param shouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface
+     * @return CustomWebview
+     */
+    public CustomWebview setShouldOverrideUrlLoadingInterface(ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface) {
+        this.shouldOverrideUrlLoadingInterface = shouldOverrideUrlLoadingInterface;
+        return this;
+    }
+
+    /**
      * 获取WebviewCallBack
      *
      * @return WebviewCallBack
      */
     public WebviewCallBack getCallBack() {
-        return callBack;
+        return webviewCallBack;
     }
 
     /**
-     * 设置Webview的WebviewCallBack监听
+     * 设置Webview的 WebviewCallBack 监听
      *
      * @param callBack WebviewCallBack
      * @return CustomWebview
      */
     public CustomWebview setWebiewCallBack(WebviewCallBack callBack) {
-        this.callBack = callBack;
+        this.webviewCallBack = callBack;
         return this;
     }
 
@@ -337,12 +348,14 @@ public class CustomWebview extends WebView {
         if (defaultWebViewClient) {//如果设置使用默认的CustomWebViewClient
             if (customWebViewClient == null) {
                 customWebViewClient = new CustomWebViewClient();
-                this.customWebViewClient.setWebviewCallBack(callBack);
+                this.customWebViewClient.setWebviewCallBack(webviewCallBack);
+                this.customWebViewClient.setShouldOverrideUrlLoadingInterface(shouldOverrideUrlLoadingInterface);
             }
             this.setWebViewClient(customWebViewClient);
         } else {
             if (customWebViewClient != null) {
-                this.customWebViewClient.setWebviewCallBack(callBack);
+                this.customWebViewClient.setWebviewCallBack(webviewCallBack);
+                this.customWebViewClient.setShouldOverrideUrlLoadingInterface(shouldOverrideUrlLoadingInterface);
                 this.setWebViewClient(customWebViewClient);
             }
         }
@@ -350,16 +363,16 @@ public class CustomWebview extends WebView {
         if (defaultWebChromeClient) {//如果设置使用默认的CustomChromeClient
             if (customWebChromeClient == null) {
                 customWebChromeClient = new CustomWebChromeClient();
-                this.customWebChromeClient.setWebviewCallBack(callBack);
+                this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
             }
             this.setWebChromeClient(customWebChromeClient);
         } else {
             if (customWebVideoChromeClient != null) {
-                this.customWebChromeClient.setWebviewCallBack(callBack);
+                this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
                 this.setWebChromeClient(customWebVideoChromeClient);
             } else {
                 if (customWebChromeClient != null) {
-                    this.customWebChromeClient.setWebviewCallBack(callBack);
+                    this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
                     this.setWebChromeClient(customWebChromeClient);
                 }
             }

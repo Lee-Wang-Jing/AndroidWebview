@@ -4,10 +4,12 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 
 import com.wangjing.androidwebview.CustomWebview;
 import com.wangjing.androidwebview.OnScrollChangedCallBack;
+import com.wangjing.androidwebview.ShouldOverrideUrlLoadingInterface;
 import com.wangjing.androidwebview.WebviewCallBack;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,6 +64,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onReceivedTitle(WebView view, String title) {
                         super.onReceivedTitle(view, title);
+                    }
+                })
+                //设置ShouldOverrideUrlLoading监听回调，重要 PS：如果设置了此回调，对应的逻辑需要自己处理，比如Android 8.0以上版本的兼容等等
+                .setShouldOverrideUrlLoadingInterface(new ShouldOverrideUrlLoadingInterface() {
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                        return false;
                     }
                 })
                 .buildWithLoadUrl();//build操作放在最后，build之后会直接loadurl，链接为上面设置的setCurrentUrl

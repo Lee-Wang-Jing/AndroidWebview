@@ -5,6 +5,8 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.webkit.ClientCertRequest;
 import android.webkit.HttpAuthHandler;
@@ -20,6 +22,12 @@ import android.webkit.WebViewClient;
 public class CustomWebViewClient extends WebViewClient {
 
     private WebviewCallBack webviewCallBack;
+    private ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface;
+
+
+    public void setShouldOverrideUrlLoadingInterface(ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface) {
+        this.shouldOverrideUrlLoadingInterface = shouldOverrideUrlLoadingInterface;
+    }
 
     public void setWebviewCallBack(WebviewCallBack webviewCallBack) {
         this.webviewCallBack = webviewCallBack;
@@ -27,11 +35,25 @@ public class CustomWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        if (shouldLoadingUrl()) {
-            view.loadUrl(url);
+        if (shouldOverrideUrlLoadingInterface != null) {
+            shouldOverrideUrlLoadingInterface.shouldOverrideUrlLoading(view, url);
+        }
+        view.loadUrl("" + url);
+        return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+        if (shouldOverrideUrlLoadingInterface != null) {
+            shouldOverrideUrlLoadingInterface.shouldOverrideUrlLoading(view, request);
+        }
+        String thisurl = "" + request.getUrl().toString();
+        if (shouldLoadingUrl() && !TextUtils.isEmpty(thisurl)) {
+            view.loadUrl(thisurl);
             return true;
         }
-        return false;//设置为false才有效哦
+        return false;
     }
 
     public boolean shouldLoadingUrl() {
@@ -39,11 +61,6 @@ public class CustomWebViewClient extends WebViewClient {
          * 低于android 8.0的需要手动loadURL，大于等于android 8.0直接返回false，否则无法重定向
          */
         return Build.VERSION.SDK_INT < 26;
-    }
-
-    @Override
-    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-        return super.shouldOverrideUrlLoading(view, request);
     }
 
     @Override
