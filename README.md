@@ -16,14 +16,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.wangjing:androidwebview:0.1.7'
+implementation 'com.wangjing:androidwebview:0.1.8'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.wangjing</groupId>
   <artifactId>androidwebview</artifactId>
-  <version>0.1.7</version>
+  <version>0.1.8</version>
   <type>pom</type>
 </dependency>
 ```
@@ -177,6 +177,8 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.1.8
+    - 增加 shouldInterceptRequest 回调方法
 - 0.1.7
     - 修复 shouldOverrideUrlLoading 回调的bug
 - 0.1.6

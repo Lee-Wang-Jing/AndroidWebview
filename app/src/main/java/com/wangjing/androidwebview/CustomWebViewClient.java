@@ -92,12 +92,18 @@ public class CustomWebViewClient extends WebViewClient {
     @Nullable
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+        if (webviewCallBack != null) {
+            webviewCallBack.shouldInterceptRequest(view, url);
+        }
         return super.shouldInterceptRequest(view, url);
     }
 
     @Nullable
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+        if (webviewCallBack != null) {
+            webviewCallBack.shouldInterceptRequest(view, request);
+        }
         return super.shouldInterceptRequest(view, request);
     }
 

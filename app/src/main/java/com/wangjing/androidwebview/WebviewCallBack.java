@@ -1,6 +1,7 @@
 package com.wangjing.androidwebview;
 
 import android.graphics.Bitmap;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 
 public abstract class WebviewCallBack {
@@ -51,10 +52,29 @@ public abstract class WebviewCallBack {
 
     /**
      * webview onReceivedTitle
-     * @param view WebView
+     *
+     * @param view  WebView
      * @param title title
      */
     public void onReceivedTitle(WebView view, String title) {
 
+    }
+
+    /**
+     * webview shouldInterceptRequest
+     *
+     * @param view WebView
+     * @param url  url
+     */
+    public void shouldInterceptRequest(WebView view, String url) {
+    }
+
+    /**
+     * webview shouldInterceptRequest
+     *
+     * @param view    WebView
+     * @param request WebResourceRequest
+     */
+    public void shouldInterceptRequest(WebView view, WebResourceRequest request) {
     }
 }

@@ -2,6 +2,7 @@ package com.example.administrator.myapplication;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.webkit.WebResourceRequest;
@@ -14,6 +15,7 @@ import com.wangjing.androidwebview.WebviewCallBack;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private CustomWebview webview;
 
     @Override
@@ -21,10 +23,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         webview = findViewById(R.id.webview);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setEnabled(false);
 
         webview.setDebug(true)//设置Debug模式，正式包建议关闭
-                .setCurrentUrl("http://house.shangxiaban.cn/wap/dev.php#/detail/sell/zz/601923")//设置当前加载的Url地址
-                .setUserAgent("xxxx")//设置Webview的UserAgent
+                .setCurrentUrl("http://bbs0597kk.qianfanapi.com/fenlei/sort/get-sort-list")//设置当前加载的Url地址
+//                .setUserAgent("xxxx")//设置Webview的UserAgent
                 .setDefaultWebViewClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
                 .setDefaultWebChromeClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
                 .addJSInterface(new JsCallJava(), "test")//添加JavascriptInterface，可以添加add多个
@@ -79,5 +83,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .buildWithLoadUrl();//build操作放在最后，build之后会直接loadurl，链接为上面设置的setCurrentUrl
+
     }
 }
