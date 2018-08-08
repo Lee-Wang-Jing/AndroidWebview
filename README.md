@@ -177,6 +177,8 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.1.10版本发布
+    - 覆盖onJsAlert实现一个默认的Dialog，防止点击非Dialog区域消失
 - 0.1.9
     - fix bug
     - 去除WebviewCallBack中的onProgress回调
