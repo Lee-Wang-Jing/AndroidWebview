@@ -46,11 +46,6 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onProgress(int curProgress) {
-                        super.onProgress(curProgress);
-                    }
-
-                    @Override
                     public void onPageFinished(WebView view, String url) {
                         super.onPageFinished(view, url);
                     }

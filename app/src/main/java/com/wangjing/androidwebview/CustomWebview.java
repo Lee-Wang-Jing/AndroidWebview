@@ -368,7 +368,7 @@ public class CustomWebview extends WebView {
             this.setWebChromeClient(customWebChromeClient);
         } else {
             if (customWebVideoChromeClient != null) {
-                this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
+                this.customWebVideoChromeClient.setWebviewCallBack(webviewCallBack);
                 this.setWebChromeClient(customWebVideoChromeClient);
             } else {
                 if (customWebChromeClient != null) {

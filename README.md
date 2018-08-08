@@ -177,6 +177,9 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.1.9
+    - fix bug
+    - 去除WebviewCallBack中的onProgress回调
 - 0.1.8
     - 增加 shouldInterceptRequest 回调方法
 - 0.1.7

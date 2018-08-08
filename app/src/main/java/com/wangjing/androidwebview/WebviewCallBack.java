@@ -16,14 +16,6 @@ public abstract class WebviewCallBack {
     }
 
     /**
-     * 加载进度回调
-     *
-     * @param curProgress 当前进度值[0,100]
-     */
-    public void onProgress(int curProgress) {
-    }
-
-    /**
      * 当页面加载完成的时候，此方法不靠谱，如果页面有跳转会回调多次
      *
      * @param view WebView
