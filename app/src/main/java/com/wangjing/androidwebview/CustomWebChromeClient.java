@@ -1,5 +1,8 @@
 package com.wangjing.androidwebview;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
@@ -23,5 +26,22 @@ public class CustomWebChromeClient extends WebChromeClient {
         if (webviewCallBack != null) {
             webviewCallBack.onReceivedTitle(view, title);
         }
+    }
+
+    @Override
+    public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext())
+                .setTitle("提示")
+                .setMessage(message)
+                .setPositiveButton("好", new AlertDialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        result.confirm();
+                    }
+                });
+        builder.setCancelable(false);
+        builder.create();
+        builder.show();
+        return true;
     }
 }
