@@ -5,8 +5,6 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.webkit.ClientCertRequest;
 import android.webkit.HttpAuthHandler;
@@ -33,27 +31,21 @@ public class CustomWebViewClient extends WebViewClient {
         this.webviewCallBack = webviewCallBack;
     }
 
+
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         if (shouldOverrideUrlLoadingInterface != null) {
             return shouldOverrideUrlLoadingInterface.shouldOverrideUrlLoading(view, url);
         }
-        view.loadUrl("" + url);
-        return true;
+        return super.shouldOverrideUrlLoading(view, url);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
         if (shouldOverrideUrlLoadingInterface != null) {
             return shouldOverrideUrlLoadingInterface.shouldOverrideUrlLoading(view, request);
         }
-        String thisurl = "" + request.getUrl().toString();
-        if (shouldLoadingUrl() && !TextUtils.isEmpty(thisurl)) {
-            view.loadUrl(thisurl);
-            return true;
-        }
-        return false;
+        return super.shouldOverrideUrlLoading(view, request);
     }
 
     public boolean shouldLoadingUrl() {
