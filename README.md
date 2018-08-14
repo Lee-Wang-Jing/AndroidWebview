@@ -16,14 +16,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.wangjing:androidwebview:0.1.10'
+implementation 'com.wangjing:androidwebview:0.1.14'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.wangjing</groupId>
   <artifactId>androidwebview</artifactId>
-  <version>0.1.10</version>
+  <version>0.1.14</version>
   <type>pom</type>
 </dependency>
 ```
@@ -177,6 +177,8 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.1.14版本发布
+    - 默认不实现shouldOverrideUrlLoading相关逻辑
 - 0.1.10版本发布
     - 覆盖onJsAlert实现一个默认的Dialog，防止点击非Dialog区域消失
 - 0.1.9
