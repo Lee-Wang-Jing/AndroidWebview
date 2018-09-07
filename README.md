@@ -179,7 +179,7 @@ webSettings.setUserAgentString("xxx");
 ### 版本树
 - 0.1.15版本发布
     - 解决上传Google Play市场提示的WebView SSL问题 
-    - 0.1.14版本发布
+- 0.1.14版本发布
     - 默认不实现shouldOverrideUrlLoading相关逻辑
 - 0.1.10版本发布
     - 覆盖onJsAlert实现一个默认的Dialog，防止点击非Dialog区域消失
