@@ -1,5 +1,7 @@
 package com.wangjing.androidwebview;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
@@ -170,8 +172,25 @@ public class CustomWebViewClient extends WebViewClient {
     }
 
     @Override
-    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+    public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
 //        super.onReceivedSslError(view, handler, error);
-        handler.proceed();//接受证书
+//        handler.proceed();//接受证书
+        final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setMessage("SSL证书验证失败");
+        builder.setPositiveButton("继续", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //接受证书
+                handler.proceed();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                handler.cancel();
+            }
+        });
+        final AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
