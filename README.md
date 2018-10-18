@@ -29,6 +29,11 @@ implementation 'com.wangjing:androidwebview:0.1.15'
 ```
 * Eclipse ADT请放弃治疗
 
+* Proguard
+```
+-keep class com.wangjing.androidwebview.**{*;}
+```
+
 ## How to Use
 - xml替换成CustomWebview
 
