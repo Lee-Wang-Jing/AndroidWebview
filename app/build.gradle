@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-group = 'com.wangjing'
+group = 'com.github.Lee-Wang-Jing'
 
 android {
     compileSdkVersion 28
