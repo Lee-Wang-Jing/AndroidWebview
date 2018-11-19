@@ -36,6 +36,7 @@ public class CustomWebview extends WebView {
     private boolean defaultWebViewClient = false;
     private boolean defaultWebChromeClient = false;
     private boolean debug = false;
+    private boolean isShowSSLDialog = false;
 
     public CustomWebview(Context context) {
         this(context, null);
@@ -69,6 +70,17 @@ public class CustomWebview extends WebView {
      */
     public CustomWebview setDebug(boolean debug) {
         this.debug = debug;
+        return this;
+    }
+
+    /**
+     * 设置是否提示SSL证书失败的Dialog
+     *
+     * @param showSSLDialog 是否开启提示，默认false
+     * @return CustomWebview
+     */
+    public CustomWebview setShowSSLDialog(boolean showSSLDialog) {
+        this.isShowSSLDialog = showSSLDialog;
         return this;
     }
 
@@ -348,7 +360,7 @@ public class CustomWebview extends WebView {
 
         if (defaultWebViewClient) {//如果设置使用默认的CustomWebViewClient
             if (customWebViewClient == null) {
-                customWebViewClient = new CustomWebViewClient();
+                customWebViewClient = new CustomWebViewClient(isShowSSLDialog);
                 this.customWebViewClient.setWebviewCallBack(webviewCallBack);
                 this.customWebViewClient.setShouldOverrideUrlLoadingInterface(shouldOverrideUrlLoadingInterface);
             }
