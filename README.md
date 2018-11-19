@@ -16,14 +16,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.wangjing:androidwebview:0.1.15'
+implementation 'com.wangjing:androidwebview:0.2.0'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.wangjing</groupId>
   <artifactId>androidwebview</artifactId>
-  <version>0.1.15</version>
+  <version>0.2.0</version>
   <type>pom</type>
 </dependency>
 ```
