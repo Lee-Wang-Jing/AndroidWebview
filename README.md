@@ -182,6 +182,8 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.2.0版本发布
+    - 增加SSL证书开关的提示，默认false不提示，防止google市场不通过
 - 0.1.15版本发布
     - 解决上传Google Play市场提示的WebView SSL问题 
 - 0.1.14版本发布
