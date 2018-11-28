@@ -16,14 +16,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.wangjing:androidwebview:0.2.0'
+implementation 'com.github.Lee-Wang-Jing:ExpandableLayout:0.2.1'
 ```
 * Maven
 ```xml
 <dependency>
-  <groupId>com.wangjing</groupId>
-  <artifactId>androidwebview</artifactId>
-  <version>0.2.0</version>
+  <groupId>com.github.Lee-Wang-Jing</groupId>
+  <artifactId>ExpandableLayout</artifactId>
+  <version>0.2.1</version>
   <type>pom</type>
 </dependency>
 ```
@@ -182,6 +182,8 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.2.1版本发布
+    - setAllowFileAccess(false)默认为false,防止隐私泄露，如有需要可以获取Websetting，设置为true;
 - 0.2.0版本发布
     - 增加SSL证书开关的提示，默认false不提示，防止google市场不通过
 - 0.1.15版本发布
