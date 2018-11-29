@@ -1,4 +1,4 @@
-# AndroidWebview [![](https://ci.novoda.com/buildStatus/icon?job=bintray-release)](https://ci.novoda.com/job/bintray-release/lastBuild/console) [![Download](https://api.bintray.com/packages/wangjinggm/maven/androidwebview/images/download.svg) ](https://bintray.com/wangjinggm/maven/androidwebview/_latestVersion) [![license](http://img.shields.io/badge/license-Apache2.0-brightgreen.svg?style=flat)](https://github.com/Lee-Wang-Jing/androidwebview/blob/master/LICENSE)
+# AndroidWebview [![](https://ci.novoda.com/buildStatus/icon?job=bintray-release)](https://ci.novoda.com/job/bintray-release/lastBuild/console) [![](https://jitpack.io/v/Lee-Wang-Jing/AndroidWebview.svg)](https://jitpack.io/#Lee-Wang-Jing/AndroidWebview) [![license](http://img.shields.io/badge/license-Apache2.0-brightgreen.svg?style=flat)](https://github.com/Lee-Wang-Jing/androidwebview/blob/master/LICENSE)
 
 AndroidWebview技术交流QQ群：598403807     
 
@@ -16,14 +16,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.github.Lee-Wang-Jing:ExpandableLayout:0.2.1'
+implementation 'com.github.Lee-Wang-Jing:ExpandableLayout:0.2.2'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.github.Lee-Wang-Jing</groupId>
   <artifactId>ExpandableLayout</artifactId>
-  <version>0.2.1</version>
+  <version>0.2.2</version>
   <type>pom</type>
 </dependency>
 ```
@@ -182,6 +182,9 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.2.2版本发布
+    - setAllowFileAccessFromFileURLs(false)默认为false,防止隐私泄露，如有需要可以获取Websetting，设置为true;
+     - setAllowUniversalAccessFromFileURLs(false)默认为false,防止隐私泄露，如有需要可以获取Websetting，设置为true;
 - 0.2.1版本发布
     - setAllowFileAccess(false)默认为false,防止隐私泄露，如有需要可以获取Websetting，设置为true;
 - 0.2.0版本发布
