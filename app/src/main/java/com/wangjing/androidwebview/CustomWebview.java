@@ -308,7 +308,7 @@ public class CustomWebview extends WebView {
                 .getPath());
         webSettings.setPluginState(WebSettings.PluginState.ON);
         webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
         this.requestFocus();//请求获取焦点，防止view不能打开输入法问题
         this.requestFocusFromTouch();//请求获取焦点，防止view不能打开输入法问题
         this.setFocusableInTouchMode(true);
