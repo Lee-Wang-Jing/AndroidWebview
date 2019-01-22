@@ -26,6 +26,7 @@ public class CustomWebview extends WebView {
     private boolean addedJavascriptInterface;
 
     private String userAgent;
+    private int cacheMode = WebSettings.LOAD_DEFAULT;
     private List<JSBean> jsBeanList;
 
     private OnScrollChangedCallBack onScrollChangedCallBack;
@@ -117,6 +118,7 @@ public class CustomWebview extends WebView {
 
     /**
      * 设置Webview的 ShouldOverrideUrlLoadingInterface 监听
+     *
      * @param shouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface
      * @return CustomWebview
      */
@@ -157,6 +159,16 @@ public class CustomWebview extends WebView {
         return this;
     }
 
+    /**
+     * 设置CacheMode
+     *
+     * @param cacheMode cacheMode
+     * @return CustomWebview
+     */
+    public CustomWebview setCacheMode(int cacheMode) {
+        this.cacheMode = cacheMode;
+        return this;
+    }
 
     /**
      * webview的onScrollChanged监听
@@ -308,7 +320,7 @@ public class CustomWebview extends WebView {
                 .getPath());
         webSettings.setPluginState(WebSettings.PluginState.ON);
         webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        webSettings.setCacheMode(cacheMode);
         this.requestFocus();//请求获取焦点，防止view不能打开输入法问题
         this.requestFocusFromTouch();//请求获取焦点，防止view不能打开输入法问题
         this.setFocusableInTouchMode(true);

@@ -16,14 +16,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.github.Lee-Wang-Jing:ExpandableLayout:0.2.3'
+implementation 'com.github.Lee-Wang-Jing:AndroidWebview:0.2.4'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.github.Lee-Wang-Jing</groupId>
-  <artifactId>ExpandableLayout</artifactId>
-  <version>0.2.3</version>
+  <artifactId>AndroidWebview</artifactId>
+  <version>0.2.4</version>
   <type>pom</type>
 </dependency>
 ```
@@ -182,6 +182,8 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.2.4版本发布
+    - 支持直接设置setCacheMode啦，不设置默认是WebSettings.LOAD_DEFAULT
 - 0.2.3版本发布
     - setCacheMode从原来的 WebSettings.LOAD_NO_CACHE 修改为 WebSettings.LOAD_DEFAULT，如有需要可以获取Websetting，设置为 LOAD_NO_CACHE;
 - 0.2.2版本发布
