@@ -182,6 +182,8 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.2.5版本发布
+    - 修复某些情况下，网页中软键盘不弹出的问题
 - 0.2.4版本发布
     - 支持直接设置setCacheMode啦，不设置默认是WebSettings.LOAD_DEFAULT
 - 0.2.3版本发布
