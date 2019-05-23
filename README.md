@@ -16,14 +16,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.github.Lee-Wang-Jing:AndroidWebview:0.2.5'
+implementation 'com.github.Lee-Wang-Jing:AndroidWebview:0.2.6'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.github.Lee-Wang-Jing</groupId>
   <artifactId>AndroidWebview</artifactId>
-  <version>0.2.5</version>
+  <version>0.2.6</version>
   <type>pom</type>
 </dependency>
 ```
@@ -182,6 +182,8 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.2.6版本发布
+    - 修改webSettings.setSavePassword(false);默认为false，提高安全性，如有需要，可以手动获取修改webSettings修改
 - 0.2.5版本发布
     - 修复某些情况下，网页中软键盘不弹出的问题.
 - 0.2.4版本发布

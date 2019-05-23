@@ -333,6 +333,7 @@ public class CustomWebview extends WebView {
         webSettings.setDatabaseEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setGeolocationEnabled(true);
+        webSettings.setSavePassword(false);
         webSettings.setAppCacheMaxSize(Long.MAX_VALUE);
         webSettings.setAppCachePath(getContext().getDir("appcache", 0).getPath());
         webSettings.setDatabasePath(getContext().getDir("databases", 0).getPath());
