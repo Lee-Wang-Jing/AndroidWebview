@@ -30,6 +30,7 @@ public class CustomWebview extends WebView {
     private List<JSBean> jsBeanList;
 
     private OnScrollChangedCallBack onScrollChangedCallBack;
+    private OverScrollModeCallBack overScrollModeCallBack;
 
     private WebviewCallBack webviewCallBack;
     private ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface;
@@ -136,6 +137,15 @@ public class CustomWebview extends WebView {
         return this;
     }
 
+    public OverScrollModeCallBack getOverScrollModeCallBack() {
+        return overScrollModeCallBack;
+    }
+
+    public CustomWebview setOverScrollModeCallBack(OverScrollModeCallBack overScrollModeCallBack) {
+        this.overScrollModeCallBack = overScrollModeCallBack;
+        return this;
+    }
+
     /**
      * 设置Webview的 ShouldOverrideUrlLoadingInterface 监听
      *
@@ -198,6 +208,14 @@ public class CustomWebview extends WebView {
         super.onScrollChanged(l, t, oldl, oldt);
         if (onScrollChangedCallBack != null) {
             onScrollChangedCallBack.onScrollChanged(l, t, oldl, oldt);
+        }
+    }
+
+    @Override
+    public void setOverScrollMode(int mode) {
+        super.setOverScrollMode(mode);
+        if (overScrollModeCallBack !=null){
+            overScrollModeCallBack.setOverScrollMode(mode);
         }
     }
 

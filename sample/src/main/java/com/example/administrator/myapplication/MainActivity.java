@@ -10,6 +10,7 @@ import android.webkit.WebView;
 
 import com.wangjing.androidwebview.CustomWebview;
 import com.wangjing.androidwebview.OnScrollChangedCallBack;
+import com.wangjing.androidwebview.OverScrollModeCallBack;
 import com.wangjing.androidwebview.ShouldOverrideUrlLoadingInterface;
 import com.wangjing.androidwebview.WebviewCallBack;
 
@@ -33,12 +34,19 @@ public class MainActivity extends AppCompatActivity {
                 .setDefaultWebChromeClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
                 .addJSInterface(new JsCallJava(), "test")//添加JavascriptInterface，可以添加add多个
                 .addJSInterface(new JsCallJava(), "test1")//添加JavascriptInterface，可以添加add多个
+                .setOverScrollModeCallBack(new OverScrollModeCallBack() {
+                    @Override
+                    public void setOverScrollMode(int mode) {
+
+                    }
+                })
                 .setOnScrollChangedCallBack(new OnScrollChangedCallBack() {//设置监听Webview是否滚动，可以用于下拉刷新的逻辑判断
                     @Override
                     public void onScrollChanged(int l, int t, int oldl, int oldt) {
                         Log.e("onScrollChanged", "  l==>" + l + "  t==>" + t + "  oldl==>" + oldl + "  oldt==>" + oldt);
                     }
                 })
+
                 .setWebiewCallBack(new WebviewCallBack() {//设置Webview加载的一些常用的监听，设置setDefaultWebViewClient和setDefaultWebChromeClient为true，对应的参数才会生效，自定义的无效
                     @Override
                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
