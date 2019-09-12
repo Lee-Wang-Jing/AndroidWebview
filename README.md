@@ -16,7 +16,7 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.github.Lee-Wang-Jing:AndroidWebview:0.2.7'
+implementation 'com.github.Lee-Wang-Jing:AndroidWebview:0.2.8'
 ```
 * Maven
 ```xml
@@ -182,6 +182,9 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.2.8版本发布
+    - 修改 webSettings.setMediaPlaybackRequiresUserGesture(false); 默认设置成false
+        - 在Android 4.2 添加了用户收拾出发音视频播放接口，该接口默认为true，即默认不允许自动播放音视频，只能是用户交互的方式由用户自己促发播放
 - 0.2.7版本发布
     - 增加 setOverScrollMode 的回调方法
 - 0.2.6版本发布

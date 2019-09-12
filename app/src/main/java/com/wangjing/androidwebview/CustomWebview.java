@@ -360,6 +360,10 @@ public class CustomWebview extends WebView {
         webSettings.setPluginState(WebSettings.PluginState.ON);
         webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         webSettings.setCacheMode(cacheMode);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            //在Android 4.2 添加了用户收拾出发音视频播放接口，该接口默认为true，即默认不允许自动播放音视频，只能是用户交互的方式由用户自己促发播放
+            webSettings.setMediaPlaybackRequiresUserGesture(false);
+        }
         this.requestFocus();//请求获取焦点，防止view不能打开输入法问题
         this.requestFocusFromTouch();//请求获取焦点，防止view不能打开输入法问题
         this.setFocusableInTouchMode(true);
