@@ -23,6 +23,7 @@ public class CustomWebViewClient extends WebViewClient {
 
     private WebviewCallBack webviewCallBack;
     private ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface;
+    private ShouldInterceptRequestInterface shouldInterceptRequestInterface;
     private boolean isShowSSLDialog = false;
 
     public CustomWebViewClient(boolean isShowSSLDialog) {
@@ -32,6 +33,11 @@ public class CustomWebViewClient extends WebViewClient {
     public void setShouldOverrideUrlLoadingInterface(ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface) {
         this.shouldOverrideUrlLoadingInterface = shouldOverrideUrlLoadingInterface;
     }
+
+    public void setShouldInterceptRequestInterface(ShouldInterceptRequestInterface shouldInterceptRequestInterface) {
+        this.shouldInterceptRequestInterface = shouldInterceptRequestInterface;
+    }
+
 
     public void setWebviewCallBack(WebviewCallBack webviewCallBack) {
         this.webviewCallBack = webviewCallBack;
@@ -90,19 +96,21 @@ public class CustomWebViewClient extends WebViewClient {
     @Nullable
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-        if (webviewCallBack != null) {
-            webviewCallBack.shouldInterceptRequest(view, url);
+        if (shouldInterceptRequestInterface != null) {
+            return shouldInterceptRequestInterface.shouldInterceptRequest(view, url);
+        }else{
+            return super.shouldInterceptRequest(view, url);
         }
-        return super.shouldInterceptRequest(view, url);
     }
 
     @Nullable
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-        if (webviewCallBack != null) {
-            webviewCallBack.shouldInterceptRequest(view, request);
+        if (shouldInterceptRequestInterface != null) {
+            return shouldInterceptRequestInterface.shouldInterceptRequest(view, request);
+        }else{
+            return super.shouldInterceptRequest(view, request);
         }
-        return super.shouldInterceptRequest(view, request);
     }
 
     @Override

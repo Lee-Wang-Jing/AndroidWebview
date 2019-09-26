@@ -34,6 +34,7 @@ public class CustomWebview extends WebView {
 
     private WebviewCallBack webviewCallBack;
     private ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface;
+    private ShouldInterceptRequestInterface shouldInterceptRequestInterface;
 
     private boolean defaultWebViewClient = false;
     private boolean defaultWebChromeClient = false;
@@ -59,7 +60,7 @@ public class CustomWebview extends WebView {
         addedJavascriptInterface = false;
     }
 
-    
+
 //    public CustomWebview(Context context) {
 //        this(context, null);
 //    }
@@ -157,6 +158,17 @@ public class CustomWebview extends WebView {
         return this;
     }
 
+    /**
+     * 设置Webview的 shouldInterceptRequestInterface 监听
+     *
+     * @param shouldInterceptRequestInterface shouldInterceptRequestInterface
+     * @return CustomWebview
+     */
+    public CustomWebview setShouldInterceptRequestInterface(ShouldInterceptRequestInterface shouldInterceptRequestInterface) {
+        this.shouldInterceptRequestInterface = shouldInterceptRequestInterface;
+        return this;
+    }
+
 
     /**
      * 获取WebviewCallBack
@@ -214,7 +226,7 @@ public class CustomWebview extends WebView {
     @Override
     public void setOverScrollMode(int mode) {
         super.setOverScrollMode(mode);
-        if (overScrollModeCallBack !=null){
+        if (overScrollModeCallBack != null) {
             overScrollModeCallBack.setOverScrollMode(mode);
         }
     }
@@ -418,12 +430,14 @@ public class CustomWebview extends WebView {
                 customWebViewClient = new CustomWebViewClient(isShowSSLDialog);
                 this.customWebViewClient.setWebviewCallBack(webviewCallBack);
                 this.customWebViewClient.setShouldOverrideUrlLoadingInterface(shouldOverrideUrlLoadingInterface);
+                this.customWebViewClient.setShouldInterceptRequestInterface(shouldInterceptRequestInterface);
             }
             this.setWebViewClient(customWebViewClient);
         } else {
             if (customWebViewClient != null) {
                 this.customWebViewClient.setWebviewCallBack(webviewCallBack);
                 this.customWebViewClient.setShouldOverrideUrlLoadingInterface(shouldOverrideUrlLoadingInterface);
+                this.customWebViewClient.setShouldInterceptRequestInterface(shouldInterceptRequestInterface);
                 this.setWebViewClient(customWebViewClient);
             }
         }

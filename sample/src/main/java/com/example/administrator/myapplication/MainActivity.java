@@ -6,11 +6,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 
 import com.wangjing.androidwebview.CustomWebview;
 import com.wangjing.androidwebview.OnScrollChangedCallBack;
 import com.wangjing.androidwebview.OverScrollModeCallBack;
+import com.wangjing.androidwebview.ShouldInterceptRequestInterface;
 import com.wangjing.androidwebview.ShouldOverrideUrlLoadingInterface;
 import com.wangjing.androidwebview.WebviewCallBack;
 
@@ -83,6 +85,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                         return false;
+                    }
+                })
+                //设置setShouldInterceptRequestInterface监听回调
+                .setShouldInterceptRequestInterface(new ShouldInterceptRequestInterface() {
+                    @Override
+                    public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                        return null;
+                    }
+
+                    @Override
+                    public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                        return null;
                     }
                 })
                 .buildWithLoadUrl();//build操作放在最后，build之后会直接loadurl，链接为上面设置的setCurrentUrl

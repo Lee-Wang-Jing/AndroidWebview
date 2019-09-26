@@ -52,21 +52,21 @@ public abstract class WebviewCallBack {
 
     }
 
-    /**
-     * webview shouldInterceptRequest
-     *
-     * @param view WebView
-     * @param url  url
-     */
-    public void shouldInterceptRequest(WebView view, String url) {
-    }
-
-    /**
-     * webview shouldInterceptRequest
-     *
-     * @param view    WebView
-     * @param request WebResourceRequest
-     */
-    public void shouldInterceptRequest(WebView view, WebResourceRequest request) {
-    }
+//    /**
+//     * webview shouldInterceptRequest
+//     *
+//     * @param view WebView
+//     * @param url  url
+//     */
+//    public void shouldInterceptRequest(WebView view, String url) {
+//    }
+//
+//    /**
+//     * webview shouldInterceptRequest
+//     *
+//     * @param view    WebView
+//     * @param request WebResourceRequest
+//     */
+//    public void shouldInterceptRequest(WebView view, WebResourceRequest request) {
+//    }
 }

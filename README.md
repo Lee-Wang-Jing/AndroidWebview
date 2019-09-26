@@ -97,6 +97,17 @@ webview.setDebug(true)//设置Debug模式，正式包建议关闭
                 return false;
             }
         })
+        //设置setShouldInterceptRequestInterface监听回调
+        .setShouldInterceptRequestInterface(new ShouldInterceptRequestInterface() {
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                return null;
+            }
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                return null;
+            }
+        })
         .build();//build操作放在最后，build之后不会loadurl，可以自己在做相应的处理
         .buildWithLoadUrl();//build操作放在最后，build之后会直接loadurl，链接为上面设置的setCurrentUrl
 ```
@@ -182,6 +193,9 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.2.9版本发布
+    - 新增 ShouldInterceptRequestInterface 回调方法，方便设置添加修改Cookie
+    - 移除原来 WebviewCallBack 中的 shouldInterceptRequest 回调
 - 0.2.8版本发布
     - 修改 webSettings.setMediaPlaybackRequiresUserGesture(false); 默认设置成false
         - 在Android 4.2 添加了用户收拾出发音视频播放接口，该接口默认为true，即默认不允许自动播放音视频，只能是用户交互的方式由用户自己促发播放
