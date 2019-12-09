@@ -2,6 +2,7 @@ package com.wangjing.androidwebview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -42,18 +43,26 @@ public class CustomWebview extends WebView {
     private boolean isShowSSLDialog = false;
 
     public CustomWebview(Context context) {
-        super(context);
+        super(getFixdsContext(context));
         init();
     }
 
     public CustomWebview(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        super(getFixdsContext(context), attrs);
         init();
     }
 
     public CustomWebview(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        super(getFixdsContext(context), attrs, defStyleAttr);
         init();
+    }
+
+    private static Context getFixdsContext(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return context.createConfigurationContext(new Configuration());
+        } else {
+            return context;
+        }
     }
 
     private void init() {
