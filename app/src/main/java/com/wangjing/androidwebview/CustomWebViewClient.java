@@ -1,6 +1,5 @@
 package com.wangjing.androidwebview;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
@@ -19,6 +18,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 public class CustomWebViewClient extends WebViewClient {
 

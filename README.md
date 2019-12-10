@@ -16,14 +16,14 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.github.Lee-Wang-Jing:AndroidWebview:0.2.8'
+implementation 'com.github.Lee-Wang-Jing:AndroidWebview:0.3.3'
 ```
 * Maven
 ```xml
 <dependency>
   <groupId>com.github.Lee-Wang-Jing</groupId>
   <artifactId>AndroidWebview</artifactId>
-  <version>0.3.2</version>
+  <version>0.3.3</version>
   <type>pom</type>
 </dependency>
 ```
@@ -193,7 +193,7 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
-- 0.3.2版本发布
+- 0.3.3版本发布
     - 迁移Android X
 - 0.3.0版本发布
     - 兼容vivo手机修改Configuration后加载webview崩溃的问题
