@@ -1,6 +1,5 @@
 package com.wangjing.androidwebview;
 
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
@@ -18,7 +17,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 
 public class CustomWebViewClient extends WebViewClient {
 
@@ -99,7 +97,7 @@ public class CustomWebViewClient extends WebViewClient {
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
         if (shouldInterceptRequestInterface != null) {
             return shouldInterceptRequestInterface.shouldInterceptRequest(view, url);
-        }else{
+        } else {
             return super.shouldInterceptRequest(view, url);
         }
     }
@@ -109,7 +107,7 @@ public class CustomWebViewClient extends WebViewClient {
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
         if (shouldInterceptRequestInterface != null) {
             return shouldInterceptRequestInterface.shouldInterceptRequest(view, request);
-        }else{
+        } else {
             return super.shouldInterceptRequest(view, request);
         }
     }
@@ -195,23 +193,11 @@ public class CustomWebViewClient extends WebViewClient {
         if (!isShowSSLDialog) {
             handler.proceed();//接受证书
         } else {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-            builder.setMessage("SSL证书验证失败");
-            builder.setPositiveButton("继续", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //接受证书
-                    handler.proceed();
-                }
-            });
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    handler.cancel();
-                }
-            });
-            final AlertDialog dialog = builder.create();
-            dialog.show();
+            if (webviewCallBack != null) {
+                webviewCallBack.onReceivedSslError(view, handler, error);
+            }
         }
+
+
     }
 }

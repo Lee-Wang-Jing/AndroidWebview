@@ -1,12 +1,17 @@
 package com.example.administrator.myapplication;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -74,6 +79,43 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onReceivedTitle(WebView view, String title) {
                         super.onReceivedTitle(view, title);
+                    }
+
+                    @Override
+                    public void onJsAlert(WebView view, String url, String message, final JsResult result) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("提示")
+                                .setMessage(message)
+                                .setPositiveButton("好", new AlertDialog.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        result.confirm();
+                                    }
+                                });
+                        builder.setCancelable(false);
+                        builder.create();
+                        builder.show();
+                    }
+
+                    @Override
+                    public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                        builder.setMessage("SSL证书验证失败");
+                        builder.setPositiveButton("继续", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //接受证书
+                                handler.proceed();
+                            }
+                        });
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                handler.cancel();
+                            }
+                        });
+                        final AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
                 })
                 //设置ShouldOverrideUrlLoading监听回调，重要 PS：如果设置了此回调，对应的逻辑需要自己处理，比如Android 8.0以上版本的兼容等等

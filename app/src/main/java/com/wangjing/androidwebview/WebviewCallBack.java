@@ -1,6 +1,9 @@
 package com.wangjing.androidwebview;
 
 import android.graphics.Bitmap;
+import android.net.http.SslError;
+import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 
@@ -50,6 +53,26 @@ public abstract class WebviewCallBack {
      */
     public void onReceivedTitle(WebView view, String title) {
 
+    }
+
+    /**
+     * webview onJsAlert
+     *
+     * @param view
+     * @param url
+     * @param message
+     * @param result
+     */
+    public void onJsAlert(WebView view, String url, String message, final JsResult result) {
+    }
+
+    /**
+     * webview onReceivedSslError
+     * @param view
+     * @param handler
+     * @param error
+     */
+    public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
     }
 
 //    /**
