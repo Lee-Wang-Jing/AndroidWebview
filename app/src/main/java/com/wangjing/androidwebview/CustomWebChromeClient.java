@@ -1,6 +1,6 @@
 package com.wangjing.androidwebview;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;

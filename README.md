@@ -23,7 +23,7 @@ implementation 'com.github.Lee-Wang-Jing:AndroidWebview:0.2.8'
 <dependency>
   <groupId>com.github.Lee-Wang-Jing</groupId>
   <artifactId>AndroidWebview</artifactId>
-  <version>0.3.1</version>
+  <version>0.3.2</version>
   <type>pom</type>
 </dependency>
 ```
@@ -193,7 +193,7 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
-- 0.3.1版本发布
+- 0.3.2版本发布
     - 迁移Android X
 - 0.3.0版本发布
     - 兼容vivo手机修改Configuration后加载webview崩溃的问题

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setEnabled(false);
 
         webview.setDebug(true)//设置Debug模式，正式包建议关闭
-                .setCurrentUrl("http://bbs0597kk.qianfanapi.com/fenlei/sort/get-sort-list")//设置当前加载的Url地址
+                .setCurrentUrl("http://www.qianfanyun.com/js_demo.php")//设置当前加载的Url地址
 //                .setUserAgent("xxxx")//设置Webview的UserAgent
                 .setDefaultWebViewClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
                 .setDefaultWebChromeClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
