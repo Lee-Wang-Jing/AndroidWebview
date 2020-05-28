@@ -21,6 +21,11 @@ import com.wangjing.androidwebview.OverScrollModeCallBack;
 import com.wangjing.androidwebview.ShouldInterceptRequestInterface;
 import com.wangjing.androidwebview.ShouldOverrideUrlLoadingInterface;
 import com.wangjing.androidwebview.WebviewCallBack;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.runtime.Permission;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,9 +39,31 @@ public class MainActivity extends AppCompatActivity {
         webview = findViewById(R.id.webview);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setEnabled(false);
+        AndPermission.with(this)
+                .runtime()
+                .permission(Permission.Group.STORAGE)
+                .onGranted(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
+                        initWebview();
+                    }
+                })
+                .onDenied(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
+                        onBackPressed();
+                    }
+                })
+                .start();
 
+
+
+    }
+
+    private void initWebview() {
         webview.setDebug(true)//设置Debug模式，正式包建议关闭
-                .setCurrentUrl("http://www.qianfanyun.com/js_demo.php")//设置当前加载的Url地址
+//                .setCurrentUrl("http://www.qianfanyun.com/js_demo.php")//设置当前加载的Url地址
+                .setCurrentUrl("https://www.baidu.com")//设置当前加载的Url地址
 //                .setUserAgent("xxxx")//设置Webview的UserAgent
                 .setDefaultWebViewClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
                 .setDefaultWebChromeClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
@@ -119,17 +146,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 //设置ShouldOverrideUrlLoading监听回调，重要 PS：如果设置了此回调，对应的逻辑需要自己处理，比如Android 8.0以上版本的兼容等等
-                .setShouldOverrideUrlLoadingInterface(new ShouldOverrideUrlLoadingInterface() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                        return false;
-                    }
-                })
+//                .setShouldOverrideUrlLoadingInterface(new ShouldOverrideUrlLoadingInterface() {
+//                    @Override
+//                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//                        return false;
+//                    }
+//                })
                 //设置setShouldInterceptRequestInterface监听回调
                 .setShouldInterceptRequestInterface(new ShouldInterceptRequestInterface() {
                     @Override
@@ -143,6 +170,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .buildWithLoadUrl();//build操作放在最后，build之后会直接loadurl，链接为上面设置的setCurrentUrl
-
     }
 }
