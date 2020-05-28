@@ -43,26 +43,18 @@ public class CustomWebview extends WebView {
     private boolean isShowSSLDialog = false;
 
     public CustomWebview(Context context) {
-        super(getFixdsContext(context));
+        super(context);
         init();
     }
 
     public CustomWebview(Context context, AttributeSet attrs) {
-        super(getFixdsContext(context), attrs);
+        super(context, attrs);
         init();
     }
 
     public CustomWebview(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(getFixdsContext(context), attrs, defStyleAttr);
+        super(context, attrs, defStyleAttr);
         init();
-    }
-
-    private static Context getFixdsContext(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            return context.createConfigurationContext(new Configuration());
-        } else {
-            return context;
-        }
     }
 
     private void init() {
