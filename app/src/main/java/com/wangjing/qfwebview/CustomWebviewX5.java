@@ -33,6 +33,11 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     }
 
     @Override
+    public void initWebViewSettings() {
+
+    }
+
+    @Override
     public boolean canGoback() {
         return this.canGoBack();
     }

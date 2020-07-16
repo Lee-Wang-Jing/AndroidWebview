@@ -11,6 +11,12 @@ import android.webkit.WebView;
 import com.wangjing.qfwebview.callback.IWebView;
 
 public class CustomWebview extends WebView implements IWebView {
+
+    private String currentUrl = "";
+    private boolean debug = false;
+    private String userAgent;
+    private int cacheMode = WebSettings.LOAD_DEFAULT;
+
     public CustomWebview(Context context) {
         super(context);
         init();
@@ -21,16 +27,21 @@ public class CustomWebview extends WebView implements IWebView {
         init();
     }
 
-
     public CustomWebview(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-
     private void init() {
     }
 
+    @Override
+    public void setWebviewBuilder(WebviewBuilder builder) {
+        this.currentUrl = builder.getCurrentUrl();
+        this.debug = builder.isDebug();
+        this.userAgent = builder.getUserAgent();
+        this.cacheMode = builder.getCacheMode();
+    }
 
     @Override
     public View getWebview() {
