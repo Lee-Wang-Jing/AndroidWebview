@@ -1,21 +1,41 @@
 package com.wangjing.qfwebview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.wangjing.qfwebview.callback.IWebView;
+import com.wangjing.qfwebview.callback.ShouldInterceptRequestInterface;
+import com.wangjing.qfwebview.callback.ShouldOverrideUrlLoadingInterface;
+import com.wangjing.qfwebview.callback.WebviewCallBack;
+
+import java.util.List;
 
 public class CustomWebview extends WebView implements IWebView {
+    private static final String Tag = CustomWebview.class.getSimpleName();
 
     private String currentUrl = "";
     private boolean debug = false;
     private String userAgent;
     private int cacheMode = WebSettings.LOAD_DEFAULT;
+    private boolean isShowSSLDialog = false;
+    private boolean defaultWebViewClient = false;
+
+    private CustomWebViewClient customWebViewClient;
+    private WebviewCallBack webviewCallBack;
+    private ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface;
+    private ShouldInterceptRequestInterface shouldInterceptRequestInterface;
+
+    private boolean defaultWebChromeClient = false;
+    private CustomWebChromeClient customWebChromeClient;
+
+    private List<JSBean> jsBeanList;
 
     public CustomWebview(Context context) {
         super(context);
@@ -37,18 +57,45 @@ public class CustomWebview extends WebView implements IWebView {
 
     @Override
     public void setWebviewBuilder(WebviewBuilder builder) {
-        this.currentUrl = builder.getCurrentUrl();
-        this.debug = builder.isDebug();
-        this.userAgent = builder.getUserAgent();
-        this.cacheMode = builder.getCacheMode();
+        if (builder != null) {
+            this.currentUrl = builder.getCurrentUrl();
+            this.debug = builder.isDebug();
+            this.userAgent = builder.getUserAgent();
+            this.cacheMode = builder.getCacheMode();
+            this.isShowSSLDialog = builder.isShowSSLDialog();
+
+            this.defaultWebViewClient = builder.isDefaultWebViewClient();
+            this.customWebViewClient = builder.getCustomWebViewClient();
+            this.webviewCallBack = builder.getWebviewCallBack();
+            this.shouldOverrideUrlLoadingInterface = builder.getShouldOverrideUrlLoadingInterface();
+            this.shouldInterceptRequestInterface = builder.getShouldInterceptRequestInterface();
+
+            this.defaultWebChromeClient = builder.isDefaultWebChromeClient();
+            this.customWebChromeClient = builder.getCustomWebChromeClient();
+
+            this.jsBeanList = builder.getJsBeanList();
+
+        }
     }
+
+    @Override
+    public void setWebviewBuilderWithBuild(WebviewBuilder builder) {
+        setWebviewBuilder(builder);
+        build();
+    }
+
+    @Override
+    public void setWebviewBuilderWithBuildLoadUrl(WebviewBuilder builder) {
+        setWebviewBuilder(builder);
+        buildWithLoadUrl();
+    }
+
 
     @Override
     public View getWebview() {
         return this;
     }
 
-    @Override
     public void initWebViewSettings() {
         if (debug) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -100,8 +147,79 @@ public class CustomWebview extends WebView implements IWebView {
         this.setFocusableInTouchMode(true);
     }
 
+    private void initWebViewClient() {
+        if (defaultWebViewClient) {//如果设置使用默认的CustomWebViewClient
+            if (customWebViewClient == null) {
+                customWebViewClient = new CustomWebViewClient(isShowSSLDialog);
+                this.customWebViewClient.setWebviewCallBack(webviewCallBack);
+                this.customWebViewClient.setShouldOverrideUrlLoadingInterface(shouldOverrideUrlLoadingInterface);
+                this.customWebViewClient.setShouldInterceptRequestInterface(shouldInterceptRequestInterface);
+            }
+            this.setWebViewClient(customWebViewClient);
+        } else {
+            if (customWebViewClient != null) {
+                this.customWebViewClient.setWebviewCallBack(webviewCallBack);
+                this.customWebViewClient.setShouldOverrideUrlLoadingInterface(shouldOverrideUrlLoadingInterface);
+                this.customWebViewClient.setShouldInterceptRequestInterface(shouldInterceptRequestInterface);
+                this.setWebViewClient(customWebViewClient);
+            } else {
+                Log.e(Tag, "自定义的 WebViewClient 未设置");
+            }
+        }
+    }
+
+    private void initWebChromeClient() {
+        if (defaultWebChromeClient) {//如果设置使用默认的CustomChromeClient
+            if (customWebChromeClient == null) {
+                customWebChromeClient = new CustomWebChromeClient();
+                this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
+            }
+            this.setWebChromeClient(customWebChromeClient);
+        } else {
+            if (customWebChromeClient != null) {
+                this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
+                this.setWebChromeClient(customWebChromeClient);
+            } else {
+                Log.e(Tag, "自定义的 WebChromeClient 未设置");
+            }
+        }
+    }
+
+    @SuppressLint("JavascriptInterface")
+    private void initJavascriptInterface() {
+        if (jsBeanList != null && !jsBeanList.isEmpty()) {
+            for (int i = 0; i < jsBeanList.size(); i++) {
+                this.addJavascriptInterface(jsBeanList.get(i).getMapClazz(), jsBeanList.get(i).getObjName());
+            }
+        }
+    }
+
     @Override
-    public boolean canGoback() {
+    public boolean canGoback2() {
         return this.canGoBack();
+    }
+
+    @Override
+    public void loadUrl2(String url) {
+        if (!TextUtils.isEmpty(url)) {
+            this.loadUrl(url);
+        }
+    }
+
+    @Override
+    public void build() {
+        initWebViewSettings();
+        initWebViewClient();
+        initWebChromeClient();
+        initJavascriptInterface();
+    }
+
+
+
+
+    @Override
+    public void buildWithLoadUrl() {
+        build();
+        loadUrl2(currentUrl);
     }
 }

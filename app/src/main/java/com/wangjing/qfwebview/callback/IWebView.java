@@ -6,9 +6,18 @@ import com.wangjing.qfwebview.WebviewBuilder;
 
 public interface IWebView {
     void setWebviewBuilder(WebviewBuilder builder);
+
+    void setWebviewBuilderWithBuild(WebviewBuilder builder);
+
+    void setWebviewBuilderWithBuildLoadUrl(WebviewBuilder builder);
+
     View getWebview();
 
-    void initWebViewSettings();
+    boolean canGoback2();
 
-    boolean canGoback();
+    void loadUrl2(String url);
+
+    void build();
+
+    void buildWithLoadUrl();
 }
