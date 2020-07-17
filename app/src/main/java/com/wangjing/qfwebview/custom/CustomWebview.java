@@ -1,4 +1,4 @@
-package com.wangjing.qfwebview;
+package com.wangjing.qfwebview.custom;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,20 +7,20 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
-import com.tencent.smtt.sdk.WebSettings;
-import com.tencent.smtt.sdk.WebView;
-import com.wangjing.qfwebview.callback.IWebView;
-import com.wangjing.qfwebview.callbackx5.ShouldInterceptRequestInterfaceX5;
-import com.wangjing.qfwebview.callbackx5.ShouldOverrideUrlLoadingInterfaceX5;
-import com.wangjing.qfwebview.callbackx5.WebviewCallBackX5;
-import com.wangjing.qfwebview.x5.CustomWebChromeClientX5;
-import com.wangjing.qfwebview.x5.CustomWebViewClientX5;
+import com.wangjing.qfwebview.JSBean;
+import com.wangjing.qfwebview.WebviewBuilder;
+import com.wangjing.qfwebview.IWebView;
+import com.wangjing.qfwebview.callback.ShouldInterceptRequestInterface;
+import com.wangjing.qfwebview.callback.ShouldOverrideUrlLoadingInterface;
+import com.wangjing.qfwebview.callback.WebviewCallBack;
 
 import java.util.List;
 
-public class CustomWebviewX5 extends WebView implements IWebView {
-    private static final String Tag = CustomWebviewX5.class.getSimpleName();
+public class CustomWebview extends WebView implements IWebView {
+    private static final String Tag = CustomWebview.class.getSimpleName();
 
     private String currentUrl = "";
     private boolean debug = false;
@@ -29,27 +29,27 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     private boolean isShowSSLDialog = false;
     private boolean defaultWebViewClient = false;
 
-    private CustomWebViewClientX5 customWebViewClient;
-    private WebviewCallBackX5 webviewCallBack;
-    private ShouldOverrideUrlLoadingInterfaceX5 shouldOverrideUrlLoadingInterface;
-    private ShouldInterceptRequestInterfaceX5 shouldInterceptRequestInterface;
+    private CustomWebViewClient customWebViewClient;
+    private WebviewCallBack webviewCallBack;
+    private ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface;
+    private ShouldInterceptRequestInterface shouldInterceptRequestInterface;
 
     private boolean defaultWebChromeClient = false;
-    private CustomWebChromeClientX5 customWebChromeClient;
+    private CustomWebChromeClient customWebChromeClient;
 
     private List<JSBean> jsBeanList;
 
-    public CustomWebviewX5(Context context) {
+    public CustomWebview(Context context) {
         super(context);
         init();
     }
 
-    public CustomWebviewX5(Context context, AttributeSet attrs) {
+    public CustomWebview(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public CustomWebviewX5(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomWebview(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -67,13 +67,13 @@ public class CustomWebviewX5 extends WebView implements IWebView {
             this.isShowSSLDialog = builder.isShowSSLDialog();
 
             this.defaultWebViewClient = builder.isDefaultWebViewClient();
-            this.customWebViewClient = builder.getCustomWebViewClientX5();
-            this.webviewCallBack = builder.getWebviewCallBackX5();
-            this.shouldOverrideUrlLoadingInterface = builder.getShouldOverrideUrlLoadingInterfaceX5();
-            this.shouldInterceptRequestInterface = builder.getShouldInterceptRequestInterfaceX5();
+            this.customWebViewClient = builder.getCustomWebViewClient();
+            this.webviewCallBack = builder.getWebviewCallBack();
+            this.shouldOverrideUrlLoadingInterface = builder.getShouldOverrideUrlLoadingInterface();
+            this.shouldInterceptRequestInterface = builder.getShouldInterceptRequestInterface();
 
             this.defaultWebChromeClient = builder.isDefaultWebChromeClient();
-            this.customWebChromeClient = builder.getCustomWebChromeClientX5();
+            this.customWebChromeClient = builder.getCustomWebChromeClient();
 
             this.jsBeanList = builder.getJsBeanList();
 
@@ -105,10 +105,9 @@ public class CustomWebviewX5 extends WebView implements IWebView {
             }
         }
         WebSettings webSettings = this.getSettings();
-        //X5浏览器不需要此设置
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         if (!TextUtils.isEmpty(userAgent)) {
             webSettings.setUserAgentString(userAgent);
         }
@@ -153,7 +152,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     private void initWebViewClient() {
         if (defaultWebViewClient) {//如果设置使用默认的CustomWebViewClient
             if (customWebViewClient == null) {
-                customWebViewClient = new CustomWebViewClientX5(isShowSSLDialog);
+                customWebViewClient = new CustomWebViewClient(isShowSSLDialog);
                 this.customWebViewClient.setWebviewCallBack(webviewCallBack);
                 this.customWebViewClient.setShouldOverrideUrlLoadingInterface(shouldOverrideUrlLoadingInterface);
                 this.customWebViewClient.setShouldInterceptRequestInterface(shouldInterceptRequestInterface);
@@ -174,7 +173,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     private void initWebChromeClient() {
         if (defaultWebChromeClient) {//如果设置使用默认的CustomChromeClient
             if (customWebChromeClient == null) {
-                customWebChromeClient = new CustomWebChromeClientX5();
+                customWebChromeClient = new CustomWebChromeClient();
                 this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
             }
             this.setWebChromeClient(customWebChromeClient);

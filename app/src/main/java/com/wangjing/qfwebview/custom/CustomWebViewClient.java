@@ -1,49 +1,49 @@
-package com.wangjing.qfwebview.x5;
+package com.wangjing.qfwebview.custom;
 
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Message;
 import android.view.KeyEvent;
+import android.webkit.ClientCertRequest;
+import android.webkit.HttpAuthHandler;
 import android.webkit.RenderProcessGoneDetail;
 import android.webkit.SafeBrowsingResponse;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.Nullable;
 
-import com.tencent.smtt.export.external.interfaces.ClientCertRequest;
-import com.tencent.smtt.export.external.interfaces.HttpAuthHandler;
-import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
-import com.tencent.smtt.export.external.interfaces.WebResourceError;
-import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
-import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
-import com.tencent.smtt.sdk.WebView;
-import com.tencent.smtt.sdk.WebViewClient;
-import com.wangjing.qfwebview.callbackx5.ShouldInterceptRequestInterfaceX5;
-import com.wangjing.qfwebview.callbackx5.ShouldOverrideUrlLoadingInterfaceX5;
-import com.wangjing.qfwebview.callbackx5.WebviewCallBackX5;
+import com.wangjing.qfwebview.callback.ShouldInterceptRequestInterface;
+import com.wangjing.qfwebview.callback.ShouldOverrideUrlLoadingInterface;
+import com.wangjing.qfwebview.callback.WebviewCallBack;
 
 
-public class CustomWebViewClientX5 extends WebViewClient {
+public class CustomWebViewClient extends WebViewClient {
 
-    private WebviewCallBackX5 webviewCallBack;
-    private ShouldOverrideUrlLoadingInterfaceX5 shouldOverrideUrlLoadingInterface;
-    private ShouldInterceptRequestInterfaceX5 shouldInterceptRequestInterface;
+    private WebviewCallBack webviewCallBack;
+    private ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface;
+    private ShouldInterceptRequestInterface shouldInterceptRequestInterface;
     private boolean isShowSSLDialog = false;
 
-    public CustomWebViewClientX5(boolean isShowSSLDialog) {
+    public CustomWebViewClient(boolean isShowSSLDialog) {
         this.isShowSSLDialog = isShowSSLDialog;
     }
 
-    public void setShouldOverrideUrlLoadingInterface(ShouldOverrideUrlLoadingInterfaceX5 shouldOverrideUrlLoadingInterface) {
+    public void setShouldOverrideUrlLoadingInterface(ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface) {
         this.shouldOverrideUrlLoadingInterface = shouldOverrideUrlLoadingInterface;
     }
 
-    public void setShouldInterceptRequestInterface(ShouldInterceptRequestInterfaceX5 shouldInterceptRequestInterface) {
+    public void setShouldInterceptRequestInterface(ShouldInterceptRequestInterface shouldInterceptRequestInterface) {
         this.shouldInterceptRequestInterface = shouldInterceptRequestInterface;
     }
 
 
-    public void setWebviewCallBack(WebviewCallBackX5 webviewCallBack) {
+    public void setWebviewCallBack(WebviewCallBack webviewCallBack) {
         this.webviewCallBack = webviewCallBack;
     }
 
@@ -178,14 +178,31 @@ public class CustomWebViewClientX5 extends WebViewClient {
     }
 
     @Override
-    public void onReceivedSslError(WebView webView, SslErrorHandler sslErrorHandler, com.tencent.smtt.export.external.interfaces.SslError sslError) {
-        super.onReceivedSslError(webView, sslErrorHandler, sslError);
+    public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
+        return super.onRenderProcessGone(view, detail);
+    }
+
+    @Override
+    public void onSafeBrowsingHit(WebView view, WebResourceRequest request, int threatType, SafeBrowsingResponse callback) {
+        super.onSafeBrowsingHit(view, request, threatType, callback);
+    }
+
+    @Override
+    public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
+//        super.onReceivedSslError(view, handler, error);
+//        handler.proceed();//接受证书
+//        Log.e("onReceivedSslError", "getPrimaryError==>" + error.getPrimaryError()
+//                + "\ngetUrl" + error.getUrl()
+//                + "\ntoString" + error.toString()
+//        );
         if (!isShowSSLDialog) {
-            sslErrorHandler.proceed();//接受证书
+            handler.proceed();//接受证书
         } else {
             if (webviewCallBack != null) {
-                webviewCallBack.onReceivedSslError(sslErrorHandler, sslError);
+                webviewCallBack.onReceivedSslError(handler, error);
             }
         }
+
+
     }
 }

@@ -1,4 +1,4 @@
-package com.wangjing.qfwebview.x5;
+package com.wangjing.qfwebview.customx5;
 
 
 import com.tencent.smtt.export.external.interfaces.JsResult;

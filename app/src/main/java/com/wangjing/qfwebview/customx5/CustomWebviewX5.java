@@ -1,4 +1,4 @@
-package com.wangjing.qfwebview;
+package com.wangjing.qfwebview.customx5;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,18 +7,20 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 
-import com.wangjing.qfwebview.callback.IWebView;
-import com.wangjing.qfwebview.callback.ShouldInterceptRequestInterface;
-import com.wangjing.qfwebview.callback.ShouldOverrideUrlLoadingInterface;
-import com.wangjing.qfwebview.callback.WebviewCallBack;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+import com.wangjing.qfwebview.JSBean;
+import com.wangjing.qfwebview.WebviewBuilder;
+import com.wangjing.qfwebview.IWebView;
+import com.wangjing.qfwebview.callbackx5.ShouldInterceptRequestInterfaceX5;
+import com.wangjing.qfwebview.callbackx5.ShouldOverrideUrlLoadingInterfaceX5;
+import com.wangjing.qfwebview.callbackx5.WebviewCallBackX5;
 
 import java.util.List;
 
-public class CustomWebview extends WebView implements IWebView {
-    private static final String Tag = CustomWebview.class.getSimpleName();
+public class CustomWebviewX5 extends WebView implements IWebView {
+    private static final String Tag = CustomWebviewX5.class.getSimpleName();
 
     private String currentUrl = "";
     private boolean debug = false;
@@ -27,27 +29,27 @@ public class CustomWebview extends WebView implements IWebView {
     private boolean isShowSSLDialog = false;
     private boolean defaultWebViewClient = false;
 
-    private CustomWebViewClient customWebViewClient;
-    private WebviewCallBack webviewCallBack;
-    private ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface;
-    private ShouldInterceptRequestInterface shouldInterceptRequestInterface;
+    private CustomWebViewClientX5 customWebViewClient;
+    private WebviewCallBackX5 webviewCallBack;
+    private ShouldOverrideUrlLoadingInterfaceX5 shouldOverrideUrlLoadingInterface;
+    private ShouldInterceptRequestInterfaceX5 shouldInterceptRequestInterface;
 
     private boolean defaultWebChromeClient = false;
-    private CustomWebChromeClient customWebChromeClient;
+    private CustomWebChromeClientX5 customWebChromeClient;
 
     private List<JSBean> jsBeanList;
 
-    public CustomWebview(Context context) {
+    public CustomWebviewX5(Context context) {
         super(context);
         init();
     }
 
-    public CustomWebview(Context context, AttributeSet attrs) {
+    public CustomWebviewX5(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public CustomWebview(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomWebviewX5(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -65,13 +67,13 @@ public class CustomWebview extends WebView implements IWebView {
             this.isShowSSLDialog = builder.isShowSSLDialog();
 
             this.defaultWebViewClient = builder.isDefaultWebViewClient();
-            this.customWebViewClient = builder.getCustomWebViewClient();
-            this.webviewCallBack = builder.getWebviewCallBack();
-            this.shouldOverrideUrlLoadingInterface = builder.getShouldOverrideUrlLoadingInterface();
-            this.shouldInterceptRequestInterface = builder.getShouldInterceptRequestInterface();
+            this.customWebViewClient = builder.getCustomWebViewClientX5();
+            this.webviewCallBack = builder.getWebviewCallBackX5();
+            this.shouldOverrideUrlLoadingInterface = builder.getShouldOverrideUrlLoadingInterfaceX5();
+            this.shouldInterceptRequestInterface = builder.getShouldInterceptRequestInterfaceX5();
 
             this.defaultWebChromeClient = builder.isDefaultWebChromeClient();
-            this.customWebChromeClient = builder.getCustomWebChromeClient();
+            this.customWebChromeClient = builder.getCustomWebChromeClientX5();
 
             this.jsBeanList = builder.getJsBeanList();
 
@@ -103,9 +105,10 @@ public class CustomWebview extends WebView implements IWebView {
             }
         }
         WebSettings webSettings = this.getSettings();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
+        //X5浏览器不需要此设置
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+//        }
         if (!TextUtils.isEmpty(userAgent)) {
             webSettings.setUserAgentString(userAgent);
         }
@@ -150,7 +153,7 @@ public class CustomWebview extends WebView implements IWebView {
     private void initWebViewClient() {
         if (defaultWebViewClient) {//如果设置使用默认的CustomWebViewClient
             if (customWebViewClient == null) {
-                customWebViewClient = new CustomWebViewClient(isShowSSLDialog);
+                customWebViewClient = new CustomWebViewClientX5(isShowSSLDialog);
                 this.customWebViewClient.setWebviewCallBack(webviewCallBack);
                 this.customWebViewClient.setShouldOverrideUrlLoadingInterface(shouldOverrideUrlLoadingInterface);
                 this.customWebViewClient.setShouldInterceptRequestInterface(shouldInterceptRequestInterface);
@@ -171,7 +174,7 @@ public class CustomWebview extends WebView implements IWebView {
     private void initWebChromeClient() {
         if (defaultWebChromeClient) {//如果设置使用默认的CustomChromeClient
             if (customWebChromeClient == null) {
-                customWebChromeClient = new CustomWebChromeClient();
+                customWebChromeClient = new CustomWebChromeClientX5();
                 this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
             }
             this.setWebChromeClient(customWebChromeClient);

@@ -1,4 +1,4 @@
-package com.wangjing.qfwebview.callback;
+package com.wangjing.qfwebview;
 
 import android.view.View;
 

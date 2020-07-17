@@ -1,4 +1,4 @@
-package com.wangjing.qfwebview;
+package com.wangjing.qfwebview.custom;
 
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;

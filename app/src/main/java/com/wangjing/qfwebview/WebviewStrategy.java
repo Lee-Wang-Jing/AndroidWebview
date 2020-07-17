@@ -2,8 +2,6 @@ package com.wangjing.qfwebview;
 
 import android.view.View;
 
-import com.wangjing.qfwebview.callback.IWebView;
-
 public class WebviewStrategy {
 
     private IWebView iWebView;

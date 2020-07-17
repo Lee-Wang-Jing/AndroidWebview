@@ -9,8 +9,10 @@ import com.wangjing.qfwebview.callback.WebviewCallBack;
 import com.wangjing.qfwebview.callbackx5.ShouldInterceptRequestInterfaceX5;
 import com.wangjing.qfwebview.callbackx5.ShouldOverrideUrlLoadingInterfaceX5;
 import com.wangjing.qfwebview.callbackx5.WebviewCallBackX5;
-import com.wangjing.qfwebview.x5.CustomWebChromeClientX5;
-import com.wangjing.qfwebview.x5.CustomWebViewClientX5;
+import com.wangjing.qfwebview.custom.CustomWebChromeClient;
+import com.wangjing.qfwebview.custom.CustomWebViewClient;
+import com.wangjing.qfwebview.customx5.CustomWebChromeClientX5;
+import com.wangjing.qfwebview.customx5.CustomWebViewClientX5;
 
 import java.util.ArrayList;
 import java.util.List;

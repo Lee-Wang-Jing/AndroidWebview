@@ -6,17 +6,16 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
-import android.webkit.WebView;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.wangjing.qfwebview.CustomWebview;
-import com.wangjing.qfwebview.CustomWebviewX5;
+import com.wangjing.qfwebview.custom.CustomWebview;
+import com.wangjing.qfwebview.customx5.CustomWebviewX5;
 import com.wangjing.qfwebview.WebviewBuilder;
 import com.wangjing.qfwebview.WebviewStrategy;
-import com.wangjing.qfwebview.callback.IWebView;
+import com.wangjing.qfwebview.IWebView;
 import com.wangjing.qfwebview.callback.WebviewCallBack;
 import com.wangjing.qfwebview.callbackx5.WebviewCallBackX5;
 import com.yanzhenjie.permission.Action;
