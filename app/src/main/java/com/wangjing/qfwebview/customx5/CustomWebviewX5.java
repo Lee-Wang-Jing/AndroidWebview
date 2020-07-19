@@ -92,6 +92,10 @@ public class CustomWebviewX5 extends WebView implements IWebView {
         buildWithLoadUrl();
     }
 
+    @Override
+    public String getUserAgentString() {
+        return this.getSettings().getUserAgentString();
+    }
 
     @Override
     public View getWebview() {
@@ -216,8 +220,6 @@ public class CustomWebviewX5 extends WebView implements IWebView {
         initWebChromeClient();
         initJavascriptInterface();
     }
-
-
 
 
     @Override

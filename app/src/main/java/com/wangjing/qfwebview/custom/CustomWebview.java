@@ -28,6 +28,7 @@ public class CustomWebview extends WebView implements IWebView {
     private int cacheMode = WebSettings.LOAD_DEFAULT;
     private boolean isShowSSLDialog = false;
     private boolean defaultWebViewClient = false;
+    private int textZoom = 100;
 
     private CustomWebViewClient customWebViewClient;
     private WebviewCallBack webviewCallBack;
@@ -65,6 +66,7 @@ public class CustomWebview extends WebView implements IWebView {
             this.userAgent = builder.getUserAgent();
             this.cacheMode = builder.getCacheMode();
             this.isShowSSLDialog = builder.isShowSSLDialog();
+            this.textZoom = builder.getTextZoom();
 
             this.defaultWebViewClient = builder.isDefaultWebViewClient();
             this.customWebViewClient = builder.getCustomWebViewClient();
@@ -92,6 +94,10 @@ public class CustomWebview extends WebView implements IWebView {
         buildWithLoadUrl();
     }
 
+    @Override
+    public String getUserAgentString() {
+        return this.getSettings().getUserAgentString();
+    }
 
     @Override
     public View getWebview() {
@@ -111,6 +117,7 @@ public class CustomWebview extends WebView implements IWebView {
         if (!TextUtils.isEmpty(userAgent)) {
             webSettings.setUserAgentString(userAgent);
         }
+        webSettings.setTextZoom(textZoom);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setAllowFileAccess(false);
@@ -215,8 +222,6 @@ public class CustomWebview extends WebView implements IWebView {
         initWebChromeClient();
         initJavascriptInterface();
     }
-
-
 
 
     @Override

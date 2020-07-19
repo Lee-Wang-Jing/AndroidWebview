@@ -9,6 +9,8 @@ public interface IWebView {
 
     void setWebviewBuilderWithBuildLoadUrl(WebviewBuilder builder);
 
+    String getUserAgentString();
+
     View getWebview();
 
     boolean canGoback2();

@@ -27,6 +27,7 @@ public class WebviewBuilder {
     private int cacheMode = WebSettings.LOAD_DEFAULT;
     private boolean isShowSSLDialog = false;
     private boolean defaultWebViewClient = false;
+    private int textZoom = 100;
 
     private CustomWebViewClient customWebViewClient;
     private WebviewCallBack webviewCallBack;
@@ -105,6 +106,17 @@ public class WebviewBuilder {
      */
     public WebviewBuilder setDefaultWebViewClient(boolean defaultWebViewClient) {
         this.defaultWebViewClient = defaultWebViewClient;
+        return this;
+    }
+
+    /**
+     * 设置页面的文本缩放百分比。默认值为100
+     *
+     * @param textZoom textZoom
+     * @return WebviewBuilder
+     */
+    public WebviewBuilder setDefaultWebViewClient(int textZoom) {
+        this.textZoom = textZoom;
         return this;
     }
 
@@ -328,5 +340,9 @@ public class WebviewBuilder {
 
     public ShouldInterceptRequestInterfaceX5 getShouldInterceptRequestInterfaceX5() {
         return shouldInterceptRequestInterfaceX5;
+    }
+
+    public int getTextZoom() {
+        return textZoom;
     }
 }
