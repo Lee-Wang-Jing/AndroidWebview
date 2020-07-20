@@ -4,6 +4,11 @@ import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.ValueCallback;
 
+import androidx.annotation.Nullable;
+
+import com.wangjing.qfwebview.custom.CustomWebview;
+import com.wangjing.qfwebview.customx5.CustomWebviewX5;
+
 public interface IWebView {
     void setWebviewBuilder(WebviewBuilder builder);
 
@@ -13,13 +18,16 @@ public interface IWebView {
 
     String getUserAgentString();
 
-    View getWebview();
+    CustomWebview getWebView();
+    CustomWebviewX5 getX5WebView();
 
     void setAcceptThirdPartyCookies(boolean isAccept);
 
     boolean canGoback2();
 
     void loadUrl2(String url);
+    void loadDataWithBaseURL2(@Nullable String baseUrl, String data, @Nullable String mimeType, @Nullable String encoding, @Nullable String historyUrl);
+
 
     void build();
 

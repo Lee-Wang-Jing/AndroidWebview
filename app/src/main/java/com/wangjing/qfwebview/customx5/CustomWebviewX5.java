@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
 
+import androidx.annotation.Nullable;
+
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.DownloadListener;
 import com.tencent.smtt.sdk.WebSettings;
@@ -21,6 +23,7 @@ import com.wangjing.qfwebview.callbackx5.OnShowFileChooserX5;
 import com.wangjing.qfwebview.callbackx5.ShouldInterceptRequestInterfaceX5;
 import com.wangjing.qfwebview.callbackx5.ShouldOverrideUrlLoadingInterfaceX5;
 import com.wangjing.qfwebview.callbackx5.WebviewCallBackX5;
+import com.wangjing.qfwebview.custom.CustomWebview;
 
 import java.util.List;
 
@@ -109,7 +112,12 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     }
 
     @Override
-    public View getWebview() {
+    public CustomWebview getWebView() {
+        return null;
+    }
+
+    @Override
+    public CustomWebviewX5 getX5WebView() {
         return this;
     }
 
@@ -230,6 +238,11 @@ public class CustomWebviewX5 extends WebView implements IWebView {
         if (!TextUtils.isEmpty(url)) {
             this.loadUrl(url);
         }
+    }
+
+    @Override
+    public void loadDataWithBaseURL2(@Nullable String baseUrl, String data, @Nullable String mimeType, @Nullable String encoding, @Nullable String historyUrl) {
+        this.loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl);
     }
 
     @Override

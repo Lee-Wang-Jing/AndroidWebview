@@ -13,6 +13,8 @@ import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import androidx.annotation.Nullable;
+
 import com.wangjing.qfwebview.JSBean;
 import com.wangjing.qfwebview.OnDownloadStart;
 import com.wangjing.qfwebview.WebviewBuilder;
@@ -20,6 +22,7 @@ import com.wangjing.qfwebview.IWebView;
 import com.wangjing.qfwebview.callback.ShouldInterceptRequestInterface;
 import com.wangjing.qfwebview.callback.ShouldOverrideUrlLoadingInterface;
 import com.wangjing.qfwebview.callback.WebviewCallBack;
+import com.wangjing.qfwebview.customx5.CustomWebviewX5;
 
 import java.util.List;
 
@@ -109,8 +112,13 @@ public class CustomWebview extends WebView implements IWebView {
     }
 
     @Override
-    public View getWebview() {
+    public CustomWebview getWebView() {
         return this;
+    }
+
+    @Override
+    public CustomWebviewX5 getX5WebView() {
+        return null;
     }
 
     @Override
@@ -231,6 +239,11 @@ public class CustomWebview extends WebView implements IWebView {
         if (!TextUtils.isEmpty(url)) {
             this.loadUrl(url);
         }
+    }
+
+    @Override
+    public void loadDataWithBaseURL2(@Nullable String baseUrl, String data, @Nullable String mimeType, @Nullable String encoding, @Nullable String historyUrl) {
+        this.loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl);
     }
 
     @Override
