@@ -115,7 +115,7 @@ public class WebviewBuilder {
      * @param textZoom textZoom
      * @return WebviewBuilder
      */
-    public WebviewBuilder setDefaultWebViewClient(int textZoom) {
+    public WebviewBuilder setTextZoom(int textZoom) {
         this.textZoom = textZoom;
         return this;
     }
