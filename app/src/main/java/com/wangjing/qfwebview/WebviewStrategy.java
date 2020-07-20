@@ -1,6 +1,5 @@
 package com.wangjing.qfwebview;
 
-import android.view.View;
 
 public class WebviewStrategy {
 
@@ -12,12 +11,5 @@ public class WebviewStrategy {
 
     public IWebView getiWebView() {
         return iWebView;
-    }
-
-    public View choiceWebview() {
-        if (iWebView != null) {
-            return iWebView.getWebview();
-        }
-        return null;
     }
 }
