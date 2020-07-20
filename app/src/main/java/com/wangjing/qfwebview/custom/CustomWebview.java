@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -229,4 +230,19 @@ public class CustomWebview extends WebView implements IWebView {
         build();
         loadUrl2(currentUrl);
     }
+
+    @Override
+    public void loadJavaScript(String javascript, ValueCallback valueCallback) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            this.evaluateJavascript("" + javascript, valueCallback);
+        } else {
+            this.loadUrl("" + javascript);
+        }
+    }
+
+    @Override
+    public void loadJavaScriptX5(String javascript, com.tencent.smtt.sdk.ValueCallback valueCallback) {
+        Log.e(Tag,"now Webview not x5");
+    }
+
 }

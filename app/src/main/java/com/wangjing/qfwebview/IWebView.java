@@ -1,6 +1,7 @@
 package com.wangjing.qfwebview;
 
 import android.view.View;
+import android.webkit.ValueCallback;
 
 public interface IWebView {
     void setWebviewBuilder(WebviewBuilder builder);
@@ -20,4 +21,8 @@ public interface IWebView {
     void build();
 
     void buildWithLoadUrl();
+
+    void loadJavaScript(String javascript, ValueCallback valueCallback);
+
+    void loadJavaScriptX5(String javascript, com.tencent.smtt.sdk.ValueCallback valueCallback);
 }
