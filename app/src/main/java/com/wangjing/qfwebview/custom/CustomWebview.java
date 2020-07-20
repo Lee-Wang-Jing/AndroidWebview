@@ -112,6 +112,11 @@ public class CustomWebview extends WebView implements IWebView {
     }
 
     @Override
+    public View getIView() {
+        return this;
+    }
+
+    @Override
     public CustomWebview getWebView() {
         return this;
     }

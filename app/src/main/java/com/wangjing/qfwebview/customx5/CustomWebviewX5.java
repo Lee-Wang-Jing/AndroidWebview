@@ -112,6 +112,11 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     }
 
     @Override
+    public View getIView() {
+        return this;
+    }
+
+    @Override
     public CustomWebview getWebView() {
         return null;
     }

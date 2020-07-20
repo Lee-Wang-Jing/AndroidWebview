@@ -18,6 +18,7 @@ public interface IWebView {
 
     String getUserAgentString();
 
+    View getIView();
     CustomWebview getWebView();
     CustomWebviewX5 getX5WebView();
 
