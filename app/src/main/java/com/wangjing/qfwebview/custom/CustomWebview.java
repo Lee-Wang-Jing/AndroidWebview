@@ -17,6 +17,7 @@ import com.wangjing.qfwebview.IWebView;
 import com.wangjing.qfwebview.callback.ShouldInterceptRequestInterface;
 import com.wangjing.qfwebview.callback.ShouldOverrideUrlLoadingInterface;
 import com.wangjing.qfwebview.callback.WebviewCallBack;
+import com.wangjing.qfwebview.callbackx5.OnShowFileChooserX5;
 
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class CustomWebview extends WebView implements IWebView {
     private CustomWebChromeClient customWebChromeClient;
 
     private List<JSBean> jsBeanList;
+
+    private OnShowFileChooser onShowFileChooser;
 
     public CustomWebview(Context context) {
         super(context);
@@ -79,6 +82,8 @@ public class CustomWebview extends WebView implements IWebView {
             this.customWebChromeClient = builder.getCustomWebChromeClient();
 
             this.jsBeanList = builder.getJsBeanList();
+
+            this.onShowFileChooser = builder.getOnShowFileChooser();
 
         }
     }
@@ -181,7 +186,7 @@ public class CustomWebview extends WebView implements IWebView {
     private void initWebChromeClient() {
         if (defaultWebChromeClient) {//如果设置使用默认的CustomChromeClient
             if (customWebChromeClient == null) {
-                customWebChromeClient = new CustomWebChromeClient();
+                customWebChromeClient = new CustomWebChromeClient(webviewCallBack, onShowFileChooser);
                 this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
             }
             this.setWebChromeClient(customWebChromeClient);
@@ -242,7 +247,7 @@ public class CustomWebview extends WebView implements IWebView {
 
     @Override
     public void loadJavaScriptX5(String javascript, com.tencent.smtt.sdk.ValueCallback valueCallback) {
-        Log.e(Tag,"now Webview not x5");
+        Log.e(Tag, "now Webview not x5");
     }
 
 }

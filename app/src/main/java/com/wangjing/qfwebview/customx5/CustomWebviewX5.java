@@ -14,6 +14,7 @@ import com.tencent.smtt.sdk.WebView;
 import com.wangjing.qfwebview.JSBean;
 import com.wangjing.qfwebview.WebviewBuilder;
 import com.wangjing.qfwebview.IWebView;
+import com.wangjing.qfwebview.callbackx5.OnShowFileChooserX5;
 import com.wangjing.qfwebview.callbackx5.ShouldInterceptRequestInterfaceX5;
 import com.wangjing.qfwebview.callbackx5.ShouldOverrideUrlLoadingInterfaceX5;
 import com.wangjing.qfwebview.callbackx5.WebviewCallBackX5;
@@ -39,6 +40,8 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     private CustomWebChromeClientX5 customWebChromeClient;
 
     private List<JSBean> jsBeanList;
+
+    private OnShowFileChooserX5 onShowFileChooserX5;
 
     public CustomWebviewX5(Context context) {
         super(context);
@@ -77,6 +80,8 @@ public class CustomWebviewX5 extends WebView implements IWebView {
             this.customWebChromeClient = builder.getCustomWebChromeClientX5();
 
             this.jsBeanList = builder.getJsBeanList();
+
+            this.onShowFileChooserX5 = builder.getOnShowFileChooserX5();
 
         }
     }
@@ -179,8 +184,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     private void initWebChromeClient() {
         if (defaultWebChromeClient) {//如果设置使用默认的CustomChromeClient
             if (customWebChromeClient == null) {
-                customWebChromeClient = new CustomWebChromeClientX5();
-                this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
+                customWebChromeClient = new CustomWebChromeClientX5(webviewCallBack,onShowFileChooserX5);
             }
             this.setWebChromeClient(customWebChromeClient);
         } else {

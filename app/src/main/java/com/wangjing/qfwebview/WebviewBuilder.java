@@ -6,11 +6,13 @@ import android.webkit.WebSettings;
 import com.wangjing.qfwebview.callback.ShouldInterceptRequestInterface;
 import com.wangjing.qfwebview.callback.ShouldOverrideUrlLoadingInterface;
 import com.wangjing.qfwebview.callback.WebviewCallBack;
+import com.wangjing.qfwebview.callbackx5.OnShowFileChooserX5;
 import com.wangjing.qfwebview.callbackx5.ShouldInterceptRequestInterfaceX5;
 import com.wangjing.qfwebview.callbackx5.ShouldOverrideUrlLoadingInterfaceX5;
 import com.wangjing.qfwebview.callbackx5.WebviewCallBackX5;
 import com.wangjing.qfwebview.custom.CustomWebChromeClient;
 import com.wangjing.qfwebview.custom.CustomWebViewClient;
+import com.wangjing.qfwebview.custom.OnShowFileChooser;
 import com.wangjing.qfwebview.customx5.CustomWebChromeClientX5;
 import com.wangjing.qfwebview.customx5.CustomWebViewClientX5;
 
@@ -45,6 +47,9 @@ public class WebviewBuilder {
     private ShouldOverrideUrlLoadingInterfaceX5 shouldOverrideUrlLoadingInterfaceX5;
     private ShouldInterceptRequestInterfaceX5 shouldInterceptRequestInterfaceX5;
     private CustomWebChromeClientX5 customWebChromeClientX5;
+
+    private OnShowFileChooser onShowFileChooser;
+    private OnShowFileChooserX5 onShowFileChooserX5;
 
     public WebviewBuilder() {
     }
@@ -260,6 +265,16 @@ public class WebviewBuilder {
         return this;
     }
 
+    public WebviewBuilder setOnShowFileChooser(OnShowFileChooser onShowFileChooser) {
+        this.onShowFileChooser = onShowFileChooser;
+        return this;
+    }
+
+    public WebviewBuilder setOnShowFileChooserX5(OnShowFileChooserX5 onShowFileChooserX5) {
+        this.onShowFileChooserX5 = onShowFileChooserX5;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "WebviewBuilder{" +
@@ -267,6 +282,23 @@ public class WebviewBuilder {
                 ", debug=" + debug +
                 ", userAgent='" + userAgent + '\'' +
                 ", cacheMode=" + cacheMode +
+                ", isShowSSLDialog=" + isShowSSLDialog +
+                ", defaultWebViewClient=" + defaultWebViewClient +
+                ", textZoom=" + textZoom +
+                ", customWebViewClient=" + customWebViewClient +
+                ", webviewCallBack=" + webviewCallBack +
+                ", shouldOverrideUrlLoadingInterface=" + shouldOverrideUrlLoadingInterface +
+                ", shouldInterceptRequestInterface=" + shouldInterceptRequestInterface +
+                ", defaultWebChromeClient=" + defaultWebChromeClient +
+                ", customWebChromeClient=" + customWebChromeClient +
+                ", jsBeanList=" + jsBeanList +
+                ", customWebViewClientX5=" + customWebViewClientX5 +
+                ", webviewCallBackX5=" + webviewCallBackX5 +
+                ", shouldOverrideUrlLoadingInterfaceX5=" + shouldOverrideUrlLoadingInterfaceX5 +
+                ", shouldInterceptRequestInterfaceX5=" + shouldInterceptRequestInterfaceX5 +
+                ", customWebChromeClientX5=" + customWebChromeClientX5 +
+                ", onShowFileChooser=" + onShowFileChooser +
+                ", onShowFileChooserX5=" + onShowFileChooserX5 +
                 '}';
     }
 
@@ -344,5 +376,25 @@ public class WebviewBuilder {
 
     public int getTextZoom() {
         return textZoom;
+    }
+
+    public void setWebviewCallBack(WebviewCallBack webviewCallBack) {
+        this.webviewCallBack = webviewCallBack;
+    }
+
+    public void setJsBeanList(List<JSBean> jsBeanList) {
+        this.jsBeanList = jsBeanList;
+    }
+
+    public void setWebviewCallBackX5(WebviewCallBackX5 webviewCallBackX5) {
+        this.webviewCallBackX5 = webviewCallBackX5;
+    }
+
+    public OnShowFileChooser getOnShowFileChooser() {
+        return onShowFileChooser;
+    }
+
+    public OnShowFileChooserX5 getOnShowFileChooserX5() {
+        return onShowFileChooserX5;
     }
 }

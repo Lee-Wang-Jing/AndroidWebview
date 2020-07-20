@@ -16,6 +16,10 @@ public class CustomWebChromeClientX5 extends WebChromeClient {
     private WebviewCallBackX5 webviewCallBack;
     private OnShowFileChooserX5 onShowFileChooserX5;
 
+    private CustomWebChromeClientX5() {
+        super();
+    }
+
     public CustomWebChromeClientX5(WebviewCallBackX5 webviewCallBack, OnShowFileChooserX5 onShowFileChooserX5) {
         this.webviewCallBack = webviewCallBack;
         this.onShowFileChooserX5 = onShowFileChooserX5;
