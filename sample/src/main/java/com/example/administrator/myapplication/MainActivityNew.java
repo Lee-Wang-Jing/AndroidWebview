@@ -59,7 +59,7 @@ public class MainActivityNew extends AppCompatActivity {
 
 
     private void initWebview() {
-        web_layout.addView(getIWebview().getWebview(), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        web_layout.addView(getIWebview().getIView(), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         getIWebview()
                 .setWebviewBuilderWithBuildLoadUrl(getWebviewBuilder()
                 );

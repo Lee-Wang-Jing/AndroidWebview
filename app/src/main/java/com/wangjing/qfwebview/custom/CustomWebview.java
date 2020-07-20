@@ -252,6 +252,16 @@ public class CustomWebview extends WebView implements IWebView {
     }
 
     @Override
+    public String getUrl2() {
+        return "" + this.getUrl();
+    }
+
+    @Override
+    public void reload2() {
+        this.reload();
+    }
+
+    @Override
     public void build() {
         initWebViewSettings();
         initWebViewClient();

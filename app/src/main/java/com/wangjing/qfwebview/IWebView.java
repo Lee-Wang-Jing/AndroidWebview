@@ -19,7 +19,9 @@ public interface IWebView {
     String getUserAgentString();
 
     View getIView();
+
     CustomWebview getWebView();
+
     CustomWebviewX5 getX5WebView();
 
     void setAcceptThirdPartyCookies(boolean isAccept);
@@ -27,7 +29,12 @@ public interface IWebView {
     boolean canGoback2();
 
     void loadUrl2(String url);
+
     void loadDataWithBaseURL2(@Nullable String baseUrl, String data, @Nullable String mimeType, @Nullable String encoding, @Nullable String historyUrl);
+
+    String getUrl2();
+
+    void reload2();
 
 
     void build();

@@ -251,6 +251,16 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     }
 
     @Override
+    public String getUrl2() {
+        return "" + this.getUrl();
+    }
+
+    @Override
+    public void reload2() {
+        this.reload();
+    }
+
+    @Override
     public void build() {
         initWebViewSettings();
         initWebViewClient();
@@ -264,7 +274,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
             this.setDownloadListener(new DownloadListener() {
                 @Override
                 public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-                    if (onDownloadStart!=null){
+                    if (onDownloadStart != null) {
                         onDownloadStart.onDownloadStart(url, userAgent, contentDisposition, mimetype, contentLength);
                     }
                 }
