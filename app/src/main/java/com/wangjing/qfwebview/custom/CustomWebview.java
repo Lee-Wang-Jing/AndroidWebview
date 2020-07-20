@@ -7,17 +7,19 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.DownloadListener;
 import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.wangjing.qfwebview.JSBean;
+import com.wangjing.qfwebview.OnDownloadStart;
 import com.wangjing.qfwebview.WebviewBuilder;
 import com.wangjing.qfwebview.IWebView;
 import com.wangjing.qfwebview.callback.ShouldInterceptRequestInterface;
 import com.wangjing.qfwebview.callback.ShouldOverrideUrlLoadingInterface;
 import com.wangjing.qfwebview.callback.WebviewCallBack;
-import com.wangjing.qfwebview.callbackx5.OnShowFileChooserX5;
 
 import java.util.List;
 
@@ -43,6 +45,7 @@ public class CustomWebview extends WebView implements IWebView {
     private List<JSBean> jsBeanList;
 
     private OnShowFileChooser onShowFileChooser;
+    private OnDownloadStart onDownloadStart;
 
     public CustomWebview(Context context) {
         super(context);
@@ -84,7 +87,7 @@ public class CustomWebview extends WebView implements IWebView {
             this.jsBeanList = builder.getJsBeanList();
 
             this.onShowFileChooser = builder.getOnShowFileChooser();
-
+            this.onDownloadStart = builder.getOnDownloadStart();
         }
     }
 
@@ -108,6 +111,15 @@ public class CustomWebview extends WebView implements IWebView {
     @Override
     public View getWebview() {
         return this;
+    }
+
+    @Override
+    public void setAcceptThirdPartyCookies(boolean isAccept) {
+        CookieManager cookieManager = CookieManager.getInstance();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.setAcceptThirdPartyCookies(this, isAccept);
+        }
+        cookieManager.setAcceptCookie(isAccept);
     }
 
     public void initWebViewSettings() {
@@ -226,7 +238,21 @@ public class CustomWebview extends WebView implements IWebView {
         initWebViewSettings();
         initWebViewClient();
         initWebChromeClient();
+        initDownLoadListener();
         initJavascriptInterface();
+    }
+
+    private void initDownLoadListener() {
+        if (onDownloadStart != null) {
+            this.setDownloadListener(new DownloadListener() {
+                @Override
+                public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                    if (onDownloadStart != null) {
+                        onDownloadStart.onDownloadStart(url, userAgent, contentDisposition, mimetype, contentLength);
+                    }
+                }
+            });
+        }
     }
 
 

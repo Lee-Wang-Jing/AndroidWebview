@@ -9,9 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
 
+import com.tencent.smtt.sdk.CookieManager;
+import com.tencent.smtt.sdk.DownloadListener;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.wangjing.qfwebview.JSBean;
+import com.wangjing.qfwebview.OnDownloadStart;
 import com.wangjing.qfwebview.WebviewBuilder;
 import com.wangjing.qfwebview.IWebView;
 import com.wangjing.qfwebview.callbackx5.OnShowFileChooserX5;
@@ -42,6 +45,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     private List<JSBean> jsBeanList;
 
     private OnShowFileChooserX5 onShowFileChooserX5;
+    private OnDownloadStart onDownloadStart;
 
     public CustomWebviewX5(Context context) {
         super(context);
@@ -82,6 +86,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
             this.jsBeanList = builder.getJsBeanList();
 
             this.onShowFileChooserX5 = builder.getOnShowFileChooserX5();
+            this.onDownloadStart = builder.getOnDownloadStart();
 
         }
     }
@@ -106,6 +111,15 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     @Override
     public View getWebview() {
         return this;
+    }
+
+    @Override
+    public void setAcceptThirdPartyCookies(boolean isAccept) {
+        CookieManager cookieManager = CookieManager.getInstance();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.setAcceptThirdPartyCookies(this, isAccept);
+        }
+        cookieManager.setAcceptCookie(isAccept);
     }
 
     public void initWebViewSettings() {
@@ -184,7 +198,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     private void initWebChromeClient() {
         if (defaultWebChromeClient) {//如果设置使用默认的CustomChromeClient
             if (customWebChromeClient == null) {
-                customWebChromeClient = new CustomWebChromeClientX5(webviewCallBack,onShowFileChooserX5);
+                customWebChromeClient = new CustomWebChromeClientX5(webviewCallBack, onShowFileChooserX5);
             }
             this.setWebChromeClient(customWebChromeClient);
         } else {
@@ -223,9 +237,22 @@ public class CustomWebviewX5 extends WebView implements IWebView {
         initWebViewSettings();
         initWebViewClient();
         initWebChromeClient();
+        initDownLoadListener();
         initJavascriptInterface();
     }
 
+    private void initDownLoadListener() {
+        if (onDownloadStart != null) {
+            this.setDownloadListener(new DownloadListener() {
+                @Override
+                public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                    if (onDownloadStart!=null){
+                        onDownloadStart.onDownloadStart(url, userAgent, contentDisposition, mimetype, contentLength);
+                    }
+                }
+            });
+        }
+    }
 
     @Override
     public void buildWithLoadUrl() {
@@ -235,7 +262,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
 
     @Override
     public void loadJavaScript(String javascript, ValueCallback valueCallback) {
-        Log.e(Tag,"now Webview not systemwebview,is X5");
+        Log.e(Tag, "now Webview not systemwebview,is X5");
     }
 
     @Override

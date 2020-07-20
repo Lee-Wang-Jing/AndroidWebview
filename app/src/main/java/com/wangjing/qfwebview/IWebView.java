@@ -1,6 +1,7 @@
 package com.wangjing.qfwebview;
 
 import android.view.View;
+import android.webkit.DownloadListener;
 import android.webkit.ValueCallback;
 
 public interface IWebView {
@@ -14,6 +15,8 @@ public interface IWebView {
 
     View getWebview();
 
+    void setAcceptThirdPartyCookies(boolean isAccept);
+
     boolean canGoback2();
 
     void loadUrl2(String url);
@@ -25,4 +28,5 @@ public interface IWebView {
     void loadJavaScript(String javascript, ValueCallback valueCallback);
 
     void loadJavaScriptX5(String javascript, com.tencent.smtt.sdk.ValueCallback valueCallback);
+
 }

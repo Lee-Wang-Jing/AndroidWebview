@@ -50,6 +50,7 @@ public class WebviewBuilder {
 
     private OnShowFileChooser onShowFileChooser;
     private OnShowFileChooserX5 onShowFileChooserX5;
+    private OnDownloadStart onDownloadStart;
 
     public WebviewBuilder() {
     }
@@ -275,6 +276,11 @@ public class WebviewBuilder {
         return this;
     }
 
+    public WebviewBuilder setOnDownloadStart(OnDownloadStart onDownloadStart) {
+        this.onDownloadStart = onDownloadStart;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "WebviewBuilder{" +
@@ -396,5 +402,9 @@ public class WebviewBuilder {
 
     public OnShowFileChooserX5 getOnShowFileChooserX5() {
         return onShowFileChooserX5;
+    }
+
+    public OnDownloadStart getOnDownloadStart() {
+        return onDownloadStart;
     }
 }
