@@ -160,6 +160,10 @@ public class CustomWebviewX5 extends WebView implements IWebView {
         if (!TextUtils.isEmpty(userAgent)) {
             webSettings.setUserAgentString(userAgent);
         }
+        //有图：正常加载显示所有图片 https://x5.tencent.com/docs/webview.html
+        webSettings.setLoadsImagesAutomatically(true);
+        webSettings.setBlockNetworkImage(false);
+
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setAllowFileAccess(false);
