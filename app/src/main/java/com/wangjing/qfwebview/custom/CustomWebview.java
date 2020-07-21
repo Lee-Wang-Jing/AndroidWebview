@@ -265,6 +265,11 @@ public class CustomWebview extends WebView implements IWebView {
     }
 
     @Override
+    public void loadData2(String data, @Nullable String mimeType, @Nullable String encoding) {
+        this.loadData(data, mimeType, encoding);
+    }
+
+    @Override
     public void loadDataWithBaseURL2(@Nullable String baseUrl, String data, @Nullable String mimeType, @Nullable String encoding, @Nullable String historyUrl) {
         this.loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl);
     }
