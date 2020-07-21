@@ -6,6 +6,7 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
+import com.wangjing.qfwebview.callback.OnShowFileChooser;
 import com.wangjing.qfwebview.callback.WebviewCallBack;
 
 

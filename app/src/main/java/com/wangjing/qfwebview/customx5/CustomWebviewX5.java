@@ -17,6 +17,7 @@ import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.wangjing.qfwebview.JSBean;
 import com.wangjing.qfwebview.OnDownloadStart;
+import com.wangjing.qfwebview.OnScrollChangedCallBack;
 import com.wangjing.qfwebview.WebviewBuilder;
 import com.wangjing.qfwebview.IWebView;
 import com.wangjing.qfwebview.callbackx5.OnShowFileChooserX5;
@@ -50,6 +51,8 @@ public class CustomWebviewX5 extends WebView implements IWebView {
 
     private OnShowFileChooserX5 onShowFileChooserX5;
     private OnDownloadStart onDownloadStart;
+
+    private OnScrollChangedCallBack onScrollChangedCallBack;
 
     public CustomWebviewX5(Context context) {
         super(context);
@@ -91,6 +94,8 @@ public class CustomWebviewX5 extends WebView implements IWebView {
 
             this.onShowFileChooserX5 = builder.getOnShowFileChooserX5();
             this.onDownloadStart = builder.getOnDownloadStart();
+
+            this.onScrollChangedCallBack = builder.getOnScrollChangedCallBack();
 
         }
     }
@@ -308,6 +313,14 @@ public class CustomWebviewX5 extends WebView implements IWebView {
         initWebChromeClient();
         initDownLoadListener();
         initJavascriptInterface();
+    }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        if (onScrollChangedCallBack != null) {
+            onScrollChangedCallBack.onScrollChanged(l, t, oldl, oldt);
+        }
     }
 
     private void initDownLoadListener() {

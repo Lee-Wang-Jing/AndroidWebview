@@ -17,8 +17,10 @@ import androidx.annotation.Nullable;
 
 import com.wangjing.qfwebview.JSBean;
 import com.wangjing.qfwebview.OnDownloadStart;
+import com.wangjing.qfwebview.OnScrollChangedCallBack;
 import com.wangjing.qfwebview.WebviewBuilder;
 import com.wangjing.qfwebview.IWebView;
+import com.wangjing.qfwebview.callback.OnShowFileChooser;
 import com.wangjing.qfwebview.callback.ShouldInterceptRequestInterface;
 import com.wangjing.qfwebview.callback.ShouldOverrideUrlLoadingInterface;
 import com.wangjing.qfwebview.callback.WebviewCallBack;
@@ -50,6 +52,8 @@ public class CustomWebview extends WebView implements IWebView {
 
     private OnShowFileChooser onShowFileChooser;
     private OnDownloadStart onDownloadStart;
+
+    private OnScrollChangedCallBack onScrollChangedCallBack;
 
     public CustomWebview(Context context) {
         super(context);
@@ -92,6 +96,8 @@ public class CustomWebview extends WebView implements IWebView {
 
             this.onShowFileChooser = builder.getOnShowFileChooser();
             this.onDownloadStart = builder.getOnDownloadStart();
+
+            this.onScrollChangedCallBack = builder.getOnScrollChangedCallBack();
         }
     }
 
@@ -310,6 +316,16 @@ public class CustomWebview extends WebView implements IWebView {
         initDownLoadListener();
         initJavascriptInterface();
     }
+
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        if (onScrollChangedCallBack != null) {
+            onScrollChangedCallBack.onScrollChanged(l, t, oldl, oldt);
+        }
+    }
+
 
     private void initDownLoadListener() {
         if (onDownloadStart != null) {

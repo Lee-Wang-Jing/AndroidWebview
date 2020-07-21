@@ -3,6 +3,7 @@ package com.wangjing.qfwebview;
 import android.text.TextUtils;
 import android.webkit.WebSettings;
 
+import com.wangjing.qfwebview.callback.OnShowFileChooser;
 import com.wangjing.qfwebview.callback.ShouldInterceptRequestInterface;
 import com.wangjing.qfwebview.callback.ShouldOverrideUrlLoadingInterface;
 import com.wangjing.qfwebview.callback.WebviewCallBack;
@@ -12,7 +13,6 @@ import com.wangjing.qfwebview.callbackx5.ShouldOverrideUrlLoadingInterfaceX5;
 import com.wangjing.qfwebview.callbackx5.WebviewCallBackX5;
 import com.wangjing.qfwebview.custom.CustomWebChromeClient;
 import com.wangjing.qfwebview.custom.CustomWebViewClient;
-import com.wangjing.qfwebview.custom.OnShowFileChooser;
 import com.wangjing.qfwebview.customx5.CustomWebChromeClientX5;
 import com.wangjing.qfwebview.customx5.CustomWebViewClientX5;
 
@@ -51,6 +51,8 @@ public class WebviewBuilder {
     private OnShowFileChooser onShowFileChooser;
     private OnShowFileChooserX5 onShowFileChooserX5;
     private OnDownloadStart onDownloadStart;
+
+    private OnScrollChangedCallBack onScrollChangedCallBack;
 
     public WebviewBuilder() {
     }
@@ -281,6 +283,11 @@ public class WebviewBuilder {
         return this;
     }
 
+    public WebviewBuilder setOnScrollChangedCallBack(OnScrollChangedCallBack onScrollChangedCallBack) {
+        this.onScrollChangedCallBack = onScrollChangedCallBack;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "WebviewBuilder{" +
@@ -406,5 +413,9 @@ public class WebviewBuilder {
 
     public OnDownloadStart getOnDownloadStart() {
         return onDownloadStart;
+    }
+
+    public OnScrollChangedCallBack getOnScrollChangedCallBack() {
+        return onScrollChangedCallBack;
     }
 }
