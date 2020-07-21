@@ -261,6 +261,24 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     }
 
     @Override
+    public int getHitTestResultType() {
+        HitTestResult result = this.getHitTestResult();
+        if (result != null) {
+            return result.getType();
+        }
+        return 0;
+    }
+
+    @Override
+    public String getHitTestResultExtra() {
+        HitTestResult result = this.getHitTestResult();
+        if (result != null) {
+            return result.getExtra();
+        }
+        return "";
+    }
+
+    @Override
     public void build() {
         initWebViewSettings();
         initWebViewClient();
@@ -302,5 +320,19 @@ public class CustomWebviewX5 extends WebView implements IWebView {
         }
     }
 
-
+    @Override
+    public void destroy2() {
+        try {
+            if (jsBeanList != null && !jsBeanList.isEmpty()) {
+                for (int i = 0; i < jsBeanList.size(); i++) {
+                    this.removeJavascriptInterface(jsBeanList.get(i).getObjName());
+                }
+            }
+            this.removeAllViews();
+            this.setVisibility(GONE);
+            this.destroy();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

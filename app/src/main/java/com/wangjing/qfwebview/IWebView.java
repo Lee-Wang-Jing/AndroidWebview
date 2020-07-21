@@ -36,6 +36,10 @@ public interface IWebView {
 
     void reload2();
 
+    int getHitTestResultType();
+
+    String getHitTestResultExtra();
+
 
     void build();
 
@@ -44,5 +48,7 @@ public interface IWebView {
     void loadJavaScript(String javascript, ValueCallback valueCallback);
 
     void loadJavaScriptX5(String javascript, com.tencent.smtt.sdk.ValueCallback valueCallback);
+
+    void destroy2();
 
 }
