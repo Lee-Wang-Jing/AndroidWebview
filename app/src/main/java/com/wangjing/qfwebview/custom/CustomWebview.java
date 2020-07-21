@@ -113,6 +113,11 @@ public class CustomWebview extends WebView implements IWebView {
     }
 
     @Override
+    public void setUserAgentString(String userAgent) {
+        this.getSettings().setUserAgentString("" + userAgent);
+    }
+
+    @Override
     public View getIView() {
         return this;
     }
