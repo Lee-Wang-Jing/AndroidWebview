@@ -25,6 +25,7 @@ import com.wangjing.qfwebview.callback.WebviewCallBack;
 import com.wangjing.qfwebview.customx5.CustomWebviewX5;
 
 import java.util.List;
+import java.util.Map;
 
 public class CustomWebview extends WebView implements IWebView {
     private static final String Tag = CustomWebview.class.getSimpleName();
@@ -240,9 +241,21 @@ public class CustomWebview extends WebView implements IWebView {
     }
 
     @Override
+    public void goBack2() {
+        this.goBack();
+    }
+
+    @Override
     public void loadUrl2(String url) {
         if (!TextUtils.isEmpty(url)) {
             this.loadUrl(url);
+        }
+    }
+
+    @Override
+    public void loadUrl2(String url, Map<String, String> additionalHttpHeaders) {
+        if (!TextUtils.isEmpty(url)) {
+            this.loadUrl(url, additionalHttpHeaders);
         }
     }
 
