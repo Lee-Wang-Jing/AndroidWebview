@@ -154,9 +154,9 @@ public class CustomWebviewX5 extends WebView implements IWebView {
         }
         WebSettings webSettings = this.getSettings();
         //X5浏览器不需要此设置
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webSettings.setMixedContentMode(android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         if (!TextUtils.isEmpty(userAgent)) {
             webSettings.setUserAgentString(userAgent);
         }
