@@ -2,7 +2,9 @@ package com.wangjing.qfwebview.customx5;
 
 
 import android.net.Uri;
+import android.view.View;
 
+import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
@@ -57,6 +59,22 @@ public class CustomWebChromeClientX5 extends WebChromeClient {
             return onShowFileChooserX5.onShowFileChooser(valueCallback, fileChooserParams);
         } else {
             return super.onShowFileChooser(webView, valueCallback, fileChooserParams);
+        }
+    }
+
+    @Override
+    public void onShowCustomView(View view, IX5WebChromeClient.CustomViewCallback customViewCallback) {
+        super.onShowCustomView(view, customViewCallback);
+        if (webviewCallBack != null) {
+            webviewCallBack.onShowCustomView(view, customViewCallback);
+        }
+    }
+
+    @Override
+    public void onHideCustomView() {
+        super.onHideCustomView();
+        if (webviewCallBack != null) {
+            webviewCallBack.onHideCustomView();
         }
     }
 }

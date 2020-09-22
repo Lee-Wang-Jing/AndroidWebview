@@ -1,6 +1,7 @@
 package com.wangjing.qfwebview.custom;
 
 import android.net.Uri;
+import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -52,6 +53,22 @@ public class CustomWebChromeClient extends WebChromeClient {
             return onShowFileChooser.onShowFileChooser(filePathCallback, fileChooserParams);
         } else {
             return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
+        }
+    }
+
+    @Override
+    public void onShowCustomView(View view, CustomViewCallback callback) {
+        super.onShowCustomView(view, callback);
+        if (webviewCallBack != null) {
+            webviewCallBack.onShowCustomView(view, callback);
+        }
+    }
+
+    @Override
+    public void onHideCustomView() {
+        super.onHideCustomView();
+        if (webviewCallBack != null) {
+            webviewCallBack.onHideCustomView();
         }
     }
 }

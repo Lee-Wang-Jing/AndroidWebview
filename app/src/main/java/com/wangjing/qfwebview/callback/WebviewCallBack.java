@@ -2,8 +2,12 @@ package com.wangjing.qfwebview.callback;
 
 import android.graphics.Bitmap;
 import android.net.http.SslError;
+import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
+
+import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 
 public abstract class WebviewCallBack {
     /**
@@ -64,5 +68,20 @@ public abstract class WebviewCallBack {
      * @param error
      */
     public void onReceivedSslError(final SslErrorHandler handler, SslError error) {
+    }
+
+    /**
+     * webview onShowCustomView
+     *
+     * @param view               View
+     * @param callback WebChromeClient.CustomViewCallback
+     */
+    public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
+    }
+
+    /**
+     * webview onHideCustomView
+     */
+    public void onHideCustomView() {
     }
 }
