@@ -48,6 +48,8 @@ captures/
 .idea/codeStyles
 .idea/inspectionProfiles
 .idea/kotlinc.xml
+.idea/compiler.xml
+.idea/jarRepositories.xml
 
 
 # Keystore files
