@@ -22,9 +22,7 @@ public class CustomWebview extends WebView {
      */
     private String currentUrl = "";
     private CustomWebViewClient customWebViewClient;
-    private CustomWebVideoChromeClient customWebVideoChromeClient;
     private CustomWebChromeClient customWebChromeClient;
-    private boolean addedJavascriptInterface;
 
     private String userAgent;
     private int cacheMode = WebSettings.LOAD_DEFAULT;
@@ -58,7 +56,6 @@ public class CustomWebview extends WebView {
     }
 
     private void init() {
-        addedJavascriptInterface = false;
     }
 
 
@@ -232,48 +229,6 @@ public class CustomWebview extends WebView {
         }
     }
 
-    public class JavascriptInterface {
-        @android.webkit.JavascriptInterface
-        public void notifyVideoEnd() // Must match Javascript interface method of VideoEnabledWebChromeClient
-        {
-            Log.d("___", "GOT IT");
-            // This code is not executed in the UI thread, so we must force that to happen
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    if (customWebVideoChromeClient != null) {
-                        customWebVideoChromeClient.onHideCustomView();
-                    }
-                }
-            });
-        }
-    }
-
-    /**
-     * Indicates if the video is being displayed using a custom view (typically full-screen)
-     *
-     * @return true it the video is being displayed using a custom view (typically full-screen)
-     */
-    public boolean isVideoFullscreen() {
-        return customWebVideoChromeClient != null && customWebVideoChromeClient.isVideoFullscreen();
-    }
-
-//    /**
-//     * Pass only a VideoEnabledWebChromeClient instance.
-//     */
-//    @Override
-//    @SuppressLint("SetJavaScriptEnabled")
-//    public void setWebChromeClient(WebChromeClient client) {
-//        getSettings().setJavaScriptEnabled(true);
-//
-//        if (client instanceof CustomVideoChromeClient) {
-//            this.customVideoChromeClient = (CustomVideoChromeClient) client;
-//        } else {
-//            this.webChromeClient = client;
-//        }
-//        super.setWebChromeClient(client);
-//    }
-
     /**
      * 设置 CustomChromeClient
      *
@@ -285,49 +240,24 @@ public class CustomWebview extends WebView {
         return this;
     }
 
-    /**
-     * 设置 customWebVideoChromeClient
-     *
-     * @param customWebVideoChromeClient 自定义的customWebVideoChromeClient
-     * @return CustomWebview
-     */
-    public CustomWebview setCustomWebVideoChromeClient(CustomWebVideoChromeClient customWebVideoChromeClient) {
-        this.customWebVideoChromeClient = customWebVideoChromeClient;
-        return this;
-    }
-
     @Override
     public void loadData(String data, String mimeType, String encoding) {
-        addJavascriptInterface();
         super.loadData(data, mimeType, encoding);
     }
 
     @Override
     public void loadDataWithBaseURL(String baseUrl, String data, String mimeType, String encoding, String historyUrl) {
-        addJavascriptInterface();
         super.loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl);
     }
 
     @Override
     public void loadUrl(String url) {
-        addJavascriptInterface();
         super.loadUrl(url);
     }
 
     @Override
     public void loadUrl(String url, Map<String, String> additionalHttpHeaders) {
-        addJavascriptInterface();
         super.loadUrl(url, additionalHttpHeaders);
-    }
-
-    private void addJavascriptInterface() {
-        if (!addedJavascriptInterface) {
-            // Add javascript interface to be called when the video ends (must be done before page load)
-            //noinspection all
-            addJavascriptInterface(new JavascriptInterface(), "_VideoEnabledWebView"); // Must match Javascript interface name of VideoEnabledWebChromeClient
-
-            addedJavascriptInterface = true;
-        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -450,14 +380,9 @@ public class CustomWebview extends WebView {
             }
             this.setWebChromeClient(customWebChromeClient);
         } else {
-            if (customWebVideoChromeClient != null) {
-                this.customWebVideoChromeClient.setWebviewCallBack(webviewCallBack);
-                this.setWebChromeClient(customWebVideoChromeClient);
-            } else {
-                if (customWebChromeClient != null) {
-                    this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
-                    this.setWebChromeClient(customWebChromeClient);
-                }
+            if (customWebChromeClient != null) {
+                this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
+                this.setWebChromeClient(customWebChromeClient);
             }
         }
 

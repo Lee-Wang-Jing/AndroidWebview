@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 //                .setUserAgent("xxxx")//设置Webview的UserAgent
                 .setDefaultWebViewClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
                 .setDefaultWebChromeClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
+//                .setCustomWebChromeClient()
                 .addJSInterface(new JsCallJava(), "test")//添加JavascriptInterface，可以添加add多个
                 .addJSInterface(new JsCallJava(), "test1")//添加JavascriptInterface，可以添加add多个
                 .setOverScrollModeCallBack(new OverScrollModeCallBack() {

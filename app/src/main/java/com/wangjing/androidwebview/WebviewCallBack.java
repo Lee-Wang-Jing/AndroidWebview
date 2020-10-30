@@ -2,8 +2,10 @@ package com.wangjing.androidwebview;
 
 import android.graphics.Bitmap;
 import android.net.http.SslError;
+import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 
@@ -75,21 +77,18 @@ public abstract class WebviewCallBack {
     public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
     }
 
-//    /**
-//     * webview shouldInterceptRequest
-//     *
-//     * @param view WebView
-//     * @param url  url
-//     */
-//    public void shouldInterceptRequest(WebView view, String url) {
-//    }
-//
-//    /**
-//     * webview shouldInterceptRequest
-//     *
-//     * @param view    WebView
-//     * @param request WebResourceRequest
-//     */
-//    public void shouldInterceptRequest(WebView view, WebResourceRequest request) {
-//    }
+    /**
+     * webview onShowCustomView
+     *
+     * @param view               View
+     * @param callback WebChromeClient.CustomViewCallback
+     */
+    public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
+    }
+
+    /**
+     * webview onHideCustomView
+     */
+    public void onHideCustomView() {
+    }
 }

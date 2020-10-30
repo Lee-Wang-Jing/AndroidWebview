@@ -1,5 +1,6 @@
 package com.wangjing.androidwebview;
 
+import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -32,5 +33,21 @@ public class CustomWebChromeClient extends WebChromeClient {
             webviewCallBack.onJsAlert(view, url, message, result);
         }
         return true;
+    }
+
+    @Override
+    public void onShowCustomView(View view, CustomViewCallback callback) {
+        super.onShowCustomView(view, callback);
+        if (webviewCallBack != null) {
+            webviewCallBack.onShowCustomView(view, callback);
+        }
+    }
+
+    @Override
+    public void onHideCustomView() {
+        super.onHideCustomView();
+        if (webviewCallBack != null) {
+            webviewCallBack.onHideCustomView();
+        }
     }
 }

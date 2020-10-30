@@ -19,13 +19,13 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
-    buildToolsVersion = '29.0.2'
+    buildToolsVersion = '29.0.3'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly 'androidx.annotation:annotation:1.1.0'
-    compileOnly 'androidx.appcompat:appcompat:1.1.0'
+    compileOnly 'androidx.appcompat:appcompat:1.2.0'
 
 }
 
