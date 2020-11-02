@@ -193,6 +193,10 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 0.3.6
+    - 增加onShowCustomView和onHideCustomView回调，实现视频播放全屏效果
+- 0.3.5
+    - 去掉context的fix。androidx.appcompat:appcompat版本只要不是1.1.0就行
 - 0.3.4版本发布
     - 迁移Android X
 - 0.3.0版本发布
