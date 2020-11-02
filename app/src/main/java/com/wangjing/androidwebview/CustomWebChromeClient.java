@@ -1,13 +1,27 @@
 package com.wangjing.androidwebview;
 
+import android.net.Uri;
 import android.view.View;
 import android.webkit.JsResult;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+
+import com.wangjing.androidwebview.callback.OnShowFileChooser;
 
 public class CustomWebChromeClient extends WebChromeClient {
 
     private WebviewCallBack webviewCallBack;
+    private OnShowFileChooser onShowFileChooser;
+
+
+    public OnShowFileChooser getOnShowFileChooser() {
+        return onShowFileChooser;
+    }
+
+    public void setOnShowFileChooser(OnShowFileChooser onShowFileChooser) {
+        this.onShowFileChooser = onShowFileChooser;
+    }
 
     public void setWebviewCallBack(WebviewCallBack webviewCallBack) {
         this.webviewCallBack = webviewCallBack;
@@ -33,6 +47,15 @@ public class CustomWebChromeClient extends WebChromeClient {
             webviewCallBack.onJsAlert(view, url, message, result);
         }
         return true;
+    }
+
+    @Override
+    public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+        if (onShowFileChooser != null) {
+            return onShowFileChooser.onShowFileChooser(filePathCallback, fileChooserParams);
+        } else {
+            return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
+        }
     }
 
     @Override

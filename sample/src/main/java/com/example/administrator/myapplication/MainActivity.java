@@ -2,11 +2,14 @@ package com.example.administrator.myapplication;
 
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -21,6 +24,7 @@ import com.wangjing.androidwebview.OverScrollModeCallBack;
 import com.wangjing.androidwebview.ShouldInterceptRequestInterface;
 import com.wangjing.androidwebview.ShouldOverrideUrlLoadingInterface;
 import com.wangjing.androidwebview.WebviewCallBack;
+import com.wangjing.androidwebview.callback.OnShowFileChooser;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
@@ -82,7 +86,12 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("onScrollChanged", "  l==>" + l + "  t==>" + t + "  oldl==>" + oldl + "  oldt==>" + oldt);
                     }
                 })
-
+                .setOnShowFileChooser(new OnShowFileChooser() {
+                    @Override
+                    public boolean onShowFileChooser(ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
+                        return false;
+                    }
+                })
                 .setWebiewCallBack(new WebviewCallBack() {//设置Webview加载的一些常用的监听，设置setDefaultWebViewClient和setDefaultWebChromeClient为true，对应的参数才会生效，自定义的无效
                     @Override
                     public void onPageStarted(WebView view, String url, Bitmap favicon) {

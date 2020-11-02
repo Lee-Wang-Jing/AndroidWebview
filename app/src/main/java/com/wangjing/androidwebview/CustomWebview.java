@@ -12,6 +12,8 @@ import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.wangjing.androidwebview.callback.OnShowFileChooser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,7 @@ public class CustomWebview extends WebView {
     private OverScrollModeCallBack overScrollModeCallBack;
 
     private WebviewCallBack webviewCallBack;
+    private OnShowFileChooser onShowFileChooser;
     private ShouldOverrideUrlLoadingInterface shouldOverrideUrlLoadingInterface;
     private ShouldInterceptRequestInterface shouldInterceptRequestInterface;
 
@@ -187,6 +190,27 @@ public class CustomWebview extends WebView {
         this.webviewCallBack = callBack;
         return this;
     }
+
+    /**
+     * 获取 OnShowFileChooser
+     *
+     * @return OnShowFileChooser
+     */
+    public OnShowFileChooser getOnShowFileChooser() {
+        return onShowFileChooser;
+    }
+
+    /**
+     * 设置Webview的 OnShowFileChooser 监听
+     *
+     * @param onShowFileChooser OnShowFileChooser
+     * @return CustomWebview
+     */
+    public CustomWebview setOnShowFileChooser(OnShowFileChooser onShowFileChooser) {
+        this.onShowFileChooser = onShowFileChooser;
+        return this;
+    }
+
 
     /**
      * 设置UserAgent
@@ -377,11 +401,13 @@ public class CustomWebview extends WebView {
             if (customWebChromeClient == null) {
                 customWebChromeClient = new CustomWebChromeClient();
                 this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
+                this.customWebChromeClient.setOnShowFileChooser(onShowFileChooser);
             }
             this.setWebChromeClient(customWebChromeClient);
         } else {
             if (customWebChromeClient != null) {
                 this.customWebChromeClient.setWebviewCallBack(webviewCallBack);
+                this.customWebChromeClient.setOnShowFileChooser(onShowFileChooser);
                 this.setWebChromeClient(customWebChromeClient);
             }
         }

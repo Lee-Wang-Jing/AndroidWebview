@@ -193,6 +193,8 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 2.0.1
+    - 增加OnShowFileChooser回调
 - 2.0.0
     - 增加onShowCustomView和onHideCustomView回调，实现视频播放全屏效果
 - 0.3.5
