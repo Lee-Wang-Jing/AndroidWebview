@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.view.View;
 import android.webkit.JsResult;
+import android.webkit.PermissionRequest;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -70,6 +71,7 @@ public abstract class WebviewCallBack {
 
     /**
      * webview onReceivedSslError
+     *
      * @param view
      * @param handler
      * @param error
@@ -80,7 +82,7 @@ public abstract class WebviewCallBack {
     /**
      * webview onShowCustomView
      *
-     * @param view               View
+     * @param view     View
      * @param callback WebChromeClient.CustomViewCallback
      */
     public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
@@ -90,5 +92,17 @@ public abstract class WebviewCallBack {
      * webview onHideCustomView
      */
     public void onHideCustomView() {
+    }
+
+    /**
+     * webview onPermissionRequest
+     */
+    public void onPermissionRequest(PermissionRequest request) {
+    }
+
+    /**
+     * webview onPermissionRequestCanceled
+     */
+    public void onPermissionRequestCanceled(PermissionRequest request) {
     }
 }

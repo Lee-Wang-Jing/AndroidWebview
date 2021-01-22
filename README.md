@@ -193,6 +193,8 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 2.0.2
+    - 增加 onPermissionRequest 、 onPermissionRequestCanceled 回调
 - 2.0.1
     - 增加OnShowFileChooser回调
 - 2.0.0
