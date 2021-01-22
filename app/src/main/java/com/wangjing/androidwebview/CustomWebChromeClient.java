@@ -77,7 +77,6 @@ public class CustomWebChromeClient extends WebChromeClient {
 
     @Override
     public void onPermissionRequest(PermissionRequest request) {
-        super.onPermissionRequest(request);
         if (webviewCallBack != null) {
             webviewCallBack.onPermissionRequest(request);
         }
