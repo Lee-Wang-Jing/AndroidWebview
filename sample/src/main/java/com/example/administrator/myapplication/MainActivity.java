@@ -12,6 +12,7 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -61,17 +62,16 @@ public class MainActivity extends AppCompatActivity {
                 .start();
 
 
-
     }
 
     private void initWebview() {
         webview.setDebug(true)//设置Debug模式，正式包建议关闭
-//                .setCurrentUrl("http://www.qianfanyun.com/js_demo.php")//设置当前加载的Url地址
-                .setCurrentUrl("https://www.baidu.com")//设置当前加载的Url地址
+//                .setCurrentUrl("https://www.baidu.com")//设置当前加载的Url地址
+                .setCurrentUrl("https://xzshare.xizi.com/wap-view/fenlei/home")
+                .setCacheMode(WebSettings.LOAD_DEFAULT)
 //                .setUserAgent("xxxx")//设置Webview的UserAgent
                 .setDefaultWebViewClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
                 .setDefaultWebChromeClient(true)//设置是否使用默认的WebViewClient进行初始化操作，一般使用默认的就够了，默认为false
-//                .setCustomWebChromeClient()
                 .addJSInterface(new JsCallJava(), "test")//添加JavascriptInterface，可以添加add多个
                 .addJSInterface(new JsCallJava(), "test1")//添加JavascriptInterface，可以添加add多个
                 .setOverScrollModeCallBack(new OverScrollModeCallBack() {
@@ -180,5 +180,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .buildWithLoadUrl();//build操作放在最后，build之后会直接loadurl，链接为上面设置的setCurrentUrl
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webview != null && webview.canGoBack()) {
+            webview.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
