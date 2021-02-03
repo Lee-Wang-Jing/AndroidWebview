@@ -88,7 +88,7 @@ public class MainActivityNew extends AppCompatActivity {
         if (useX5) {
             return new WebviewBuilder()
                     .setDebug(true)
-                    .setCurrentUrl("https://www.baidu.com")
+                    .setCurrentUrl("https://xzshare.xizi.com/wap-view/fenlei/home")
                     .setUserAgent("")
                     .setCacheMode(-1)
                     .setShowSSLDialog(true)
@@ -180,6 +180,15 @@ public class MainActivityNew extends AppCompatActivity {
                             super.onReceivedSslError(handler, error);
                         }
                     });
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getIWebview().canGoback2()){
+            getIWebview().goBack2();
+        }else{
+            super.onBackPressed();
         }
     }
 }
