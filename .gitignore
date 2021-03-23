@@ -50,6 +50,10 @@ captures/
 .idea/kotlinc.xml
 .idea/compiler.xml
 .idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/markdown-navigator-enh.xml
+.idea/markdown-navigator.xml
 
 
 # Keystore files

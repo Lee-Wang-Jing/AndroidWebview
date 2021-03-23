@@ -24,7 +24,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    //    implementation 'com.wangjing:androidwebview:0.0.14'
+    //    implementation 'com.wangjing:androidwebview:2.0.3'
     implementation project(':app')
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'

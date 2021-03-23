@@ -16,7 +16,7 @@ AndroidWebview是Webview的封装工具类，主要兼容了Webview中全屏播�
 # Dependencies
 * Gradle
 ```
-implementation 'com.github.Lee-Wang-Jing:AndroidWebview:0.3.4'
+implementation 'com.github.Lee-Wang-Jing:AndroidWebview:2.0.3'
 ```
 * Maven
 ```xml
@@ -193,6 +193,14 @@ webSettings.setUserAgentString("xxx");
 ```
 
 ### 版本树
+- 2.0.3
+    - 增加 onPermissionRequest 、 onPermissionRequestCanceled 回调
+- 2.0.1
+    - 增加OnShowFileChooser回调
+- 2.0.0
+    - 增加onShowCustomView和onHideCustomView回调，实现视频播放全屏效果
+- 0.3.5
+    - 去掉context的fix。androidx.appcompat:appcompat版本只要不是1.1.0就行
 - 0.3.4版本发布
     - 迁移Android X
 - 0.3.0版本发布
