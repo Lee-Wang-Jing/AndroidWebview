@@ -298,21 +298,13 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     }
 
     @Override
-    public int getHitTestResultType() {
-        HitTestResult result = this.getHitTestResult();
-        if (result != null) {
-            return result.getType();
-        }
-        return 0;
+    public android.webkit.WebView.HitTestResult getHitTestResult2() {
+        return null;
     }
 
     @Override
-    public String getHitTestResultExtra() {
-        HitTestResult result = this.getHitTestResult();
-        if (result != null) {
-            return result.getExtra();
-        }
-        return "";
+    public HitTestResult getHitTestResult2X5() {
+        return this.getHitTestResult();
     }
 
     @Override

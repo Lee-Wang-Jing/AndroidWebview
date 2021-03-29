@@ -2,6 +2,7 @@ package com.wangjing.qfwebview;
 
 import android.view.View;
 import android.webkit.ValueCallback;
+import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
 
@@ -47,9 +48,8 @@ public interface IWebView {
 
     String getTitle2();
 
-    int getHitTestResultType();
-
-    String getHitTestResultExtra();
+    WebView.HitTestResult getHitTestResult2();
+    com.tencent.smtt.sdk.WebView.HitTestResult getHitTestResult2X5();
 
 
     void build();

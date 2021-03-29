@@ -296,21 +296,13 @@ public class CustomWebview extends WebView implements IWebView {
     }
 
     @Override
-    public int getHitTestResultType() {
-        HitTestResult result = this.getHitTestResult();
-        if (result != null) {
-            return result.getType();
-        }
-        return 0;
+    public HitTestResult getHitTestResult2() {
+        return this.getHitTestResult();
     }
 
     @Override
-    public String getHitTestResultExtra() {
-        HitTestResult result = this.getHitTestResult();
-        if (result != null) {
-            return result.getExtra();
-        }
-        return "";
+    public com.tencent.smtt.sdk.WebView.HitTestResult getHitTestResult2X5() {
+        return null;
     }
 
     @Override
