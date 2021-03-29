@@ -3,6 +3,7 @@ package com.wangjing.qfwebview.custom;
 import android.net.Uri;
 import android.view.View;
 import android.webkit.JsResult;
+import android.webkit.PermissionRequest;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -69,6 +70,21 @@ public class CustomWebChromeClient extends WebChromeClient {
         super.onHideCustomView();
         if (webviewCallBack != null) {
             webviewCallBack.onHideCustomView();
+        }
+    }
+
+    @Override
+    public void onPermissionRequest(PermissionRequest request) {
+        if (webviewCallBack != null) {
+            webviewCallBack.onPermissionRequest(request);
+        }
+    }
+
+    @Override
+    public void onPermissionRequestCanceled(PermissionRequest request) {
+        super.onPermissionRequestCanceled(request);
+        if (webviewCallBack != null) {
+            webviewCallBack.onPermissionRequestCanceled(request);
         }
     }
 }
