@@ -3,6 +3,7 @@ package com.wangjing.qfwebview.customx5;
 
 import android.net.Uri;
 import android.view.View;
+import android.webkit.PermissionRequest;
 
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.export.external.interfaces.JsResult;
@@ -75,6 +76,20 @@ public class CustomWebChromeClientX5 extends WebChromeClient {
         super.onHideCustomView();
         if (webviewCallBack != null) {
             webviewCallBack.onHideCustomView();
+        }
+    }
+
+    @Override
+    public void onPermissionRequest(com.tencent.smtt.export.external.interfaces.PermissionRequest permissionRequest) {
+        if (webviewCallBack != null) {
+            webviewCallBack.onPermissionRequest(permissionRequest);
+        }
+    }
+
+    @Override
+    public void onPermissionRequestCanceled(com.tencent.smtt.export.external.interfaces.PermissionRequest permissionRequest) {
+        if (webviewCallBack != null) {
+            webviewCallBack.onPermissionRequestCanceled(permissionRequest);
         }
     }
 }

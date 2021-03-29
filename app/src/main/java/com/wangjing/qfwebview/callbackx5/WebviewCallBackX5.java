@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.export.external.interfaces.JsResult;
+import com.tencent.smtt.export.external.interfaces.PermissionRequest;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
 
@@ -83,5 +84,17 @@ public abstract class WebviewCallBackX5 {
      * webview onHideCustomView
      */
     public void onHideCustomView() {
+    }
+
+    /**
+     * webview onPermissionRequest
+     */
+    public void onPermissionRequest(com.tencent.smtt.export.external.interfaces.PermissionRequest request) {
+    }
+
+    /**
+     * webview onPermissionRequestCanceled
+     */
+    public void onPermissionRequestCanceled(PermissionRequest request) {
     }
 }
