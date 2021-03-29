@@ -34,6 +34,8 @@ public interface IWebView {
 
     void goBack2();
 
+    int getScrollY2();
+
     void loadUrl2(String url);
 
     void loadUrl2(String url, Map<String, String> additionalHttpHeaders);

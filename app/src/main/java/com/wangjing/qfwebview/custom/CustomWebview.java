@@ -257,6 +257,11 @@ public class CustomWebview extends WebView implements IWebView {
     }
 
     @Override
+    public int getScrollY2() {
+        return this.getScrollY();
+    }
+
+    @Override
     public void loadUrl2(String url) {
         if (!TextUtils.isEmpty(url)) {
             this.loadUrl(url);
