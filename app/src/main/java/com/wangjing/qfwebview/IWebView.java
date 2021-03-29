@@ -36,13 +36,16 @@ public interface IWebView {
     void loadUrl2(String url);
 
     void loadUrl2(String url, Map<String, String> additionalHttpHeaders);
-    void loadData2(String data,@Nullable String mimeType, @Nullable String encoding);
+
+    void loadData2(String data, @Nullable String mimeType, @Nullable String encoding);
 
     void loadDataWithBaseURL2(@Nullable String baseUrl, String data, @Nullable String mimeType, @Nullable String encoding, @Nullable String historyUrl);
 
     String getUrl2();
 
     void reload2();
+
+    String getTitle2();
 
     int getHitTestResultType();
 

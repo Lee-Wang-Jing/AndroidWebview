@@ -291,6 +291,11 @@ public class CustomWebview extends WebView implements IWebView {
     }
 
     @Override
+    public String getTitle2() {
+        return this.getTitle();
+    }
+
+    @Override
     public int getHitTestResultType() {
         HitTestResult result = this.getHitTestResult();
         if (result != null) {
