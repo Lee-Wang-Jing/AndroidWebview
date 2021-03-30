@@ -36,6 +36,8 @@ public interface IWebView {
 
     int getScrollY2();
 
+    void scrollTo2(int x, int y);
+
     void loadUrl2(String url);
 
     void loadUrl2(String url, Map<String, String> additionalHttpHeaders);
@@ -51,6 +53,7 @@ public interface IWebView {
     String getTitle2();
 
     WebView.HitTestResult getHitTestResult2();
+
     com.tencent.smtt.sdk.WebView.HitTestResult getHitTestResult2X5();
 
 

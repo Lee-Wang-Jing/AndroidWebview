@@ -264,6 +264,11 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     }
 
     @Override
+    public void scrollTo2(int x, int y) {
+        this.scrollTo(x, y);
+    }
+
+    @Override
     public void loadUrl2(String url) {
         if (!TextUtils.isEmpty(url)) {
             this.loadUrl(url);
