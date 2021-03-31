@@ -2,6 +2,7 @@ package com.wangjing.androidwebview;
 
 import android.net.Uri;
 import android.view.View;
+import android.webkit.GeolocationPermissions;
 import android.webkit.JsResult;
 import android.webkit.PermissionRequest;
 import android.webkit.ValueCallback;
@@ -88,5 +89,13 @@ public class CustomWebChromeClient extends WebChromeClient {
         if (webviewCallBack != null) {
             webviewCallBack.onPermissionRequestCanceled(request);
         }
+    }
+
+    @Override
+    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+        if (webviewCallBack != null) {
+            webviewCallBack.onGeolocationPermissionsShowPrompt(origin, callback);
+        }
+        super.onGeolocationPermissionsShowPrompt(origin, callback);
     }
 }

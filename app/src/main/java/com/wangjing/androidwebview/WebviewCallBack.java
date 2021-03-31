@@ -3,6 +3,7 @@ package com.wangjing.androidwebview;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.view.View;
+import android.webkit.GeolocationPermissions;
 import android.webkit.JsResult;
 import android.webkit.PermissionRequest;
 import android.webkit.SslErrorHandler;
@@ -104,5 +105,11 @@ public abstract class WebviewCallBack {
      * webview onPermissionRequestCanceled
      */
     public void onPermissionRequestCanceled(PermissionRequest request) {
+    }
+
+    /**
+     * webview onGeolocationPermissionsShowPrompt
+     */
+    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
     }
 }
