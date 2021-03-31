@@ -3,11 +3,13 @@ package com.wangjing.qfwebview.callbackx5;
 import android.graphics.Bitmap;
 import android.view.View;
 
+import com.tencent.smtt.export.external.interfaces.GeolocationPermissionsCallback;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.export.external.interfaces.PermissionRequest;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
+import com.tencent.smtt.sdk.GeolocationPermissions;
 
 public abstract class WebviewCallBackX5 {
     /**
@@ -96,5 +98,11 @@ public abstract class WebviewCallBackX5 {
      * webview onPermissionRequestCanceled
      */
     public void onPermissionRequestCanceled(PermissionRequest request) {
+    }
+
+    /**
+     * webview onGeolocationPermissionsShowPrompt
+     */
+    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissionsCallback callback) {
     }
 }

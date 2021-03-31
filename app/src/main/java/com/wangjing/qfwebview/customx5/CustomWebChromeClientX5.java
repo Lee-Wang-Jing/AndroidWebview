@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.View;
 import android.webkit.PermissionRequest;
 
+import com.tencent.smtt.export.external.interfaces.GeolocationPermissionsCallback;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.sdk.ValueCallback;
@@ -91,5 +92,18 @@ public class CustomWebChromeClientX5 extends WebChromeClient {
         if (webviewCallBack != null) {
             webviewCallBack.onPermissionRequestCanceled(permissionRequest);
         }
+    }
+
+    @Override
+    public void onGeolocationPermissionsShowPrompt(String s, GeolocationPermissionsCallback geolocationPermissionsCallback) {
+        if (webviewCallBack != null) {
+            webviewCallBack.onGeolocationPermissionsShowPrompt(s, geolocationPermissionsCallback);
+        }
+        super.onGeolocationPermissionsShowPrompt(s, geolocationPermissionsCallback);
+    }
+
+    @Override
+    public void onGeolocationPermissionsHidePrompt() {
+        super.onGeolocationPermissionsHidePrompt();
     }
 }
