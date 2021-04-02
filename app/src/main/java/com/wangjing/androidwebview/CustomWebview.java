@@ -42,6 +42,7 @@ public class CustomWebview extends WebView {
     private boolean defaultWebChromeClient = false;
     private boolean debug = false;
     private boolean isShowSSLDialog = false;
+    private boolean isAllowFileAccess = false;
 
     public CustomWebview(Context context) {
         super(context);
@@ -94,6 +95,17 @@ public class CustomWebview extends WebView {
      */
     public CustomWebview setDebug(boolean debug) {
         this.debug = debug;
+        return this;
+    }
+
+    /**
+     * 设置是否开启AllowFileAccess
+     *
+     * @param isAllowFileAccess 是否开启AllowFileAccess
+     * @return CustomWebview
+     */
+    public CustomWebview setAllowFileAccess(boolean isAllowFileAccess) {
+        this.isAllowFileAccess = isAllowFileAccess;
         return this;
     }
 
@@ -300,7 +312,7 @@ public class CustomWebview extends WebView {
         }
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        webSettings.setAllowFileAccess(false);
+        webSettings.setAllowFileAccess(isAllowFileAccess);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             webSettings.setAllowFileAccessFromFileURLs(false);
             webSettings.setAllowUniversalAccessFromFileURLs(false);
