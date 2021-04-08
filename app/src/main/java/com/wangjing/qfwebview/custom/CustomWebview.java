@@ -34,6 +34,7 @@ public class CustomWebview extends WebView implements IWebView {
 
     private String currentUrl = "";
     private boolean debug = false;
+    private boolean isAllowFileAccess = false;
     private String userAgent;
     private int cacheMode = WebSettings.LOAD_DEFAULT;
     private boolean isShowSSLDialog = false;
@@ -78,6 +79,7 @@ public class CustomWebview extends WebView implements IWebView {
         if (builder != null) {
             this.currentUrl = builder.getCurrentUrl();
             this.debug = builder.isDebug();
+            this.isAllowFileAccess = builder.isAllowFileAccess();
             this.userAgent = builder.getUserAgent();
             this.cacheMode = builder.getCacheMode();
             this.isShowSSLDialog = builder.isShowSSLDialog();
@@ -163,7 +165,7 @@ public class CustomWebview extends WebView implements IWebView {
         webSettings.setTextZoom(textZoom);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        webSettings.setAllowFileAccess(false);
+        webSettings.setAllowFileAccess(isAllowFileAccess);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             webSettings.setAllowFileAccessFromFileURLs(false);
             webSettings.setAllowUniversalAccessFromFileURLs(false);

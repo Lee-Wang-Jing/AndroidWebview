@@ -25,6 +25,7 @@ import java.util.List;
 public class WebviewBuilder {
     private String currentUrl = "";
     private boolean debug = false;
+    private boolean isAllowFileAccess = false;
     private String userAgent;
     private int cacheMode = WebSettings.LOAD_DEFAULT;
     private boolean isShowSSLDialog = false;
@@ -70,6 +71,17 @@ public class WebviewBuilder {
      */
     public WebviewBuilder setDebug(boolean debug) {
         this.debug = debug;
+        return this;
+    }
+
+    /**
+     * 设置是否开启AllowFileAccess
+     *
+     * @param isAllowFileAccess 是否开启AllowFileAccess
+     * @return CustomWebview
+     */
+    public WebviewBuilder setAllowFileAccess(boolean isAllowFileAccess) {
+        this.isAllowFileAccess = isAllowFileAccess;
         return this;
     }
 
@@ -321,6 +333,10 @@ public class WebviewBuilder {
 
     public boolean isDebug() {
         return debug;
+    }
+
+    public boolean isAllowFileAccess() {
+        return isAllowFileAccess;
     }
 
     public String getUserAgent() {
