@@ -23,6 +23,7 @@ import java.util.List;
  * Webview配置类
  */
 public class WebviewBuilder {
+    private String tag = "";
     private String currentUrl = "";
     private boolean debug = false;
     private boolean isAllowFileAccess = false;
@@ -58,6 +59,23 @@ public class WebviewBuilder {
     public WebviewBuilder() {
     }
 
+    /**
+     * 需要设置的tag
+     *
+     * @param tag 需要设置的tag
+     * @return WebviewBuilder
+     */
+    public WebviewBuilder setTag(String tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    /**
+     * 设置需要加载的url
+     *
+     * @param currentUrl 需要加载的url
+     * @return WebviewBuilder
+     */
     public WebviewBuilder setCurrentUrl(String currentUrl) {
         this.currentUrl = currentUrl;
         return this;
@@ -325,6 +343,10 @@ public class WebviewBuilder {
                 ", onShowFileChooser=" + onShowFileChooser +
                 ", onShowFileChooserX5=" + onShowFileChooserX5 +
                 '}';
+    }
+
+    public String getTag() {
+        return tag;
     }
 
     public String getCurrentUrl() {

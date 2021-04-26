@@ -32,6 +32,7 @@ import java.util.Map;
 public class CustomWebview extends WebView implements IWebView {
     private static final String Tag = CustomWebview.class.getSimpleName();
 
+    private String currentTag = "";
     private String currentUrl = "";
     private boolean debug = false;
     private boolean isAllowFileAccess = false;
@@ -77,6 +78,7 @@ public class CustomWebview extends WebView implements IWebView {
     @Override
     public void setWebviewBuilder(WebviewBuilder builder) {
         if (builder != null) {
+            this.currentTag = builder.getTag();
             this.currentUrl = builder.getCurrentUrl();
             this.debug = builder.isDebug();
             this.isAllowFileAccess = builder.isAllowFileAccess();
@@ -154,6 +156,9 @@ public class CustomWebview extends WebView implements IWebView {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 WebView.setWebContentsDebuggingEnabled(true);
             }
+        }
+        if (!TextUtils.isEmpty(currentTag)) {
+            setTag(currentTag);
         }
         WebSettings webSettings = this.getSettings();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
