@@ -46,35 +46,15 @@ public class CustomWebview extends WebView {
 
     public CustomWebview(Context context) {
         super(context);
-        init();
     }
 
     public CustomWebview(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public CustomWebview(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
     }
-
-    private void init() {
-    }
-
-
-//    public CustomWebview(Context context) {
-//        this(context, null);
-//    }
-//
-//    public CustomWebview(Context context, AttributeSet attrs) {
-//        this(context, attrs, 0);
-//    }
-//
-//    public CustomWebview(Context context, AttributeSet attrs, int defStyleAttr) {
-//        super(context, attrs, defStyleAttr);
-//        addedJavascriptInterface = false;
-//    }
 
     /**
      * 设置是否使用默认的WebViewClient，不设置则不使用，用户可以自行设置自己的.true则表示使用
