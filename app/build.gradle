@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    api files('libs/tbs_sdk_thirdapp_v4.3.0.151_44051_sharewithdownloadwithfile_withoutGame_obfs_20210524_174029.jar')
 //    compileOnly 'androidx.annotation:annotation:1.1.0'
     compileOnly 'androidx.appcompat:appcompat:1.3.0'
 }
