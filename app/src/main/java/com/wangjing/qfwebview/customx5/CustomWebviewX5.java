@@ -100,7 +100,6 @@ public class CustomWebviewX5 extends WebView implements IWebView {
             this.onDownloadStart = builder.getOnDownloadStart();
 
             this.onScrollChangedCallBack = builder.getOnScrollChangedCallBack();
-
         }
     }
 
@@ -148,6 +147,10 @@ public class CustomWebviewX5 extends WebView implements IWebView {
             cookieManager.setAcceptThirdPartyCookies(this, isAccept);
         }
         cookieManager.setAcceptCookie(isAccept);
+    }
+
+    public OnScrollChangedCallBack getOnScrollChangedCallBack() {
+        return onScrollChangedCallBack;
     }
 
     public void initWebViewSettings() {
