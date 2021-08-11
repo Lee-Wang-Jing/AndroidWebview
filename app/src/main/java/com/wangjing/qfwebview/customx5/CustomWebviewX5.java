@@ -6,6 +6,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.ValueCallback;
 
@@ -15,6 +16,7 @@ import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.DownloadListener;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewCallbackClient;
 import com.wangjing.qfwebview.JSBean;
 import com.wangjing.qfwebview.OnDownloadStart;
 import com.wangjing.qfwebview.OnScrollChangedCallBack;
@@ -29,7 +31,7 @@ import com.wangjing.qfwebview.custom.CustomWebview;
 import java.util.List;
 import java.util.Map;
 
-public class CustomWebviewX5 extends WebView implements IWebView {
+public class CustomWebviewX5 extends WebView implements IWebView , WebViewCallbackClient {
     private static final String Tag = CustomWebviewX5.class.getSimpleName();
 
     private String currentTag = "";
@@ -339,9 +341,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        if (onScrollChangedCallBack != null) {
-            onScrollChangedCallBack.onScrollChanged(l, t, oldl, oldt);
-        }
+
     }
 
     private void initDownLoadListener() {
@@ -390,6 +390,43 @@ public class CustomWebviewX5 extends WebView implements IWebView {
             this.destroy();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent, View view) {
+        return false;
+    }
+
+    @Override
+    public boolean overScrollBy(int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7, boolean b, View view) {
+        return false;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent motionEvent, View view) {
+        return false;
+    }
+
+    @Override
+    public void computeScroll(View view) {
+
+    }
+
+    @Override
+    public void onOverScrolled(int i, int i1, boolean b, boolean b1, View view) {
+
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent motionEvent, View view) {
+        return false;
+    }
+
+    @Override
+    public void onScrollChanged(int l, int t, int oldl, int oldt, View view) {
+        if (onScrollChangedCallBack != null) {
+            onScrollChangedCallBack.onScrollChanged(l, t, oldl, oldt);
         }
     }
 }
