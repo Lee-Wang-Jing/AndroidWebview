@@ -16,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.permissionx.guolindev.PermissionX;
 import com.permissionx.guolindev.callback.RequestCallback;
+import com.tencent.smtt.export.external.interfaces.PermissionRequest;
 import com.wangjing.qfwebview.custom.CustomWebview;
 import com.wangjing.qfwebview.customx5.CustomWebviewX5;
 import com.wangjing.qfwebview.WebviewBuilder;
@@ -126,6 +127,16 @@ public class MainActivityNew extends AppCompatActivity {
                         @Override
                         public void onReceivedSslError(com.tencent.smtt.export.external.interfaces.SslErrorHandler handler, com.tencent.smtt.export.external.interfaces.SslError error) {
                             super.onReceivedSslError(handler, error);
+                        }
+
+                        @Override
+                        public void onPermissionRequest(PermissionRequest request) {
+                            super.onPermissionRequest(request);
+                        }
+
+                        @Override
+                        public void onPermissionRequestCanceled(PermissionRequest request) {
+                            super.onPermissionRequestCanceled(request);
                         }
                     })
                     ;

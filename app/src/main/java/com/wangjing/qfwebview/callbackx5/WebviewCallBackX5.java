@@ -9,7 +9,6 @@ import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.export.external.interfaces.PermissionRequest;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
-import com.tencent.smtt.sdk.GeolocationPermissions;
 
 public abstract class WebviewCallBackX5 {
     /**
@@ -91,7 +90,7 @@ public abstract class WebviewCallBackX5 {
     /**
      * webview onPermissionRequest
      */
-    public void onPermissionRequest(com.tencent.smtt.export.external.interfaces.PermissionRequest request) {
+    public void onPermissionRequest(PermissionRequest request) {
     }
 
     /**

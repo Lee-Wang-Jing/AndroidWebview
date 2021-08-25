@@ -80,14 +80,12 @@ public class CustomWebChromeClientX5 extends WebChromeClient {
         }
     }
 
-    @Override
     public void onPermissionRequest(com.tencent.smtt.export.external.interfaces.PermissionRequest permissionRequest) {
         if (webviewCallBack != null) {
             webviewCallBack.onPermissionRequest(permissionRequest);
         }
     }
 
-    @Override
     public void onPermissionRequestCanceled(com.tencent.smtt.export.external.interfaces.PermissionRequest permissionRequest) {
         if (webviewCallBack != null) {
             webviewCallBack.onPermissionRequestCanceled(permissionRequest);
