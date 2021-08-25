@@ -1,5 +1,6 @@
 package com.example.administrator.myapplication;
 
+import android.Manifest;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Bundle;
@@ -7,10 +8,14 @@ import android.view.ViewGroup;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.permissionx.guolindev.PermissionX;
+import com.permissionx.guolindev.callback.RequestCallback;
 import com.wangjing.qfwebview.custom.CustomWebview;
 import com.wangjing.qfwebview.customx5.CustomWebviewX5;
 import com.wangjing.qfwebview.WebviewBuilder;
@@ -18,9 +23,6 @@ import com.wangjing.qfwebview.WebviewStrategy;
 import com.wangjing.qfwebview.IWebView;
 import com.wangjing.qfwebview.callback.WebviewCallBack;
 import com.wangjing.qfwebview.callbackx5.WebviewCallBackX5;
-import com.yanzhenjie.permission.Action;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.runtime.Permission;
 
 import java.util.List;
 
@@ -37,24 +39,18 @@ public class MainActivityNew extends AppCompatActivity {
         web_layout = findViewById(R.id.web_layout);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setEnabled(false);
-        AndPermission.with(this)
-                .runtime()
-                .permission(Permission.Group.STORAGE)
-                .onGranted(new Action<List<String>>() {
+        PermissionX.init(this)
+                .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .request(new RequestCallback() {
                     @Override
-                    public void onAction(List<String> data) {
-                        initWebview();
+                    public void onResult(boolean allGranted, @NonNull List<String> grantedList, @NonNull List<String> deniedList) {
+                        if (allGranted) {
+                            initWebview();
+                        } else {
+                            onBackPressed();
+                        }
                     }
-                })
-                .onDenied(new Action<List<String>>() {
-                    @Override
-                    public void onAction(List<String> data) {
-                        onBackPressed();
-                    }
-                })
-                .start();
-
-
+                });
     }
 
 
