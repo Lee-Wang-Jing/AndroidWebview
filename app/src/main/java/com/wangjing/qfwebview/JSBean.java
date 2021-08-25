@@ -1,4 +1,4 @@
-package com.wangjing.androidwebview;
+package com.wangjing.qfwebview;
 
 /**
  * addJavascriptInterface的存储集合

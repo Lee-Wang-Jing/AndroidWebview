@@ -1,13 +1,12 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.github.Lee-Wang-Jing'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 29
+        targetSdkVersion 30
     }
     buildTypes {
         release {
@@ -15,18 +14,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-    }
-    buildToolsVersion = '29.0.3'
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'androidx.annotation:annotation:1.2.0'
-    compileOnly 'androidx.appcompat:appcompat:1.2.0'
-
+    api files('libs/tbs_sdk_thirdapp_v4.3.0.176_44076_sharewithdownloadwithfile_withoutGame_obfs_20210724_161800.jar')
+//    compileOnly 'androidx.annotation:annotation:1.1.0'
+    compileOnly 'androidx.appcompat:appcompat:1.3.1'
 }
 
 //添加
@@ -39,14 +32,3 @@ allprojects {
         }
     }
 }
-
-////添加
-//publish {
-//    userOrg = 'wangjinggm'//bintray.com用户名
-//    groupId = 'com.wangjing'//jcenter上的路径
-//    artifactId = 'androidwebview'//项目名称
-//    publishVersion = '0.1.17'//版本号
-//    desc = 'androidwebview'//描述，不重要
-//    website = 'https://github.com/Lee-Wang-Jing/AndroidWebview'
-////网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
-//}

@@ -1,4 +1,4 @@
-package com.wangjing.androidwebview;
+package com.wangjing.qfwebview.custom;
 
 import android.net.Uri;
 import android.view.View;
@@ -9,19 +9,17 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-import com.wangjing.androidwebview.callback.OnShowFileChooser;
+import com.wangjing.qfwebview.callback.OnShowFileChooser;
+import com.wangjing.qfwebview.callback.WebviewCallBack;
+
 
 public class CustomWebChromeClient extends WebChromeClient {
 
     private WebviewCallBack webviewCallBack;
     private OnShowFileChooser onShowFileChooser;
 
-
-    public OnShowFileChooser getOnShowFileChooser() {
-        return onShowFileChooser;
-    }
-
-    public void setOnShowFileChooser(OnShowFileChooser onShowFileChooser) {
+    public CustomWebChromeClient(WebviewCallBack webviewCallBack, OnShowFileChooser onShowFileChooser) {
+        this.webviewCallBack = webviewCallBack;
         this.onShowFileChooser = onShowFileChooser;
     }
 
@@ -32,21 +30,21 @@ public class CustomWebChromeClient extends WebChromeClient {
     @Override
     public void onProgressChanged(WebView view, int newProgress) {
         if (webviewCallBack != null) {
-            webviewCallBack.onProgressChanged(view, newProgress);
+            webviewCallBack.onProgressChanged(newProgress);
         }
     }
 
     @Override
     public void onReceivedTitle(WebView view, String title) {
         if (webviewCallBack != null) {
-            webviewCallBack.onReceivedTitle(view, title);
+            webviewCallBack.onReceivedTitle(title);
         }
     }
 
     @Override
     public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
         if (webviewCallBack != null) {
-            webviewCallBack.onJsAlert(view, url, message, result);
+            webviewCallBack.onJsAlert(url, message, result);
         }
         return true;
     }
@@ -94,8 +92,13 @@ public class CustomWebChromeClient extends WebChromeClient {
     @Override
     public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
         if (webviewCallBack != null) {
-            webviewCallBack.onGeolocationPermissionsShowPrompt(origin, callback);
+            webviewCallBack.onGeolocationPermissionsShowPrompt(origin,callback);
         }
         super.onGeolocationPermissionsShowPrompt(origin, callback);
+    }
+
+    @Override
+    public void onGeolocationPermissionsHidePrompt() {
+        super.onGeolocationPermissionsHidePrompt();
     }
 }
