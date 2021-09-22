@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
-
-group = 'com.github.Lee-Wang-Jing'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 30
@@ -29,6 +28,21 @@ allprojects {
             encoding "UTF-8"
             charSet 'UTF-8'
             links "http://docs.oracle.com/javase/7/docs/api"
+        }
+    }
+}
+
+//参考 https://developer.android.com/studio/build/maven-publish-plugin
+//参考 https://blog.csdn.net/haojiagou/article/details/115391998
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.Lee-Wang-Jing'
+                artifactId = 'AndroidWebview'
+                version = '1.0.0'
+            }
         }
     }
 }
