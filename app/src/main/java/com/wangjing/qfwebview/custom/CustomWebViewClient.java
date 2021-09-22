@@ -202,7 +202,5 @@ public class CustomWebViewClient extends WebViewClient {
                 webviewCallBack.onReceivedSslError(handler, error);
             }
         }
-
-
     }
 }

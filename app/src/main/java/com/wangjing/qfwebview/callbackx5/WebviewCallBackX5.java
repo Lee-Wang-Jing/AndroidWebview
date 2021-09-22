@@ -3,6 +3,7 @@ package com.wangjing.qfwebview.callbackx5;
 import android.graphics.Bitmap;
 import android.view.View;
 
+import com.tencent.smtt.export.external.interfaces.ConsoleMessage;
 import com.tencent.smtt.export.external.interfaces.GeolocationPermissionsCallback;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.export.external.interfaces.JsResult;
@@ -104,5 +105,11 @@ public abstract class WebviewCallBackX5 {
      * webview onGeolocationPermissionsShowPrompt
      */
     public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissionsCallback callback) {
+    }
+
+    /**
+     * webview onConsoleMessage
+     */
+    public void onConsoleMessage(ConsoleMessage consoleMessage) {
     }
 }
