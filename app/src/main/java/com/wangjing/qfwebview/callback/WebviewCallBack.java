@@ -3,6 +3,7 @@ package com.wangjing.qfwebview.callback;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.view.View;
+import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
 import android.webkit.JsResult;
 import android.webkit.PermissionRequest;
@@ -103,5 +104,11 @@ public abstract class WebviewCallBack {
      * webview onGeolocationPermissionsShowPrompt
      */
     public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+    }
+
+    /**
+     * webview onConsoleMessage
+     */
+    public void onConsoleMessage(ConsoleMessage consoleMessage) {
     }
 }
