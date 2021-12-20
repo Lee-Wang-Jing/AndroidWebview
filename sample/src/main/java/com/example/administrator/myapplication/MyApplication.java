@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.tencent.smtt.sdk.QbSdk;
+import com.wangjing.qfwebview.InitSystemWebViewUtils;
 import com.wangjing.qfwebview.InitX5Utils;
 
 public class MyApplication extends Application {
@@ -11,6 +12,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        InitSystemWebViewUtils.webviewSetPath(getApplicationContext());
         InitX5Utils.initX5(getApplicationContext(), new QbSdk.PreInitCallback() {
             @Override
             public void onCoreInitFinished() {
