@@ -61,7 +61,7 @@ public class MainActivityNew extends AppCompatActivity {
                 );
     }
 
-    private boolean useX5 = true;
+    private boolean useX5 = false;
 
     private WebviewStrategy getWebviewStrategy() {
         if (webviewStrategy == null || webviewStrategy.getiWebView() == null) {
