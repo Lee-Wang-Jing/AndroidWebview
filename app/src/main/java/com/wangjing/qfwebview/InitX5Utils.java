@@ -31,7 +31,8 @@ public class InitX5Utils {
             String processName = getProcessName(context);
 
             if (!context.getPackageName().equals(processName)) {
-                WebView.setDataDirectorySuffix(getString(processName,"qianfan"));
+                //X5海外版 没有这个方法设置
+//                WebView.setDataDirectorySuffix(getString(processName,"qianfan"));
             }
         }
     }
