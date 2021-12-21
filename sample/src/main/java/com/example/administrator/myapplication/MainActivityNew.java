@@ -61,7 +61,7 @@ public class MainActivityNew extends AppCompatActivity {
                 );
     }
 
-    private boolean useX5 = true;
+    private boolean useX5 = false;
 
     private WebviewStrategy getWebviewStrategy() {
         if (webviewStrategy == null || webviewStrategy.getiWebView() == null) {
@@ -132,7 +132,7 @@ public class MainActivityNew extends AppCompatActivity {
         } else {
             return new WebviewBuilder()
                     .setDebug(true)
-                    .setCurrentUrl("https://www.baidu.com")
+                    .setCurrentUrl("https://f.nhzj.com/wap/esf/index")
                     .setUserAgent("")
                     .setCacheMode(-1)
                     .setShowSSLDialog(true)
