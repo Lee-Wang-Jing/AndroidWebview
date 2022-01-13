@@ -44,6 +44,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     private int cacheMode = WebSettings.LOAD_DEFAULT;
     private boolean isShowSSLDialog = false;
     private boolean defaultWebViewClient = false;
+    private int textZoom = 100;
 
     private CustomWebViewClientX5 customWebViewClient;
     private WebviewCallBackX5 webviewCallBack;
@@ -88,6 +89,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
             this.userAgent = builder.getUserAgent();
             this.cacheMode = builder.getCacheMode();
             this.isShowSSLDialog = builder.isShowSSLDialog();
+            this.textZoom = builder.getTextZoom();
 
             this.defaultWebViewClient = builder.isDefaultWebViewClient();
             this.customWebViewClient = builder.getCustomWebViewClientX5();
@@ -178,6 +180,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setBlockNetworkImage(false);
 
+        webSettings.setTextZoom(textZoom);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setAllowFileAccess(isAllowFileAccess);
