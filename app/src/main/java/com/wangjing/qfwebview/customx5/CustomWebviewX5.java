@@ -216,7 +216,7 @@ public class CustomWebviewX5 extends WebView implements IWebView {
         }
         this.requestFocus();//请求获取焦点，防止view不能打开输入法问题
         this.requestFocusFromTouch();//请求获取焦点，防止view不能打开输入法问题
-        this.setFocusableInTouchMode(true);
+        this.setFocusableInTouchMode(false);
     }
 
     private void initWebViewClient() {
