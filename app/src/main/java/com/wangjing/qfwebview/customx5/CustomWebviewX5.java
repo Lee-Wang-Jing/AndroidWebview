@@ -6,24 +6,20 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.ValueCallback;
 
 import androidx.annotation.Nullable;
 
-import com.tencent.smtt.export.external.extension.interfaces.IX5WebViewClientExtension;
-import com.tencent.smtt.export.external.extension.proxy.ProxyWebViewClientExtension;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.DownloadListener;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
-import com.tencent.smtt.sdk.WebViewCallbackClient;
+import com.wangjing.qfwebview.IWebView;
 import com.wangjing.qfwebview.JSBean;
 import com.wangjing.qfwebview.OnDownloadStart;
 import com.wangjing.qfwebview.OnScrollChangedCallBack;
 import com.wangjing.qfwebview.WebviewBuilder;
-import com.wangjing.qfwebview.IWebView;
 import com.wangjing.qfwebview.callbackx5.OnShowFileChooserX5;
 import com.wangjing.qfwebview.callbackx5.ShouldInterceptRequestInterfaceX5;
 import com.wangjing.qfwebview.callbackx5.ShouldOverrideUrlLoadingInterfaceX5;
@@ -183,6 +179,9 @@ public class CustomWebviewX5 extends WebView implements IWebView {
         webSettings.setTextZoom(textZoom);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        this.removeJavascriptInterface("searchBoxJavaBridge_");
+        this.removeJavascriptInterface("accessibility");
+        this.removeJavascriptInterface("accessibilityTraversal");
         webSettings.setAllowFileAccess(isAllowFileAccess);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             webSettings.setAllowFileAccessFromFileURLs(false);

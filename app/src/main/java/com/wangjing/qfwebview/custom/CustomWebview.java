@@ -15,11 +15,11 @@ import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
 
+import com.wangjing.qfwebview.IWebView;
 import com.wangjing.qfwebview.JSBean;
 import com.wangjing.qfwebview.OnDownloadStart;
 import com.wangjing.qfwebview.OnScrollChangedCallBack;
 import com.wangjing.qfwebview.WebviewBuilder;
-import com.wangjing.qfwebview.IWebView;
 import com.wangjing.qfwebview.callback.OnShowFileChooser;
 import com.wangjing.qfwebview.callback.ShouldInterceptRequestInterface;
 import com.wangjing.qfwebview.callback.ShouldOverrideUrlLoadingInterface;
@@ -170,6 +170,9 @@ public class CustomWebview extends WebView implements IWebView {
         webSettings.setTextZoom(textZoom);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        this.removeJavascriptInterface("searchBoxJavaBridge_");
+        this.removeJavascriptInterface("accessibility");
+        this.removeJavascriptInterface("accessibilityTraversal");
         webSettings.setAllowFileAccess(isAllowFileAccess);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             webSettings.setAllowFileAccessFromFileURLs(false);
@@ -192,8 +195,7 @@ public class CustomWebview extends WebView implements IWebView {
         webSettings.setAppCacheMaxSize(Long.MAX_VALUE);
         webSettings.setAppCachePath(getContext().getDir("appcache", 0).getPath());
         webSettings.setDatabasePath(getContext().getDir("databases", 0).getPath());
-        webSettings.setGeolocationDatabasePath(getContext().getDir("geolocation", 0)
-                .getPath());
+        webSettings.setGeolocationDatabasePath(getContext().getDir("geolocation", 0).getPath());
         webSettings.setPluginState(WebSettings.PluginState.ON);
         webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         webSettings.setCacheMode(cacheMode);
