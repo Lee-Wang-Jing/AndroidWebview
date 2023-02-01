@@ -2,10 +2,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 30
+        targetSdkVersion 31
     }
     buildTypes {
         release {
@@ -16,10 +16,10 @@ android {
 }
 
 dependencies {
-    api files('libs/tbs_sdk_thirdapp_v4.3.0.326_44226_sharewithdownloadwithfile_withoutGame_obfs_20220825_155943.jar')
+    api files('libs/tbs_sdk_thirdapp_v4.3.0.375_44275_sharewithdownloadwithfile_withoutGame_obfs_20230104_145521.jar')
 //    api 'com.tencent.tbs:tbssdk:44181'
 //    compileOnly 'androidx.annotation:annotation:1.1.0'
-    compileOnly 'androidx.appcompat:appcompat:1.4.1'
+    compileOnly 'androidx.appcompat:appcompat:1.6.0'
 }
 
 //添加
