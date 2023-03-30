@@ -16,7 +16,7 @@ android {
 }
 
 dependencies {
-    api files('libs/tbs_sdk_thirdapp_v4.3.0.375_44275_sharewithdownloadwithfile_withoutGame_obfs_20230104_145521.jar')
+    api files('libs/tbs_sdk_thirdapp_v4.3.0.386_44286_sharewithdownloadwithfile_withoutGame_obfs_20230210_114429.jar')
 //    api 'com.tencent.tbs:tbssdk:44181'
 //    compileOnly 'androidx.annotation:annotation:1.1.0'
     compileOnly 'androidx.appcompat:appcompat:1.6.0'
