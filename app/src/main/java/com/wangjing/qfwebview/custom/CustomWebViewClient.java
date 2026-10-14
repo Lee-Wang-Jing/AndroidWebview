@@ -189,18 +189,12 @@ public class CustomWebViewClient extends WebViewClient {
 
     @Override
     public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
-//        super.onReceivedSslError(view, handler, error);
-//        handler.proceed();//接受证书
-//        Log.e("onReceivedSslError", "getPrimaryError==>" + error.getPrimaryError()
-//                + "\ngetUrl" + error.getUrl()
-//                + "\ntoString" + error.toString()
-//        );
-        if (!isShowSSLDialog) {
-            handler.proceed();//接受证书
+        //安全整改（绕过证书校验）：移除isShowSSLDialog=false时静默handler.proceed()接受证书的分支，
+        //SSL错误一律交上层回调（App弹窗由用户确认），未设置回调时取消加载（系统默认安全行为）
+        if (webviewCallBack != null) {
+            webviewCallBack.onReceivedSslError(handler, error);
         } else {
-            if (webviewCallBack != null) {
-                webviewCallBack.onReceivedSslError(handler, error);
-            }
+            handler.cancel();
         }
     }
 }

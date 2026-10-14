@@ -156,11 +156,8 @@ public class CustomWebviewX5 extends WebView implements IWebView {
     }
 
     public void initWebViewSettings() {
-        if (debug) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                WebView.setWebContentsDebuggingEnabled(true);
-            }
-        }
+        //安全整改（WebView远程调试）：移除库内setWebContentsDebuggingEnabled调用点（运行时开关无法被R8消除，
+        //release dex静态扫描命中）；App调试由使用方在debug构建下自行调用该进程级全局开关开启
         if (!TextUtils.isEmpty(currentTag)) {
             setTag(currentTag);
         }
