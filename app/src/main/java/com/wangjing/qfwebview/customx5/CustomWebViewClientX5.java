@@ -177,12 +177,12 @@ public class CustomWebViewClientX5 extends WebViewClient {
     @Override
     public void onReceivedSslError(WebView webView, SslErrorHandler sslErrorHandler, com.tencent.smtt.export.external.interfaces.SslError sslError) {
         super.onReceivedSslError(webView, sslErrorHandler, sslError);
-        if (!isShowSSLDialog) {
-            sslErrorHandler.proceed();//接受证书
+        //安全整改（绕过证书校验）：移除isShowSSLDialog=false时静默proceed接受证书的分支，
+        //SSL错误一律交上层回调（App弹窗由用户确认），未设置回调时取消加载（系统默认安全行为）
+        if (webviewCallBack != null) {
+            webviewCallBack.onReceivedSslError(sslErrorHandler, sslError);
         } else {
-            if (webviewCallBack != null) {
-                webviewCallBack.onReceivedSslError(sslErrorHandler, sslError);
-            }
+            sslErrorHandler.cancel();
         }
     }
 }
